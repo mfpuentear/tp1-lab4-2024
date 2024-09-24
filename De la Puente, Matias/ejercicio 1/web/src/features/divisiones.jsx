@@ -94,7 +94,7 @@ function Divisiones() {
     <ul>
       {divisiones.map((division)=>(
       <li key={division.id}>
-        {`División Nº${division.id}: ${division.a} + ${division.b} = ${division.resultado}`}
+        {`División Nº${division.id}: ${division.a} % ${division.b} = ${division.resultado}`}
         <button onClick={()=>quitarDivision(division.id)} disabled={divisionMod!==null}>X</button>
         <button onClick={()=>selecDivision(division)} disabled={divisionMod!==null}>E</button>
       </li>
