@@ -69,11 +69,11 @@ function Sumas() {
     <h2>Suma</h2>
     <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px', flexDirection: 'column'}}> 
       <div>
-        <label htmlFor="a">Primer Numero:</label>
+        <label htmlFor="a">Primer Numero: </label>
         <input type="number" id="a" value={a} onChange={(e)=>setA(parseFloat(e.target.value))}/>
       </div>
       <div>
-        <label htmlFor="b">Segundo Número:</label>
+        <label htmlFor="b">Segundo Número: </label>
         <input type="number" id="b" value={b} onChange={(e)=>setB(parseFloat(e.target.value))}/>
       </div>
 

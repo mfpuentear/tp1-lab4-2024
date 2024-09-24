@@ -7,7 +7,7 @@ let divisiones = []
 let divisionesMaxID = 0
 
 divisionesRouter.get("/",(req,res)=>{
-    res.send({data: divisiones})
+    res.send({ divisiones })
 })
 
 divisionesRouter.post("/", (req,res)=>{
@@ -23,7 +23,7 @@ divisionesRouter.post("/", (req,res)=>{
         resultado: (a/b).toFixed(2)
     }
     divisiones.push(division)
-    res.status(201).send({divisiones})
+    res.status(201).send({ divisiones })
 })
 
 divisionesRouter.get("/:id",(req,res)=>{
@@ -54,5 +54,5 @@ divisionesRouter.put('/:id', (req,res)=>{
     division.a = a;
     division.b = b;
     division.resultado = a+b;
-    res.status(200).send({division})
+    res.status(200).send( {division} )
 })
