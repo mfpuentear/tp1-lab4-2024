@@ -2,24 +2,35 @@ import express from "express";
 
 export const multiplicaciones = express.Router();
 
-const listaMultiplicaciones = []
-let multiplicacionesId = 0
+let listaMultiplicaciones = [];
+let multiplicacionesId = 0;
 
-//Listar todas las multiplicaciones
 multiplicaciones.get("/listaMultiplicaciones", (req, res) => {
-    res.send(listaMultiplicaciones)
-})
+  res.send(listaMultiplicaciones);
+});
 
-//Añadir una resta a listaMultiplicaciones
 multiplicaciones.post("/listaMultiplicaciones", (req, res) => {
-    const {multiplicando, multiplicador} = req.body
-    const multiplicacion = {
-        idMultiplicacion: multiplicacionesId++,
-        multiplicando: multiplicando,
-        multiplicador: multiplicador,
-        resultado: (multiplicando * multiplicador)
-    }
-    listaMultiplicaciones.push(multiplicacion)
+  const { a, b } = req.body;
 
-    res.status(201).send({data: multiplicacion})
-})
+  if (typeof a != "number" || typeof b != "number" || isNaN(a) || isNaN(b)) {
+    res.status(400).send("Verifique los datos enviados");
+    
+  } else {
+    const multiplicacion = {
+      idMultiplicacion: multiplicacionesId++,
+      a: a,
+      b: b,
+      resultado: (a * b),
+    };
+    
+    listaMultiplicaciones.push(multiplicacion);
+
+    res.status(201).send({ multiplicacion });
+  }
+});
+
+multiplicaciones.delete("/listaMultiplicaciones/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  listaMultiplicaciones = listaMultiplicaciones.filter((multiplicacion) => multiplicacion.idMultiplicacion !== id);
+  res.status(200).send({ id });
+});

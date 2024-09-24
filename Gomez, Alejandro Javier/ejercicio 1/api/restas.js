@@ -2,24 +2,35 @@ import express from "express";
 
 export const restas = express.Router();
 
-const listaRestas = []
-let restasId = 0
+let listaRestas = [];
+let restasId = 0;
 
-//Listar todas las restas
 restas.get("/listaRestas", (req, res) => {
-    res.send(listaRestas)
-})
+  res.send(listaRestas);
+});
 
-//Añadir una resta a listaRestas
 restas.post("/listaRestas", (req, res) => {
-    const {minuendo, sustraendo} = req.body
-    const resta = {
-        idResta: restasId++,
-        minuendo: minuendo,
-        sustraendo: sustraendo,
-        resultado: (minuendo - sustraendo)
-    }
-    listaRestas.push(resta)
+  const { a, b } = req.body;
 
-    res.status(201).send({data: resta})
-})
+  if (typeof a != "number" || typeof b != "number" || isNaN(a) || isNaN(b)) {
+    res.status(400).send("Verifique los datos enviados");
+
+  } else {
+    const resta = {
+      idResta: restasId++,
+      a: a,
+      b: b,
+      resultado: a - b,
+    };
+    
+    listaRestas.push(resta);
+
+    res.status(201).send({ resta });
+  }
+});
+
+restas.delete("/listaRestas/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  listaRestas = listaRestas.filter((resta) => resta.idResta !== id);
+  res.status(200).send({ id });
+});

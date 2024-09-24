@@ -2,26 +2,35 @@ import express from "express";
 
 export const sumas = express.Router();
 
-const listaSumas = []
-let sumasId = 0
+let listaSumas = [];
+let sumasId = 0;
 
-//Listar todas las sumas
 sumas.get("/listaSumas", (req, res) => {
-    res.send(listaSumas)
-})
+  res.send(listaSumas);
+});
 
-//Añadir una suma a listaSumas
-
-//AGREGAR VERIFICACIONES
 sumas.post("/listaSumas", (req, res) => {
-    const {sumando1, sumando2} = req.body
-    const suma = {
-        idSuma: sumasId++,
-        sumando1: sumando1,
-        sumando2: sumando2,
-        resultado: (sumando1 + sumando2)
-    }
-    listaSumas.push(suma)
+  const { a, b } = req.body;
 
-    res.status(201).send({data: suma})
-})
+  if (typeof a != "number"  || typeof b != "number" || isNaN(a) || isNaN(b)) {
+    res.status(400).send("Verifique los datos enviados");
+
+  } else {
+    const suma = {
+      idSuma: sumasId++,
+      a: a,
+      b: b,
+      resultado: a + b,
+    };
+    
+    listaSumas.push(suma);
+
+    res.status(201).send({ suma });
+  }
+});
+
+sumas.delete("/listaSumas/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  listaSumas = listaSumas.filter((suma) => suma.idSuma !== id);
+  res.status(200).send({ id });
+});
