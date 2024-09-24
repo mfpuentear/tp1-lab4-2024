@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { router as sumasRoutes} from "./routes/sumas.js";
 import divisionesRoutes from "./routes/divisiones.js";
 import multiplicacionesRoutes from "./routes/multiplicaciones.js";
@@ -9,6 +10,9 @@ const PORT = 3000;
 
 // Interpretar JSON en el body.
 app.use(express.json());
+
+// Habilitamos CORS
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send("Hola")
