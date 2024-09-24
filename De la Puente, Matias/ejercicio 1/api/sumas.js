@@ -14,7 +14,7 @@ sumasRouter.get("/:id",(req,res)=>{
     const id = req.params.id;
     const suma = sumas.find((suma)=>suma.id == id);
     if (suma){
-        res.send({ sumas })
+        res.send({ suma })
     }else{
         res.status(404).send({error: "Suma no encontrada."})
     }
