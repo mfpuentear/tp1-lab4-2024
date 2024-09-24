@@ -13,7 +13,11 @@ sumasRouter.get("/",(req,res)=>{
 sumasRouter.get("/:id",(req,res)=>{
     const id = req.params.id;
     const suma = sumas.find((suma)=>suma.id == id);
-    res.send({sumas})
+    if (suma){
+        res.send({ sumas })
+    }else{
+        res.status(404).send({error: "Suma no encontrada."})
+    }
 })
 
 sumasRouter.post("/",(req,res)=>{
@@ -22,10 +26,6 @@ sumasRouter.post("/",(req,res)=>{
     sumas.push(data)
     res.status(201).send({data})
 })
-
-sumasRouter.get('/', (req, res) => {
-    res.send('Hola mundo!')
-  })
 
 sumasRouter.delete('/:id', (req,res)=>{
     const id = parseInt(req.params.id);
