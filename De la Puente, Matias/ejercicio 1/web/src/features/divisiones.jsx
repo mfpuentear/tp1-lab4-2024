@@ -68,7 +68,7 @@ function Divisiones() {
 
   return (
     <> 
-    <h2>Divisiones</h2>
+    <h2 style={{textAlign: "center"}}>Divisiones</h2>
     <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px', flexDirection: 'column'}}> 
       <div>
         <label htmlFor="a">Dividendo: </label>

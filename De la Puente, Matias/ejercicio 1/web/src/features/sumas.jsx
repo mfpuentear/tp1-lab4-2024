@@ -66,7 +66,7 @@ function Sumas() {
 
   return (
     <> 
-    <h2>Suma</h2>
+    <h2 style={{textAlign: "center"}}>Suma</h2>
     <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px', flexDirection: 'column'}}> 
       <div>
         <label htmlFor="a">Primer Numero: </label>

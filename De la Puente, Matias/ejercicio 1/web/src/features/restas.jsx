@@ -27,7 +27,7 @@ function Restas() {
       body: JSON.stringify({ a, b })
     })
     if (response.ok){
-      console.log("Suma agregada")
+      console.log("Resta agregada")
       getRestas()
     }
   }
@@ -66,7 +66,7 @@ function Restas() {
 
   return (
     <> 
-    <h2>Resta</h2>
+    <h2 style={{textAlign: "center"}}>Resta</h2>
     <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px', flexDirection: 'column'}}> 
       <div>
         <label htmlFor="a">Primer Numero: </label>
