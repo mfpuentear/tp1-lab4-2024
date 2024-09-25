@@ -4,9 +4,16 @@ import './App.css'
 function App() {
   const [a,setA] = useState(0)
   const [b,setB] = useState(0)
+
   const [numeroDisplay, setNumeroDisplay] = useState("")
   const [operador,setOperador] = useState('+')
   const [selectorNumero,setSelectorNumero] = useState('A')
+
+  const [sumas,setSumas] = useState([{id:1, a:2, b:5, resultado: 7}])
+  const [sumaAcambiar, setSumaAcambiar] = useState(null)
+  const [restas,setRestas] = useState([])
+  const [multiplicaciones,setMultiplicaciones] = useState([])
+  const [divisiones,setDivisiones] = useState([])
 
   const seleccionarNumero = (numero) =>{
 
@@ -89,8 +96,64 @@ function App() {
       setA(data.resultado)
     }
   }
+
+  const editarSuma = async (suma) =>{
+    if (confirm("Desea editar la suma? ")){
+      const a = parseFloat(prompt("Ingrese el nuevo valor de A",0))
+      const b = parseFloat(prompt("Ingrese el nuevo valor de B",0))
+
+
+
+      const response = await fetch(`http://localhost:3000/sumas/${suma.id}`, {
+        method: "PUT",
+        headers: {'Content-Type':"application/json"},
+        body: JSON.stringify({a,b})
+      });
+      if (response.ok){
+
+        const getSumas = async() =>{
+          const response = await fetch('http://localhost:3000/sumas')
+          if (response.ok){
+            const sumas = await response.json()
+            setSumas(sumas.data)
+          }
+        }
+    
+        getSumas()
+      }
+    }
+  }
+
+  const editarResta = async (resta) =>{
+    if (confirm("Desea editar la Resta? ")){
+      const a = parseFloat(prompt("Ingrese el nuevo valor de A",0))
+      const b = parseFloat(prompt("Ingrese el nuevo valor de B",0))
+
+
+
+      const response = await fetch(`http://localhost:3000/restas/${resta.id}`, {
+        method: "PUT",
+        headers: {'Content-Type':"application/json"},
+        body: JSON.stringify({a,b})
+      });
+      if (response.ok){
+
+        const getRestas = async() =>{
+          const response = await fetch('http://localhost:3000/Restas')
+          if (response.ok){
+            const Restas = await response.json()
+            setRestas(Restas.data)
+          }
+        }
+    
+        getRestas()
+      }
+    }
+  }
+
+
   return (
-    <>
+    <div className='container'>
      <div className="calculadoraDiv">
       <div className="display">
         <div className="indicadorNum">
@@ -136,7 +199,28 @@ function App() {
         </div>
       </div>
      </div>
-    </>
+
+     <div className="historial">
+      <h1>HISTORIAL</h1>
+      <div className="containerHistorial">
+      <div className="sumas">Sumas
+        {sumas.map((suma)=>{
+          return <div className="editable" key={suma.id}>
+            ID: {suma.id}  A: {suma.a} +  B: {suma.b}  Resultado = {suma.resultado}     
+
+            <button className="editar"onClick={()=>editarSuma(suma)}>Editar</button>
+
+            <button className="elimar">Eliminar</button>
+          </div>
+        })}
+        
+      </div>
+      <div className="restas">Restas</div>
+      <div className="multiplicaciones">Multiplicaciones</div>
+      <div className="divisiones">Divisiones</div>
+     </div>
+    </div>
+    </div>
   )
 }
 
