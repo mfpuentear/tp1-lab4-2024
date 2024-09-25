@@ -86,6 +86,7 @@ function App() {
     if (response.ok) {
       const { data }= await response.json()
       setNumeroDisplay(data.resultado)
+      setA(data.resultado)
     }
   }
   return (
