@@ -23,6 +23,10 @@ function Perimetro() {
 
     const agregarCalculo = async(e)=>{
         e.preventDefault()
+        if (a <= 0 || b <= 0) {
+            alert("Ambos lados deben ser mayores que cero.");
+            return;
+          }
         const response = await fetch("http://localhost:3000/perimetro", {
             method: "POST",
             headers: {"content-type": "application/json"},
@@ -43,7 +47,7 @@ function Perimetro() {
     }
 
     const eliminarCalculo = async(id)=>{
-        if(confirm("¿Desea quitar el cálculo?")){
+        if(confirm(`¿Desea quitar el cálculo ${id}?`)){
             const response = await fetch(`http://localhost:3000/perimetro/${id}`,{
                 method: "DELETE",
                 headers: {"content-type": "application/json"}

@@ -16,7 +16,7 @@ perimetroRouter.get("/:id",(req,res)=>{
          if (perimetro){
             res.send({ perimetro })
         }else{
-            res.status(404).send({error: "Perimetro no encontrado."})
+            res.status(404).send({error: "Cálculo no encontrado."})
         }
 })
 
