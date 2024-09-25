@@ -5,6 +5,9 @@
   margin: 0;
   padding: 0;
 }
+html{
+  background-color: rgba(20, 20, 20, 0.925);
+}
 .container{
   display: flex;
   gap: 1rem;
@@ -37,7 +40,8 @@
   position: absolute;
   left: 0;
   top: 6rem;
-  padding-left: 2rem;
+  padding-left: 3rem;
+  padding-top:1rem ;
 }
 .displayTexto{
   font-size: 3rem;
@@ -87,9 +91,13 @@
   color: #fff;
   font-family:'calculadoraFont';
   overflow-y: scroll;
-
+  transition: width 0.3s,opacity 0.4s;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
+.historial::-webkit-scrollbar{
+  display: none;
+}
 .containerHistorial{
   display: flex;
   flex-direction: column;
