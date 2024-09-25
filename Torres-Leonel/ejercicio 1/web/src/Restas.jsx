@@ -14,26 +14,22 @@ function Restas() {
     }
   };
 
-  // Obtenemos listado de sumas cuando se carga por primera vez el componente
+  
   useEffect(() => {
     getRestas();
   }, []);
 
-  // Se agrega una nueva suma
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // POST localhost:3000/sumas (body: a, b)
     const response = await fetch("http://localhost:3000/restas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
     });
     if (response.ok) {
-      // Pedir todas las sumas a la api
-      // getSumas();
-
-      // Agregar la suma creada devuelta por la api
+      
       const { resta } = await response.json();
       setRestas([...restas, resta]);
       setA(0);
@@ -54,10 +50,7 @@ function Restas() {
       body: JSON.stringify({ a, b }),
     });
     if (response.ok) {
-      // Pedir todas las sumas a la api
-      // getSumas();
-
-      // Modificar la suma devuelta por la api
+     
       const { resta } = await response.json();
       setRestas(restas.map((d) => (d.id == resta.id ? resta : d)));
 
@@ -74,10 +67,7 @@ function Restas() {
       });
 
       if (response.ok) {
-        // Pedir todas las sumas a la api
-        // getSumas();
-
-        // Quitamos la suma de sumas
+        
         setRestas(restas.filter((resta) => resta.id !== id));
       }
     }

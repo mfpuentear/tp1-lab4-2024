@@ -14,26 +14,21 @@ function Multiplicaciones() {
     }
   };
 
-  // Obtenemos listado de sumas cuando se carga por primera vez el componente
+ 
   useEffect(() => {
     getMultiplicaciones();
   }, []);
 
-  // Se agrega una nueva suma
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // POST localhost:3000/sumas (body: a, b)
     const response = await fetch("http://localhost:3000/multiplicaciones", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
     });
     if (response.ok) {
-      // Pedir todas las sumas a la api
-      // getSumas();
-
-      // Agregar la suma creada devuelta por la api
+      
       const { multiplicacion } = await response.json();
       setMultiplicaciones([...multiplicaciones, multiplicacion]);
       setA(0);
@@ -54,10 +49,7 @@ function Multiplicaciones() {
       body: JSON.stringify({ a, b }),
     });
     if (response.ok) {
-      // Pedir todas las sumas a la api
-      // getSumas();
 
-      // Modificar la suma devuelta por la api
       const { multiplicacion } = await response.json();
       setMultiplicaciones(multiplicaciones.map((d) => (d.id == multiplicacion.id ? multiplicacion : d)));
 
@@ -74,10 +66,7 @@ function Multiplicaciones() {
       });
 
       if (response.ok) {
-        // Pedir todas las sumas a la api
-        // getSumas();
 
-        // Quitamos la suma de sumas
         setMultiplicaciones(multiplicaciones.filter((multiplicacion) => multiplicacion.id !== id));
       }
     }
