@@ -5,8 +5,6 @@ export const sumasRoute = express.Router()
 
 let sumas = [
     {id:1, a:2, b:5, resultado: 7},
-    {id:2, a:5, b:5, resultado: 10},
-    {id:3, a:2, b:12, resultado: 14},
 ]
 
 // GET /sumas

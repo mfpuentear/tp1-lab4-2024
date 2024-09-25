@@ -95,7 +95,7 @@ html{
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.historial::-webkit-scrollbar{
+*::-webkit-scrollbar{
   display: none;
 }
 .containerHistorial{
@@ -114,6 +114,9 @@ html{
   width: 30vw;
   height: 30vh;
   padding: .3rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .editable{
@@ -122,4 +125,25 @@ html{
   display: flex;
   gap: .2rem;
   
+}
+
+.editar,.eliminar{
+  background-color: inherit;
+  border: 1px solid rgba(6, 7, 0, 0.76);
+  padding: .1rem;
+  
+}
+.editar:active,.eliminar:active{
+  scale: .9;
+}
+
+.editar{
+  color: rgb(12, 240, 23);
+  box-shadow:0px 0px 2px rgb(12, 240, 23);
+
+
+}
+.eliminar{
+  box-shadow:0px 0px 4px rgb(238, 10, 10);
+  color: rgb(238, 10, 10);
 }

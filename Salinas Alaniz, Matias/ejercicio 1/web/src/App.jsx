@@ -12,10 +12,10 @@ function App() {
   const [selectorNumero, setSelectorNumero] = useState('A')
 
   const [sumas, setSumas] = useState([{ id: 1, a: 2, b: 5, resultado: 7 }])
-  const [restas, setRestas] = useState([{ id: 1, a: 2, b: 5, resultado: 7 }])
+  const [restas, setRestas] = useState([{id:1, a:4, b:2, resultado: 2}])
 
-  const [multiplicaciones, setMultiplicaciones] = useState([{ id: 1, a: 2, b: 5, resultado: 7 }])
-  const [divisiones, setDivisiones] = useState([{ id: 1, a: 2, b: 5, resultado: 7 }])
+  const [multiplicaciones, setMultiplicaciones] = useState([{id:1, a:4, b:2, resultado: 8}])
+  const [divisiones, setDivisiones] = useState([{id:1, a:1, b:1, resultado: 1}])
 
   const seleccionarNumero = (numero) => {
 
@@ -71,7 +71,6 @@ function App() {
       body: JSON.stringify({ a, b })
     }
     if (selectorNumero == 'B' && numeroDisplay.length > 0) {
-      console.log('entre')
       switch (operador) {
         case '/':
           if (b == 0) {
@@ -225,6 +224,17 @@ function App() {
     }
   }
 
+  const quitarSuma = async (suma) =>{
+    if (confirm("Desea quitar suma? ")){
+      const response = await fetch(`http://localhost:3000/sumas/${suma.id}`, {
+        method: "DELETE",
+      });
+      if (response.ok){
+        setSumas(sumas.filter((sumaA)=>sumaA.id !== suma.id))
+      }
+    }
+  
+  }
   return (
     <div className='container'>
       <div className="calculadoraDiv">
@@ -278,12 +288,12 @@ function App() {
         <div className="containerHistorial">
           <div className="sumas">Sumas
             {sumas.map((suma) => {
-              return <div className="editable" key={suma.id}>
+              return <div className="editable" key={"s"+suma.id}>
                 ID: {suma.id}  A: {suma.a} +  B: {suma.b}  Resultado = {suma.resultado}
 
                 <button className="editar" onClick={() => editarSuma(suma)}>Editar</button>
 
-                <button className="elimar">Eliminar</button>
+                <button className="eliminar" onClick={()=> quitarSuma(suma)}>Eliminar</button>
               </div>
             })}
 
@@ -291,36 +301,36 @@ function App() {
           <div className="restas">Restas
 
             {restas.map((resta) => {
-              return <div className="editable" key={resta.id}>
+              return <div className="editable" key={"r"+resta.id}>
                 ID: {resta.id}  A: {resta.a} +  B: {resta.b}  Resultado = {resta.resultado}
 
                 <button className="editar" onClick={() => editarResta(resta)}>Editar</button>
 
-                <button className="elimar">Eliminar</button>
+                <button className="eliminar">Eliminar</button>
               </div>
             })}
           </div>
           <div className="multiplicaciones">Multiplicaciones
 
             {multiplicaciones.map((multiplicacion) => {
-              return <div className="editable" key={multiplicacion.id}>
+              return <div className="editable" key={"m"+multiplicacion.id}>
                 ID: {multiplicacion.id}  A: {multiplicacion.a} +  B: {multiplicacion.b}  Resultado = {multiplicacion.resultado}
 
                 <button className="editar" onClick={() => editarMultiplicacion(multiplicacion)}>Editar</button>
 
-                <button className="elimar">Eliminar</button>
+                <button className="eliminar">Eliminar</button>
               </div>
             })}
           </div>
           <div className="divisiones">Divisiones
 
             {divisiones.map((division) => {
-              return <div className="editable" key={division.id}>
+              return <div className="editable" key={"d"+division.id}>
                 ID: {division.id}  A: {division.a} +  B: {division.b}  Resultado = {division.resultado}
 
                 <button className="editar" onClick={() => editarDivision(division)}>Editar</button>
 
-                <button className="elimar">Eliminar</button>
+                <button className="eliminar">Eliminar</button>
               </div>
             })}
           </div>

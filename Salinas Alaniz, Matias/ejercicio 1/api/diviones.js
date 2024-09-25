@@ -3,9 +3,7 @@ import express from 'express'
 export const divisionesRoute = express.Router()
 
 let divisiones = [
-    {id:1, a:4, b:2, resultado: 2},
-    {id:2, a:50, b:5, resultado: 10},
-    {id:3, a:6, b:1, resultado: 6},
+    {id:1, a:1, b:1, resultado: 1},
 ]
 
 // GET /divisiones

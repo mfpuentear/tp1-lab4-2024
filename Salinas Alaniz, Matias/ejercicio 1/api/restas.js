@@ -4,8 +4,7 @@ export const restasRoute = express.Router()
 
 let restas = [
     {id:1, a:4, b:2, resultado: 2},
-    {id:2, a:50, b:5, resultado: 45},
-    {id:3, a:6, b:1, resultado: 5},
+
 ]
 
 // GET /restas
