@@ -3,9 +3,9 @@ import express from "express";
 export const sumasRoute = express.Router();
 
 let sumas = [
-  { id: 1, a: 8, b: 2, resultado: 4 },
-  { id: 2, a: 18, b: 3, resultado: 6 },
-  { id: 3, a: 880, b: 8, resultado: 110 },
+  { id: 1, a: 8, b: 2, resultado: 10 },
+  { id: 2, a: 18, b: 3, resultado: 21 },
+  { id: 3, a: 880, b: 8, resultado: 888 },
 ];
 let sumasMaxid = 0;
 
@@ -14,13 +14,13 @@ sumasRoute.get("/", (req, res) => {
   return res.json({ data: sumas });
 });
 
-// obtener una division por id
+// obtener una suma por id
 sumasRoute.get("/:id", (req, res) => {
   const { id } = req.params;
-  const sumaEncontrada = sumas.find((div) => div.id === parseInt(id));
+  const sumaEncontrada = sumas.find((sum) => sum.id === parseInt(id));
 
   if (!sumaEncontrada) {
-    return res.status(404).send({ mensaje: "División no encontrada" });
+    return res.status(404).send({ mensaje: "suma no encontrada" });
   }
 
   return res.json({ data: sumaEncontrada });
