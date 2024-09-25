@@ -8,6 +8,9 @@ export default function App() {
     "http://localhost:3000/sumas/listaSumas"
   );
 
+  const [modoEdicion, setModoEdicion] = useState(false);
+  const [idEditar, setIdEditar] = useState(null);
+
   const [sumas, setSumas] = useState([]);
   const [restas, setRestas] = useState([]);
   const [multiplicaciones, setMultiplicaciones] = useState([]);
@@ -75,49 +78,111 @@ export default function App() {
 
   const quitarSuma = async (id) => {
     if (confirm("¿Desea quitar la suma?")) {
-      const response = await fetch(`http://localhost:3000/sumas/listaSumas/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:3000/sumas/listaSumas/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
-        setSumas(sumas.filter((suma) => suma.idSuma !== id));
+        setSumas(sumas.filter((suma) => suma.id !== id));
       }
     }
   };
 
   const quitarResta = async (id) => {
     if (confirm("¿Desea quitar la resta?")) {
-      const response = await fetch(`http://localhost:3000/restas/listaRestas/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:3000/restas/listaRestas/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
-        setRestas(restas.filter((resta) => resta.idResta !== id));
+        setRestas(restas.filter((resta) => resta.id !== id));
       }
     }
   };
 
   const quitarMultiplicacion = async (id) => {
     if (confirm("¿Desea quitar la multiplicación?")) {
-      const response = await fetch(`http://localhost:3000/multiplicaciones/listaMultiplicaciones/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:3000/multiplicaciones/listaMultiplicaciones/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
-        setMultiplicaciones(multiplicaciones.filter((multiplicacion) => multiplicacion.idMultiplicacion !== id));
+        setMultiplicaciones(
+          multiplicaciones.filter((multiplicacion) => multiplicacion.id !== id)
+        );
       }
     }
   };
 
   const quitarDivision = async (id) => {
     if (confirm("¿Desea quitar la división?")) {
-      const response = await fetch(`http://localhost:3000/divisiones/listaDivisiones/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:3000/divisiones/listaDivisiones/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
-        setDivisiones(divisiones.filter((division) => division.idDivision !== id));
+        setDivisiones(divisiones.filter((division) => division.id !== id));
       }
+    }
+  };
+
+  const activarModoEdicion = (id, a, b, rutaOperacion) => {
+    setModoEdicion(true);
+    setIdEditar(id);
+    setA(a);
+    setB(b);
+    setOperacion(rutaOperacion);
+  };
+
+  const modificarOperacion = async (id, rutaOperacion) => {
+    setModoEdicion(true);
+    setIdEditar(id);
+
+    const response = await fetch(`${rutaOperacion}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ a, b }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      if (data.suma) {
+        setSumas(sumas.map((suma) => (suma.id === id ? data.suma : suma)));
+      } else if (data.resta) {
+        setRestas(
+          restas.map((resta) => (resta.id === id ? data.resta : resta))
+        );
+      } else if (data.multiplicacion) {
+        setMultiplicaciones(
+          multiplicaciones.map((multiplicacion) =>
+            multiplicacion.id === id ? data.multiplicacion : multiplicacion
+          )
+        );
+      } else if (data.division) {
+        setDivisiones(
+          divisiones.map((division) =>
+            division.id === id ? data.division : division
+          )
+        );
+      }
+
+      setA(0);
+      setB(0);
+      setModoEdicion(false);
+      setIdEditar(null);
     }
   };
 
@@ -168,8 +233,16 @@ export default function App() {
           />
 
           <div className="botones">
-            <button>Enviar</button>
-            <button disabled={true}>Modificar</button>
+            <button type="submit" disabled={modoEdicion}>
+              Enviar
+            </button>
+            <button
+              type="button"
+              onClick={() => modificarOperacion(idEditar, operacion)}
+              disabled={!modoEdicion}
+            >
+              Modificar
+            </button>
           </div>
         </form>
 
@@ -178,10 +251,21 @@ export default function App() {
             <span>Sumas:</span>
             <ul>
               {sumas.map((suma) => (
-                <li key={suma.idSuma}>
-                  [ID: {suma.idSuma}] {suma.a} + {suma.b} = {suma.resultado}
-                  <button>✏️</button>
-                  <button onClick={() => quitarSuma(suma.idSuma)}>❌</button>
+                <li key={suma.id}>
+                  [ID: {suma.id}] {suma.a} + {suma.b} = {suma.resultado}
+                  <button
+                    onClick={() =>
+                      activarModoEdicion(
+                        suma.id,
+                        suma.a,
+                        suma.b,
+                        "http://localhost:3000/sumas/listaSumas"
+                      )
+                    }
+                  >
+                    ✏️
+                  </button>
+                  <button onClick={() => quitarSuma(suma.id)}>❌</button>
                   <br />
                   <br />
                 </li>
@@ -193,10 +277,21 @@ export default function App() {
             <span>Restas:</span>
             <ul>
               {restas.map((resta) => (
-                <li key={resta.idResta}>
-                  [ID: {resta.idResta}] {resta.a} - {resta.b} = {resta.resultado}
-                  <button>✏️</button>
-                  <button onClick={() => quitarResta(resta.idResta)}>❌</button>
+                <li key={resta.id}>
+                  [ID: {resta.id}] {resta.a} - {resta.b} = {resta.resultado}
+                  <button
+                    onClick={() =>
+                      activarModoEdicion(
+                        resta.id,
+                        resta.a,
+                        resta.b,
+                        "http://localhost:3000/restas/listaRestas"
+                      )
+                    }
+                  >
+                    ✏️
+                  </button>
+                  <button onClick={() => quitarResta(resta.id)}>❌</button>
                   <br />
                   <br />
                 </li>
@@ -208,10 +303,26 @@ export default function App() {
             <span>Multiplicaciones:</span>
             <ul>
               {multiplicaciones.map((multiplicacion) => (
-                <li key={multiplicacion.idMultiplicacion}>
-                  [ID: {multiplicacion.idMultiplicacion}] {multiplicacion.a} * {multiplicacion.b} = {multiplicacion.resultado}
-                  <button>✏️</button>
-                  <button onClick={() => quitarMultiplicacion(multiplicacion.idMultiplicacion)}>❌</button>
+                <li key={multiplicacion.id}>
+                  [ID: {multiplicacion.id}] {multiplicacion.a} *{" "}
+                  {multiplicacion.b} = {multiplicacion.resultado}
+                  <button
+                    onClick={() =>
+                      activarModoEdicion(
+                        multiplicacion.id,
+                        multiplicacion.a,
+                        multiplicacion.b,
+                        "http://localhost:3000/multiplicaciones/listaMultiplicaciones"
+                      )
+                    }
+                  >
+                    ✏️
+                  </button>
+                  <button
+                    onClick={() => quitarMultiplicacion(multiplicacion.id)}
+                  >
+                    ❌
+                  </button>
                   <br />
                   <br />
                 </li>
@@ -223,10 +334,24 @@ export default function App() {
             <span>Divisiones:</span>
             <ul>
               {divisiones.map((division) => (
-                <li key={division.idDivision}>
-                  [ID: {division.idDivision}] {division.a} - {division.b} = {division.resultado}
-                  <button>✏️</button>
-                  <button onClick={() => quitarDivision(division.idDivision)}>❌</button>
+                <li key={division.id}>
+                  [ID: {division.id}] {division.a} / {division.b} ={" "}
+                  {division.resultado}
+                  <button
+                    onClick={() =>
+                      activarModoEdicion(
+                        division.id,
+                        division.a,
+                        division.b,
+                        "http://localhost:3000/divisiones/listaDivisiones"
+                      )
+                    }
+                  >
+                    ✏️
+                  </button>
+                  <button onClick={() => quitarDivision(division.id)}>
+                    ❌
+                  </button>
                   <br />
                   <br />
                 </li>
