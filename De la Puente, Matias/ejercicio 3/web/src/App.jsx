@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Verduleria from './features/verduleria';
 import './App.css'
 
 function App() {
@@ -5,7 +7,11 @@ function App() {
 
   return (
     <>
-      <h1>anashe</h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Verduleria />}/>
+      </Routes>
+    </Router>
     </>
   )
 }
