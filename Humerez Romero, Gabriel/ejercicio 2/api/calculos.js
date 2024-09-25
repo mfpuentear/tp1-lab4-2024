@@ -31,15 +31,16 @@ router.put("/:id", (req, res) => {
 
   const calculo = calculos.find((c) => c.id === id)
   if (!calculo) {
-    return res.status(404).json({ error: "Calculo no encontrado" })
+    res.status(404).json({ error: "Calculo no encontrado" })
+    return
   }
 
   calculo.base = base
-  ;(calculo.altura = altura),
-    (calculo.perimetro = (base + altura) * 2),
-    (calculo.area = base * altura)
+  calculo.altura = altura
+  calculo.perimetro = (base + altura) * 2
+  calculo.area = base * altura
 
-  calculos = calculos.map((c) => (c.id === id ? calculo : c))
+  calculos = calculos.map((c) => c.id === id ? calculo : c)
 
   res.json(calculo)
 })

@@ -21,7 +21,7 @@ function App() {
     fetchCalculos()
   }, [])
 
-  const agregarCalculos = async () => {
+  const agregarCalculo = async () => {
     const res = await fetch("http://localhost:3000/api/calculos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -98,7 +98,7 @@ function App() {
           />
         </div>
         {!editandoCalculo && (
-          <button type="button" onClick={agregarCalculos}>
+          <button type="button" onClick={agregarCalculo}>
             Agregar calculo
           </button>
         )}
