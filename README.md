@@ -1,4 +1,4 @@
-# Trabajo práctico N° 1
+# Trabajo práctico N° 1 DAvid Ramirez
 
 ## Indicaciones
 
