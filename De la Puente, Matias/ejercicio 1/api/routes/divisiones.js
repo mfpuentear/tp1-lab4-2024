@@ -9,7 +9,7 @@ let divisiones = [
 let divisionesMaxId = 0;
 
 router.get("/", (req, res) => {
-    return res.send({ divisiones });
+    return res.json({ divisiones });
 });
 
 router.get("/:id", (req, res) => {
@@ -17,9 +17,9 @@ router.get("/:id", (req, res) => {
 
     const division = divisiones.find((division) => division.id == id);
     if(division){
-        return res.send({ division });
+        return res.json({ division });
     }else{
-        return res.status(404).send({error: `No se encontro una division con el id ${id}`})
+        return res.status(404).json({error: `No se encontro una division con el id ${id}`})
     }
 
 });
@@ -28,11 +28,11 @@ router.post("/", (req, res) => {
     const { a, b } = req.body;
 
     if (b === 0) {
-        return res.status(400).send({ mensaje: "Division por cero" });
+        return res.status(400).json({ error: "No se puede dividir por cero" });
     }
 
     if(a == null || b == null){
-        return res.status(400).send({error: "Debe llenar los campos correspondientes"});
+        return res.status(400).json({error: "Debe llenar los campos correspondientes"});
     }
 
     const division = {
@@ -43,14 +43,17 @@ router.post("/", (req, res) => {
         fecha: new Date(),
     };
     divisiones.push(division);
-    return res.status(201).send({division});
+    return res.status(201).json({division});
 });
 
 router.put("/:id", (req, res) =>{
     const id = parseInt(req.params.id);
     const { a, b } = req.body;
     if (b === 0) {
-        return res.status(400).send({ mensaje: "Division por cero" });
+        return res.status(400).json({ error: "No se puede dividir por cero" });
+    }
+    if(a == null || b == null){
+        return res.status(400).json({error: "Debe llenar los campos correspondientes"});
     }
     // con find
     // const division = divisiones.find((division) => division.id == id);
@@ -72,13 +75,13 @@ router.put("/:id", (req, res) =>{
 
     // con map()
     divisiones = divisiones.map((division) => (division.id === id ? divisionModificada : division));
-    return res.status(200).send({division: divisionModificada});
+    return res.status(200).json({division: divisionModificada});
 })
 
 router.delete("/:id", (req, res)=>{
     const { id } = req.params;
     divisiones = divisiones.filter(division => division.id !=id);
-    return res.status(200).send({id})
+    return res.status(200).json({id})
 })
 
 export default router;

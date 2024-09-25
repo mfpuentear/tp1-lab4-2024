@@ -41,6 +41,9 @@ export default function Resta() {
       setRestas([...restas, resta]);
       setA(0);
       setB(0);
+    }else{
+      const errorData = await response.json();
+      alert(errorData.error)
     }
   }
 
@@ -67,6 +70,9 @@ export default function Resta() {
       setA(0);
       setB(0);
       setRestaId(0);
+    }else{
+      const errorData = await response.json();
+      alert(errorData.error)
     }
   };
 

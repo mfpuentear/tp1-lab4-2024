@@ -36,6 +36,9 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) =>{
     const id = parseInt(req.params.id);
     const { a, b } = req.body;
+    if(a == null || b == null){
+        return res.status(400).send({error: "Debe llenar los campos correspondientes"});
+    }
     // con find
     // const suma = sumas.find((suma) => suma.id == id);
     // suma.a = a;

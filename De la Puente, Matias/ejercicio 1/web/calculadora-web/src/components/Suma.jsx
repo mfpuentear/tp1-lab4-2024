@@ -41,6 +41,9 @@ export default function Suma() {
       setSumas([...sumas, suma]);
       setA(0);
       setB(0);
+    }else{
+      const errorData = await response.json();
+      alert(errorData.error)
     }
   }
 
@@ -67,6 +70,9 @@ export default function Suma() {
       setA(0);
       setB(0);
       setSumaId(0);
+    }else{
+      const errorData = await response.json();
+      alert(errorData.error)
     }
   };
 

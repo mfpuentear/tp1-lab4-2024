@@ -41,6 +41,9 @@ export default function Division() {
       setDivisiones([...divisiones, division]);
       setA(0);
       setB(0);
+    }else{
+      const errorData = await response.json();
+      alert(errorData.error)
     }
   }
 
@@ -67,6 +70,9 @@ export default function Division() {
       setA(0);
       setB(0);
       setDivisionId(0);
+    }else{
+      const errorData = await response.json();
+      alert(errorData.error)
     }
   };
 

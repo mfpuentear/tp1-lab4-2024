@@ -41,6 +41,9 @@ export default function Multiplicacion() {
       setMultiplicaciones([...multiplicaciones, multiplicacion]);
       setA(0);
       setB(0);
+    }else{
+      const errorData = await response.json();
+      alert(errorData.error)
     }
   }
 
@@ -67,6 +70,9 @@ export default function Multiplicacion() {
       setA(0);
       setB(0);
       setMultiplicacionId(0);
+    }else{
+      const errorData = await response.json();
+      alert(errorData.error)
     }
   };
 
