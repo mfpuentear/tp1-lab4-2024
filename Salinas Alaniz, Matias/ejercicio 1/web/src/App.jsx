@@ -9,9 +9,10 @@ function App() {
   const [selectorNumero,setSelectorNumero] = useState('A')
 
   const seleccionarNumero = (numero) =>{
+
     if (selectorNumero == 'B'){
       setNumeroDisplay(numeroDisplay + String(numero))
-      setB(parseInt(numeroDisplay + String(numero)))
+      setB(parseFloat(numeroDisplay + String(numero)))
     }else{
       setNumeroDisplay(numeroDisplay + String(numero))
     }
@@ -19,7 +20,7 @@ function App() {
 
   const seleccionarOperador = (operador) =>{
     if (selectorNumero == 'A'){
-      setA(parseInt(numeroDisplay))
+      setA(parseFloat(numeroDisplay))
       setOperador(operador)
       setSelectorNumero('B')
       setNumeroDisplay('')
@@ -27,6 +28,11 @@ function App() {
       setOperador(operador)
       setNumeroDisplay("")
       setB(0)
+    }
+  }
+  const agregarDecimal = () => {
+    if ( !(numeroDisplay.includes("."))){
+      setNumeroDisplay(numeroDisplay + ".")
     }
   }
   const borrar = ()=>{
@@ -44,6 +50,43 @@ function App() {
     setB(0)
     setNumeroDisplay('')
     setSelectorNumero('A')
+  }
+
+  const obtenerResultados =async () =>{
+    let url = 'http://localhost:3000'
+    let peticion = {
+      method: 'POST',
+      headers: {'Content-Type':"application/json"},
+      body: JSON.stringify({a,b})
+    }
+    if (selectorNumero == 'B' && numeroDisplay.length > 0){
+      console.log('entre')
+      switch(operador){
+        case '/':
+            if (b == 0){
+              setNumeroDisplay('Error division por 0')
+              break;
+            }
+            url += '/divisiones/'
+          break;
+        case '*':
+          url += '/multiplicaciones/'
+          break;
+        case '-':
+            url += '/restas/'
+          break;
+        case '+':
+          url += '/sumas/'
+          break;
+        default:
+          break;
+      }
+    }
+    const response = await fetch(url,peticion)
+    if (response.ok) {
+      const { data }= await response.json()
+      setNumeroDisplay(data.resultado)
+    }
   }
   return (
     <>
@@ -68,7 +111,7 @@ function App() {
           <button className="num" onClick={()=> seleccionarNumero(7)}>7</button>
           <button className="num" onClick={()=> seleccionarNumero(8)}>8</button>
           <button className="num" onClick={()=> seleccionarNumero(9)}>9</button>
-          <button className="operador" onClick={()=>seleccionarOperador("X")}>X</button>
+          <button className="operador" onClick={()=>seleccionarOperador("*")}>X</button>
         </div>
 
         <div className="fila">
@@ -86,8 +129,8 @@ function App() {
         <div className="fila">
           <button className="num">H</button>
           <button className="num" onClick={()=> seleccionarNumero(0)}>0</button>
-          <button className="num">.</button>
-          <button className="operador">=</button>
+          <button className="num" onClick={()=>agregarDecimal()}>.</button>
+          <button className="operador" onClick={()=>obtenerResultados()}>=</button>
 
         </div>
       </div>

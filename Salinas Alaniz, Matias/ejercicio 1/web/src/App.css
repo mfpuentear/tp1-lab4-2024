@@ -1,3 +1,6 @@
+@font-face { font-family: 'calculadoraFont'; 
+  src: url('/fonts/Digital7-rg1mL.ttf') format('truetype'); font-weight: normal; font-style: normal; }
+
 * {
   margin: 0;
   padding: 0;
@@ -15,13 +18,27 @@
 }
 
 .display{
+  font-family: 'calculadoraFont';
   height: 12vh;
   width: 100%;
   background-color: #505050;
   border: 1px solid white;
   border-radius: 1px;
   color: #fff;
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
+.indicadorNum{
+  position: absolute;
+  left: 0;
+  top: 6rem;
+  padding-left: 2rem;
+}
+.displayTexto{
+  font-size: 3rem;
+}
+
 .numeros{
   display: flex;
   flex-direction: column;
@@ -58,6 +75,3 @@
   background-color: #FF9500;
 }
 
-#division{
-  
-}
