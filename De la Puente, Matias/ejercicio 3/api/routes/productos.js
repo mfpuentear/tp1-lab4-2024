@@ -8,7 +8,7 @@ let productos = [
 let maxId = 0;
 
 router.get("/", (req, res)=>{
-    res.json({productos});
+    return res.json({productos});
 })
 
 router.get("/:id", (req, res)=>{

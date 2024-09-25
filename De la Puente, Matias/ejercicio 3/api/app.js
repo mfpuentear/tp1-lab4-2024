@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import productosRoutes from "./routes/productos";
+import productosRoutes from "./routes/productos.js";
 
 const app = express();
 const PORT = 3000;
@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
     res.send("Ejercicio 3");
 });
 
-app.use("/", productosRoutes);
+app.use("/productos", productosRoutes);
 
 app.listen(PORT, (err)=>{
     console.log(
