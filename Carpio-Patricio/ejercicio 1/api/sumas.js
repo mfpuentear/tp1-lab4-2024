@@ -29,7 +29,7 @@ sumasRoute.get("/:id", (req, res) => {
 // agregar una nueva suma
 sumasRoute.post("/", (req, res) => {
   const { a, b } = req.body;
-  const nuevaSuma = { id: ++sumasMaxid, a, b, resultado: a / b };
+  const nuevaSuma = { id: ++sumasMaxid, a, b, resultado: a + b };
 
   sumas.push(nuevaSuma);
   return res.status(201).json({ data: nuevaSuma });
@@ -52,7 +52,7 @@ sumasRoute.put("/:id", (req, res) => {
     id: id,
     a,
     b,
-    resultado: a / b,
+    resultado: a + b,
     fecha: new Date(),
   };
 
