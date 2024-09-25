@@ -109,6 +109,7 @@ function Perimetro() {
         ))}
         </ul>
     </div>
+    <a href="/">Volver</a>
     </>
   )
 }
