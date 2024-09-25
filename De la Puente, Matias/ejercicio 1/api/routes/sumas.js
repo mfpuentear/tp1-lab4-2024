@@ -25,9 +25,38 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
     const {a, b} = req.body;
+    if(a == null || b == null){
+        return res.status(400).send({error: "Debe llenar los campos correspondientes"});
+    }
     const suma = {id: ++sumasMaxId, a, b, resultado: a + b, fecha: new Date()};
     sumas.push(suma);
     return res.status(201).send({suma});
+})
+
+router.put("/:id", (req, res) =>{
+    const id = parseInt(req.params.id);
+    const { a, b } = req.body;
+    // con find
+    // const suma = sumas.find((suma) => suma.id == id);
+    // suma.a = a;
+    // suma.b = b;
+    // suma.resultado = a + b;
+    // suma.fecha = new Date();
+
+    const sumaModificada = { id, a, b, resultado: a + b, fecha: new Date() }
+
+    // con forEach
+    /*
+    sumas.forEach((suma, index) => {
+        if (suma.id === id) {
+        sumas[index] = sumaModificada;
+        }
+    });
+    */
+
+    // con map()
+    sumas = sumas.map((suma) => (suma.id === id ? sumaModificada : suma));
+    return res.status(200).send({suma: sumaModificada});
 })
 
 router.delete("/:id", (req, res)=>{
