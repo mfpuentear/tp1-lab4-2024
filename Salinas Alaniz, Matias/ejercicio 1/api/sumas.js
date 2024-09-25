@@ -3,9 +3,7 @@ import express from 'express'
 export const sumasRoute = express.Router()
 
 
-let sumas = [
-    {id:1, a:2, b:5, resultado: 7},
-]
+let sumas = []
 
 // GET /sumas
 sumasRoute.get('/', (req, res) =>{
@@ -20,7 +18,8 @@ sumasRoute.get('/:id', (req,res) =>{
 })
 //post /sumas
 sumasRoute.post('/', (req,res) => {
-    const id = sumas[sumas.length-1].id + 1
+
+    const id = (sumas.length == 0 ? 1 : sumas[sumas.length-1].id + 1)
     const a = +req.body.a
     const b = +req.body.b
     const suma = { id , a ,b , resultado: a + b}

@@ -2,9 +2,7 @@ import express from 'express'
 
 export const multiplicacionesRoute = express.Router()
 
-let multiplicaciones = [
-    {id:1, a:4, b:2, resultado: 8},
-]
+let multiplicaciones = []
 
 // GET /multiplicaciones
 multiplicacionesRoute.get('/', (req, res) =>{
@@ -23,7 +21,7 @@ multiplicacionesRoute.post('/', (req,res) => {
     if (b==0){
         res.status(400).send({mensaje:"multiplicacion por 0"})
     }else{
-        const id = multiplicaciones[multiplicaciones.length-1].id + 1
+        const id = (multiplicaciones.length == 0 ? 1 : multiplicaciones[multiplicaciones.length-1].id + 1)
         const multiplicacion = { id ,a ,b , resultado: a * b}
         multiplicaciones.push(multiplicacion)
         res.status(201).send({data: multiplicacion})

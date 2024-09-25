@@ -2,10 +2,7 @@ import express from 'express'
 
 export const restasRoute = express.Router()
 
-let restas = [
-    {id:1, a:4, b:2, resultado: 2},
-
-]
+let restas = []
 
 // GET /restas
 restasRoute.get('/', (req, res) =>{
@@ -24,7 +21,7 @@ restasRoute.post('/', (req,res) => {
     if (b==0){
         res.status(400).send({mensaje:"resta por 0"})
     }else{
-        const id = restas[restas.length-1].id + 1
+        const id = (restas.length == 0 ? 1 : restas[restas.length-1].id + 1)
         const resta = { id ,a ,b , resultado: a - b}
         restas.push(resta)
         res.status(201).send({data: resta})

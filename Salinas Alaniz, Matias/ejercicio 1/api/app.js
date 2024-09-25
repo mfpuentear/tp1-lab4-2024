@@ -1,6 +1,6 @@
 import express from 'express'
 import { sumasRoute } from './sumas.js';
-import { divisionesRoute } from './diviones.js';
+import { divisionesRoute } from './divisiones.js';
 import { restasRoute } from './restas.js';
 import { multiplicacionesRoute } from './multiplicaciones.js';
 import cors from 'cors';

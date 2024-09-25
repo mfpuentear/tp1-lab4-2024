@@ -11,11 +11,11 @@ function App() {
   const [operador, setOperador] = useState('+')
   const [selectorNumero, setSelectorNumero] = useState('A')
 
-  const [sumas, setSumas] = useState([{ id: 1, a: 2, b: 5, resultado: 7 }])
-  const [restas, setRestas] = useState([{id:1, a:4, b:2, resultado: 2}])
+  const [sumas, setSumas] = useState([])
+  const [restas, setRestas] = useState([])
 
-  const [multiplicaciones, setMultiplicaciones] = useState([{id:1, a:4, b:2, resultado: 8}])
-  const [divisiones, setDivisiones] = useState([{id:1, a:1, b:1, resultado: 1}])
+  const [multiplicaciones, setMultiplicaciones] = useState([])
+  const [divisiones, setDivisiones] = useState([])
 
   const seleccionarNumero = (numero) => {
 
@@ -235,6 +235,43 @@ function App() {
     }
   
   }
+
+  const quitarResta = async (resta) =>{
+    if (confirm("Desea quitar resta? ")){
+      const response = await fetch(`http://localhost:3000/restas/${resta.id}`, {
+        method: "DELETE",
+      });
+      if (response.ok){
+        setRestas(restas.filter((restaA)=>restaA.id !== resta.id))
+      }
+    }
+  
+  }
+  const quitarMultiplicacion = async (multiplicacion) =>{
+    if (confirm("Desea quitar multiplicacion? ")){
+      const response = await fetch(`http://localhost:3000/multiplicaciones/${multiplicacion.id}`, {
+        method: "DELETE",
+      });
+      if (response.ok){
+        setMultiplicaciones(multiplicaciones.filter((multiplicacionA)=>multiplicacionA.id !== multiplicacion.id))
+      }
+    }
+  
+  }
+
+  const quitarDivision = async (division) =>{
+    if (confirm("Desea quitar la division? ")){
+      const response = await fetch(`http://localhost:3000/divisiones/${division.id}`, {
+        method: "DELETE",
+      });
+      if (response.ok){
+        setDivisiones(divisiones.filter((divisionA)=>divisionA.id !== division.id))
+      }
+    }
+  
+  }
+  
+  
   return (
     <div className='container'>
       <div className="calculadoraDiv">
@@ -306,7 +343,7 @@ function App() {
 
                 <button className="editar" onClick={() => editarResta(resta)}>Editar</button>
 
-                <button className="eliminar">Eliminar</button>
+                <button className="eliminar" onClick={()=>quitarResta(resta)}>Eliminar</button>
               </div>
             })}
           </div>
@@ -318,7 +355,7 @@ function App() {
 
                 <button className="editar" onClick={() => editarMultiplicacion(multiplicacion)}>Editar</button>
 
-                <button className="eliminar">Eliminar</button>
+                <button className="eliminar" onClick={()=>quitarMultiplicacion(multiplicacion)}>Eliminar</button>
               </div>
             })}
           </div>
@@ -330,7 +367,7 @@ function App() {
 
                 <button className="editar" onClick={() => editarDivision(division)}>Editar</button>
 
-                <button className="eliminar">Eliminar</button>
+                <button className="eliminar"  onClick={()=>quitarDivision(division)}>Eliminar</button>
               </div>
             })}
           </div>
