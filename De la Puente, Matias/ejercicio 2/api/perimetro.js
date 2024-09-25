@@ -7,32 +7,24 @@ let calculos = [];
 let calcMaxID = 0;
 
 perimetroRouter.get("/", (req, res) => {
-    if (calculos.length === 0) {
-        return res.status(200).send("No se encuentran cálculos previos.");
-    }
     res.send({ calculos });
 });
 
 perimetroRouter.get("/:id",(req,res)=>{
     const id = parseInt(req.params.id);
     const perimetro = calculos.find((calculo)=> calculo.id == id)
-    if(!perimetro){
-        return res.status(404).send("Cálculo no encontrado.")
-    }
-    res.send({ perimetro })
+         if (perimetro){
+            res.send({ perimetro })
+        }else{
+            res.status(404).send({error: "Perimetro no encontrado."})
+        }
 })
 
 perimetroRouter.post("/",(req,res)=>{
     const {a, b} = req.body;
-    const data = 
-    {id: ++calcMaxID, 
-    ladoA: a, 
-    ladoB: b, 
-    perimetro: (a*2)+(b*2), 
-    fecha: new Date()}
-
+    const data = {id: ++calcMaxID, ladoA: a, ladoB: b, perimetro: (a*2)+(b*2), fecha: new Date()}
     calculos.push(data)
-    res.send({ calculos })
+    res.status(201).send({data})
 })
 
 perimetroRouter.delete("/:id", (req,res)=>{
@@ -46,7 +38,7 @@ perimetroRouter.put("/:id", (req,res)=>{
     const {a,b} = req.body
     const data = calculos.find((perimetro)=>perimetro.id == id)
     if (!data){
-        return res.status(404).send("Cálculo no encontrado.")
+        return res.status(404).send({ error: "Cálculo no encontrado." })
     }
     data.ladoA = a;
     data.ladoB = b;

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-function App() {
+function Lobby() {
   const navigate = useNavigate()
 
   const redireccion = (pagina)=>{
@@ -19,4 +19,4 @@ function App() {
     </>
   )
 }
-export default App;
+export default Lobby;
