@@ -26,11 +26,6 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isNaN(a) || isNaN(b)) {
-      alert("ingrese numeros validos.");
-      return;
-    }
-
     if (operacion === "divisiones" && b === 0) {
       alert("No se puede dividir por 0.");
       return;
