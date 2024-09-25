@@ -10,34 +10,34 @@ let sumas = [
 let sumasMaxId = 0;
 
 router.get("/", (req, res) => {
-    return res.send({sumas})
+    return res.json({sumas})
 });
 
 router.get("/:id", (req, res) => {
     const {id} = req.params;
     const suma = sumas.find((suma) => suma.id == id);
     if(suma){
-        return res.send({suma});
+        return res.json({suma});
     }else{
-        return res.status(404).send({error: `No se encontro una suma con el id ${id}`}) 
+        return res.status(404).json({error: `No se encontro una suma con el id ${id}`}) 
     }
 })
 
 router.post("/", (req, res) => {
     const {a, b} = req.body;
     if(a == null || b == null){
-        return res.status(400).send({error: "Debe llenar los campos correspondientes"});
+        return res.status(400).json({error: "Debe llenar los campos correspondientes"});
     }
     const suma = {id: ++sumasMaxId, a, b, resultado: a + b, fecha: new Date()};
     sumas.push(suma);
-    return res.status(201).send({suma});
+    return res.status(201).json({suma});
 })
 
 router.put("/:id", (req, res) =>{
     const id = parseInt(req.params.id);
     const { a, b } = req.body;
     if(a == null || b == null){
-        return res.status(400).send({error: "Debe llenar los campos correspondientes"});
+        return res.status(400).json({error: "Debe llenar los campos correspondientes"});
     }
     // con find
     // const suma = sumas.find((suma) => suma.id == id);
@@ -59,11 +59,11 @@ router.put("/:id", (req, res) =>{
 
     // con map()
     sumas = sumas.map((suma) => (suma.id === id ? sumaModificada : suma));
-    return res.status(200).send({suma: sumaModificada});
+    return res.status(200).json({suma: sumaModificada});
 })
 
 router.delete("/:id", (req, res)=>{
     const { id } = req.params;
     sumas = sumas.filter(suma => suma.id !=id);
-    return res.status(200).send({id})
+    return res.status(200).json({id})
 })
