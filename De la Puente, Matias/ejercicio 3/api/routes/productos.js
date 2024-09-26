@@ -17,7 +17,7 @@ router.get("/:id", (req, res)=>{
     if(producto){
         res.status(200).json({producto});
     }else{
-        res.status(400).json({error: `No se encontro el producto con el id ${id}`})
+        res.status(404).json({error: `No se encontro el producto con el id ${id}`})
     }
 })
 
