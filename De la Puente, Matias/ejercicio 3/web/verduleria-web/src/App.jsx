@@ -37,7 +37,8 @@ function App() {
   }
 
   const handleRemove = async (id) =>{
-    if(confirm("¿Desea eliminar el producto de la lista?")){
+    const producto = productos.find((prod) => prod.id == id);
+    if(confirm(`¿Desea eliminar el producto ${producto.nombre} de la lista?`)){
       const response = await fetch(`http://localhost:3000/productos/${id}`, {
         method: "DELETE"
       });
