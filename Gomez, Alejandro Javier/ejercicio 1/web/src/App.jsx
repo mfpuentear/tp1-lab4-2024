@@ -205,24 +205,29 @@ export default function App() {
             onChange={(event) => setA(parseFloat(event.target.value))}
           />
 
-          <span>Operación</span>
-          <select
-            name="operacion"
-            onChange={(event) => setOperacion(event.target.value)}
-          >
-            <option value="http://localhost:3000/sumas/listaSumas">
-              Suma [+]
-            </option>
-            <option value="http://localhost:3000/restas/listaRestas">
-              Resta [-]
-            </option>
-            <option value="http://localhost:3000/multiplicaciones/listaMultiplicaciones">
-              Multiplicación [*]
-            </option>
-            <option value="http://localhost:3000/divisiones/listaDivisiones">
-              División [/]
-            </option>
-          </select>
+          {modoEdicion && ""}
+          {!modoEdicion && (
+            <>
+              <span>Operación</span>
+              <select
+                name="operacion"
+                onChange={(event) => setOperacion(event.target.value)}
+              >
+                <option value="http://localhost:3000/sumas/listaSumas">
+                  Suma [+]
+                </option>
+                <option value="http://localhost:3000/restas/listaRestas">
+                  Resta [-]
+                </option>
+                <option value="http://localhost:3000/multiplicaciones/listaMultiplicaciones">
+                  Multiplicación [*]
+                </option>
+                <option value="http://localhost:3000/divisiones/listaDivisiones">
+                  División [/]
+                </option>
+              </select>
+            </>
+          )}
 
           <span>Operador B</span>
           <input
@@ -231,6 +236,7 @@ export default function App() {
             value={b}
             onChange={(event) => setB(parseFloat(event.target.value))}
           />
+          
 
           <div className="botones">
             <button type="submit" disabled={modoEdicion}>
@@ -244,6 +250,8 @@ export default function App() {
               Modificar
             </button>
           </div>
+          {(b == 0 && operacion == "http://localhost:3000/divisiones/listaDivisiones") && <p style={{color: "red"}}>No se puede dividir entre cero</p>}
+          {b != 0 && ""}
         </form>
 
         <div className="listas-container">
@@ -252,7 +260,7 @@ export default function App() {
             <ul>
               {sumas.map((suma) => (
                 <li key={suma.id}>
-                  [ID: {suma.id}] {suma.a} + {suma.b} = {suma.resultado}
+                  {suma.a} + {suma.b} = {suma.resultado}
                   <button
                     onClick={() =>
                       activarModoEdicion(
@@ -278,7 +286,7 @@ export default function App() {
             <ul>
               {restas.map((resta) => (
                 <li key={resta.id}>
-                  [ID: {resta.id}] {resta.a} - {resta.b} = {resta.resultado}
+                  {resta.a} - {resta.b} = {resta.resultado}
                   <button
                     onClick={() =>
                       activarModoEdicion(
@@ -304,7 +312,7 @@ export default function App() {
             <ul>
               {multiplicaciones.map((multiplicacion) => (
                 <li key={multiplicacion.id}>
-                  [ID: {multiplicacion.id}] {multiplicacion.a} *{" "}
+                  {multiplicacion.a} *{" "}
                   {multiplicacion.b} = {multiplicacion.resultado}
                   <button
                     onClick={() =>
@@ -335,7 +343,7 @@ export default function App() {
             <ul>
               {divisiones.map((division) => (
                 <li key={division.id}>
-                  [ID: {division.id}] {division.a} / {division.b} ={" "}
+                  {division.a} / {division.b} ={" "}
                   {division.resultado}
                   <button
                     onClick={() =>
