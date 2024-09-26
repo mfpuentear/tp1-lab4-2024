@@ -65,7 +65,8 @@ function Verduleria() {
             setProductos(productos.map((p)=>p.id == data.id ? data : p))
             setPrecio(0);
             setProducto("");
-            setEdit(false);
+            setEdit(null);
+            setAddProduct(false);
         }else{
             alert("No se pueden repetir los productos y su precio debe ser mayor a 0.")
         }
