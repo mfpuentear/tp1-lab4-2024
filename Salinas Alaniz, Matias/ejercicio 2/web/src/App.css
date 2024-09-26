@@ -33,8 +33,11 @@
   background-color: #508C9B;
   height: 100%;
   color: #EEEEEE;
+  flex-wrap: wrap;
 }
 .rectanguloInfo{
+  display: flex;
+  gap: 1rem;
   padding: 1rem;
 
 }
@@ -64,6 +67,4 @@ form{
   position: absolute;
   left: 50%;
   top: 101%;
-
-  
 }
