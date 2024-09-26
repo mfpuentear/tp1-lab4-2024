@@ -2,12 +2,7 @@ import express from "express";
 
 export const alumnosRoute = express.Router();
 
-let alumnos = [
-  { id: 1, nombre: "Patricio", nota1: 2, nota2: 10, nota3: 7 },
-  { id: 2, nombre: "Valentin", nota1: 3, nota2: 21, nota3: 6 },
-  { id: 3, nombre: "Ramiro", nota1: 8, nota2: 888, nota3: 7 },
-];
-let alumnosMaxid = 0;
+let alumnos = [];
 
 // obtener todas las alumnos
 alumnosRoute.get("/", (req, res) => {
@@ -39,7 +34,8 @@ alumnosRoute.post("/", (req, res) => {
           : "el nombre ya existe",
     });
   }
-  const nuevoalumno = { id: ++alumnosMaxid, nombre, nota1, nota2, nota3 };
+  const nuevoId = alumnos.length > 0 ? alumnos[alumnos.length - 1].id + 1 : 1;
+  const nuevoalumno = { id: nuevoId, nombre, nota1, nota2, nota3 };
 
   alumnos.push(nuevoalumno);
   return res.status(201).json({ data: nuevoalumno });
@@ -57,7 +53,15 @@ alumnosRoute.delete("/:id", (req, res) => {
 alumnosRoute.put("/:id", (req, res) => {
   const { id } = req.params;
   const { nombre, nota1, nota2, nota3 } = req.body;
-  const comparacion = alumnos.find((alu) => alu.nombre === nombre);
+  const alumnoEx = alumnos.find((alu) => alu.id === parseInt(id));
+
+  if (!alumnoEx) {
+    return res.status(404).send({ mensaje: "alumno no encontrado" });
+  }
+
+  const comparacion = alumnos.find(
+    (alu) => alu.nombre === nombre && alu.id !== parseInt(id)
+  );
   if (nota1 <= 0 || nota2 <= 0 || nota3 <= 0 || comparacion) {
     return res.status(400).send({
       mensaje:
@@ -68,7 +72,7 @@ alumnosRoute.put("/:id", (req, res) => {
   }
 
   const alumnoActualizado = {
-    id: id,
+    id: parseInt(id),
     nombre,
     nota1,
     nota2,
@@ -77,7 +81,7 @@ alumnosRoute.put("/:id", (req, res) => {
   };
 
   alumnos = alumnos.map((alu) =>
-    alu.id === alumnoActualizado.id ? alumnoActualizado : alu
+    alu.id === parseInt(id).id ? alumnoActualizado : alu
   );
 
   return res.status(200).json({ data: alumnoActualizado });

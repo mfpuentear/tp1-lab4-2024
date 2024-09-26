@@ -7,7 +7,9 @@ function App() {
   const [nota2, setNota2] = useState(0);
   const [nota3, setNota3] = useState(0);
   const [alumnoId, setAlumnoId] = useState(0);
+  const [errorNota, setErrorNota] = useState("");
 
+  // Obtener alumnos
   const getAlumnos = async () => {
     const response = await fetch(`http://localhost:3004/alumnos`);
     if (response.ok) {
@@ -20,8 +22,23 @@ function App() {
     getAlumnos();
   }, []);
 
+  // validar las notas
+  const validarNota = (nota) => {
+    if (nota < 0 || nota > 10) {
+      setErrorNota("solo notas entre 0 y 10");
+      return false;
+    }
+    setErrorNota("");
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // validand notas
+    if (!validarNota(nota1) || !validarNota(nota2) || !validarNota(nota3)) {
+      return;
+    }
 
     const response = await fetch(`http://localhost:3004/alumnos`, {
       method: "POST",
@@ -48,6 +65,10 @@ function App() {
   };
 
   const modificarAlumnoApi = async () => {
+    if (!validarNota(nota1) || !validarNota(nota2) || !validarNota(nota3)) {
+      return;
+    }
+
     const response = await fetch(`http://localhost:3004/alumnos/${alumnoId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -64,8 +85,9 @@ function App() {
     }
   };
 
+  // Eliminar
   const quitarAlumno = async (id) => {
-    if (confirm("¿Quiere borrar el alumno?")) {
+    if (confirm("borrar el alumno?")) {
       const response = await fetch(`http://localhost:3004/alumnos/${id}`, {
         method: "DELETE",
       });
@@ -76,11 +98,13 @@ function App() {
     }
   };
 
+  // Función para calcular el promedio
   const calcularPromedio = (nota1, nota2, nota3) => {
     return (nota1 + nota2 + nota3) / 3;
   };
 
-  const obtenerEstado = (promedio) => {
+  // Función para determinar si está aprobado o promocionado
+  const Estadoalum = (promedio) => {
     if (promedio >= 8) {
       return "Promocionado";
     } else if (promedio >= 6) {
@@ -130,6 +154,7 @@ function App() {
             onChange={(e) => setNota3(parseFloat(e.target.value))}
           />
         </div>
+        {errorNota && <p style={{ color: "red" }}>{errorNota}</p>}
         {alumnoId === 0 && <button type="submit">Agregar Alumno</button>}
       </form>
       {alumnoId !== 0 && (
@@ -157,7 +182,7 @@ function App() {
             alumno.nota2,
             alumno.nota3
           );
-          const estado = obtenerEstado(promedio);
+          const estado = Estadoalum(promedio);
 
           return (
             <li key={alumno.id}>
