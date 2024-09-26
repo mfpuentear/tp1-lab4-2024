@@ -1,6 +1,6 @@
 import express from "express";
 
-const sumasRoute = express.Router();
+const router = express.Router();
 
 let sumas = [
   { id: 1, a: 2, b: 5, resultado: 7 },

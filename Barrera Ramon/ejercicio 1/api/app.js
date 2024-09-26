@@ -1,31 +1,28 @@
-import express from 'express'
-import { sumasRoute } from './sumas.js';
-import { divisionesRoute } from './diviones.js';
-import { restasRoute } from './restas.js';
-import { multiplicacionesRoute } from './multiplicaciones.js';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
+import  sumasRouter  from "./sumas.js";
+import  restasRouter  from "./restas.js";
+import { divisionesRouter } from "./divisiones.js";
+import { multiplicacionesRouter } from "./multiplicaciones.js";
 
 const app = express();
 const port = 3000;
 
-//interpretar json en body
-app.use(express.json())
+// interpretar JSON en body
+app.use(express.json());
 
-//habilitar cors
-app.use(cors())
+// Habilito cors
+app.use(cors());
 
-app.get('/', (req, res) => {
-    res.send('Hello world!')
-})
-app.use('/sumas',sumasRoute)
+app.get("/", (req, res) => {
+  res.send("Hola mundo!");
+});
 
-app.use('/divisiones',divisionesRoute)
-
-app.use('/restas',restasRoute)
-
-app.use('/multiplicaciones', multiplicacionesRoute)
-
+app.use("/sumas", sumasRouter)
+app.use("/restas", restasRouter)
+// app.use("/divisiones", divisionesRouter);
+// app.use("/multiplicaciones", multiplicacionesRouter);
 
 app.listen(port, () => {
-    console.log(`La app esta esuchando el puerto ${port}`)
-})
+  console.log(`La aplicacion esta funcionando en: ${port}`);
+});
