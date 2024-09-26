@@ -64,7 +64,7 @@ export default function App() {
     setAltura(altura);
   };
 
-  const modificarOperacion = async (id) => {
+  const modificarRectangulo = async (id) => {
     setIdEditar(id);
 
     const tipoRectangulo = base === altura ? "Cuadrado" : "Rectángulo";
@@ -126,7 +126,7 @@ export default function App() {
             </button>
             <button
               type="button"
-              onClick={() => modificarOperacion(idEditar)}
+              onClick={() => modificarRectangulo(idEditar)}
               disabled={!modoEdicion}
             >
               Modificar
