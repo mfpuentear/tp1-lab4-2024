@@ -3,9 +3,9 @@ import express from "express";
 export const productosRoute = express.Router();
 
 let productos = [
-  { id: 1, nombre: "lavarropa", precio: 1000 },
-  { id: 2, nombre: "cocina", precio: 21000 },
-  { id: 3, nombre: "heladera", precio: 888000 },
+  { id: 1, nombre: "tomate", precio: 1000 },
+  { id: 2, nombre: "lechuga", precio: 2100 },
+  { id: 3, nombre: "papa", precio: 1200 },
 ];
 let productosMaxid = 0;
 
@@ -28,10 +28,23 @@ productosRoute.get("/:id", (req, res) => {
 
 // agregar un nuevo producto
 productosRoute.post("/", (req, res) => {
-  const { a, b } = req.body;
-  const nuevoproducto = { id: ++productosMaxid, a, b, resultado: a + b };
+  const { nombre, precio } = req.body;
+  const nombrecomp = productos.find((prod) => prod.nombre === nombre);
 
+  if (precio <= 0 || nombrecomp) {
+    return res.status(400).send({
+      mensaje:
+        precio <= 0 ? "el precio debe ser mayor a 0" : "el producto ya existe",
+    });
+  }
+  /*
+  if (nombrecomp) {
+    return res.status(400).send({ mensaje: "nombre ya existente" });
+  }
+  */
+  const nuevoproducto = { id: ++productosMaxid, nombre, precio };
   productos.push(nuevoproducto);
+
   return res.status(201).json({ data: nuevoproducto });
 });
 
@@ -46,13 +59,24 @@ productosRoute.delete("/:id", (req, res) => {
 // actualizar un producto existente
 productosRoute.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { a, b } = req.body;
+  const { nombre, precio } = req.body;
+  const nombrecomp = productos.find((prod) => prod.nombre === nombre);
+
+  if (precio <= 0 || nombrecomp) {
+    return res
+      .status(400)
+      .send({
+        mensaje:
+          precio <= 0
+            ? "el precio debe ser mayor a 0"
+            : "el producto ya existe",
+      });
+  }
 
   const productoActualizado = {
     id: id,
-    a,
-    b,
-    resultado: a + b,
+    nombre,
+    precio,
     fecha: new Date(),
   };
 
