@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 
 let productos = [
-    {id: 1, nombre: "peras", precio: 300}
+    // {id: 1, nombre: "peras", precio: 300}
 ]
 
 let maxId = 0;
@@ -41,7 +41,7 @@ router.put("/:id", (req, res)=>{
     if(precio <= 0){
         return res.status(400).json({error: "El precio debe ser positivo"});
     }
-    const existe = productos.find((prod)=> prod.nombre.toLowerCase() === nombre.toLowerCase());
+    const existe = productos.find((prod)=> prod.nombre.toLowerCase() === nombre.toLowerCase() && prod.id !== id);
     if(existe){
         return res.status(400).json({error: "No puede haber dos productos con el mismo nombre"});
     }
