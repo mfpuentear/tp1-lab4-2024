@@ -2,11 +2,7 @@ import express from "express";
 
 export const productosRoute = express.Router();
 
-let productos = [
-  { id: 1, nombre: "tomate", precio: 1000 },
-  { id: 2, nombre: "lechuga", precio: 2100 },
-  { id: 3, nombre: "papa", precio: 1200 },
-];
+let productos = [];
 let productosMaxid = 0;
 
 // obtener todas los productos
@@ -63,14 +59,10 @@ productosRoute.put("/:id", (req, res) => {
   const nombrecomp = productos.find((prod) => prod.nombre === nombre);
 
   if (precio <= 0 || nombrecomp) {
-    return res
-      .status(400)
-      .send({
-        mensaje:
-          precio <= 0
-            ? "el precio debe ser mayor a 0"
-            : "el producto ya existe",
-      });
+    return res.status(400).send({
+      mensaje:
+        precio <= 0 ? "el precio debe ser mayor a 0" : "el producto ya existe",
+    });
   }
 
   const productoActualizado = {
