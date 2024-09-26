@@ -86,7 +86,7 @@ function App() {
 
   return (
     <>
-      <h1>Sumas</h1>
+      <h1>Calculadora</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="a">a</label>

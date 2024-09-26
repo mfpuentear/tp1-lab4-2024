@@ -3,9 +3,9 @@ import express from "express";
 const router = express.Router();
 
 let sumas = [
-  { id: 1, a: 2, b: 5, resultado: 7 },
-  { id: 2, a: 6, b: 81, resultado: 87 },
-  { id: 5, a: 12, b: 55, resultado: 87 },
+  // { id: 1, a: 2, b: 5, resultado: 7 },
+  // { id: 2, a: 6, b: 81, resultado: 87 },
+  // { id: 5, a: 12, b: 55, resultado: 87 },
 ];
 let sumasMaxId = 0;
 
