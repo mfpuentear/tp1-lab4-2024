@@ -26,7 +26,7 @@ router.post("/", (req, res)=>{
     if(precio <= 0){
         return res.status(400).json({error: "El precio debe ser positivo"});
     }
-    const existe = productos.find((prod)=> prod.nombre.toLowerCase() === nombre.toLowerCase());
+    const existe = productos.some((prod)=> prod.nombre.toLowerCase() === nombre.toLowerCase());
     if(existe){
         return res.status(400).json({error: "No puede haber dos productos con el mismo nombre"});
     }
@@ -41,7 +41,7 @@ router.put("/:id", (req, res)=>{
     if(precio <= 0){
         return res.status(400).json({error: "El precio debe ser positivo"});
     }
-    const existe = productos.find((prod)=> prod.nombre.toLowerCase() === nombre.toLowerCase() && prod.id !== id);
+    const existe = productos.some((prod)=> prod.nombre.toLowerCase() === nombre.toLowerCase() && prod.id !== id);
     if(existe){
         return res.status(400).json({error: "No puede haber dos productos con el mismo nombre"});
     }
