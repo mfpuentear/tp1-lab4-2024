@@ -1,0 +1,16 @@
+{
+  "name": "ismaelmalanga",
+  "version": "1.0.0",
+  "description": "ejercicio2",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch app.js"
+  },
+  "author": "ismael malanga",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  }
+}
