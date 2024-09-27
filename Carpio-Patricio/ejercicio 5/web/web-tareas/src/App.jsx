@@ -59,7 +59,9 @@ function App() {
       }
     }
   };
-
+  const totalizarTareas = tareas.length;
+  const tareasCompletas = tareas.filter((tarea) => tarea.completada).length;
+  const tareasIncompletas = totalizarTareas - tareasCompletas;
   return (
     <div>
       <h1>Tareas</h1>
@@ -78,6 +80,9 @@ function App() {
       </form>
 
       <h3>Lista de tareas</h3>
+      <h5>Total tareas:{totalizarTareas}</h5>
+      <h5>Tareas completas : {tareasCompletas}</h5>
+      <h5>Tareas incompletas : {tareasIncompletas} </h5>
       <ul>
         {tareas.map((tarea) => (
           <li key={tarea.id}>
