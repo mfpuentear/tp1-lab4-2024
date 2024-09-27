@@ -112,7 +112,7 @@ function ListaAlumnos() {
                     </div>
                     {edit == null &&
                     (<div style={{ display:"flex", gap:"0.5rem"}}>
-                        <button type="submit" disabled={!alumno.trim()}>Agregar</button>
+                        <button type="submit" disabled={!alumno.trim() || !n1.trim() || !n2.trim() || !n3.trim()}>Agregar</button>
                         <button type="button" onClick={() => {
                             setAlumno("");
                             setN1("");
@@ -123,7 +123,7 @@ function ListaAlumnos() {
                     </div>)}
                     {edit !== null &&
                     (<div style={{ display:"flex", gap:"0.5rem"}}>
-                        <button type="button" onClick={editarAlumno} disabled={!alumno.trim()}>Modificar</button>
+                        <button type="button" onClick={editarAlumno} disabled={!alumno?.trim() || !n1?.toString().trim() || !n2?.toString().trim() || !n3?.toString().trim()}>Modificar</button>
                         <button type="button" onClick={() => {
                             setAlumno("");
                             setN1("");
