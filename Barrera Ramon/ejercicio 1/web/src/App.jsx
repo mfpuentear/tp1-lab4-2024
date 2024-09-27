@@ -5,8 +5,8 @@ function App() {
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);
   const [sumaId, setSumaId] = useState(0);
-  const [operacion, setOperacion] = useState("")
-  const [signo, setSigno] = useState("")
+  const [operacion, setOperacion] = useState("");
+  const [signo, setSigno] = useState("");
 
   const getSumas = async () => {
     const response = await fetch(`http://localhost:3000/${operacion}`);
@@ -16,27 +16,20 @@ function App() {
     }
   };
 
-  // Obtenemos listado de sumas cuando se carga por primera vez el componente
   useEffect(() => {
     getSumas();
-  }, [operacion ,]);
+  }, [operacion]);
 
-  // Se agrega una nueva suma
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // POST localhost:3000/sumas (body: a, b)
     const response = await fetch(`http://localhost:3000/${operacion}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
     });
     if (response.ok) {
-      // Pedir todas las sumas a la api
-      // getSumas();
-
-      // Agregar la suma creada devuelta por la api
       const { suma } = await response.json();
-      setSumas([...sumas, suma]);
+      setSumas([...sumas, { ...suma, tipo: operacion, signo }]);
       setA(0);
       setB(0);
     }
@@ -46,6 +39,8 @@ function App() {
     setSumaId(suma.id);
     setA(suma.a);
     setB(suma.b);
+    setOperacion(suma.tipo); 
+    setSigno(suma.signo); 
   };
 
   const modificarSumaApi = async () => {
@@ -55,13 +50,8 @@ function App() {
       body: JSON.stringify({ a, b }),
     });
     if (response.ok) {
-      // Pedir todas las sumas a la api
-      // getSumas();
-
-      // Modificar la suma devuelta por la api
       const { suma } = await response.json();
-      setSumas(sumas.map((s) => (s.id == suma.id ? suma : s)));
-
+      setSumas(sumas.map((s) => (s.id == suma.id ? { ...suma, tipo: operacion, signo } : s)));
       setA(0);
       setB(0);
       setSumaId(0);
@@ -73,12 +63,7 @@ function App() {
       const response = await fetch(`http://localhost:3000/${operacion}/${id}`, {
         method: "DELETE",
       });
-
       if (response.ok) {
-        // Pedir todas las sumas a la api
-        // getSumas();
-
-        // Quitamos la suma de sumas
         setSumas(sumas.filter((suma) => suma.id !== id));
       }
     }
@@ -106,29 +91,21 @@ function App() {
             onChange={(e) => setB(parseFloat(e.target.value))}
           />
         </div>
-        { sumaId === 0 && <button onClick={() => {setOperacion("sumas"); setSigno("+")}}type="submit" value={"sumas"}>Sumar</button> }
-        { sumaId === 0 && <button onClick={() => {setOperacion("restas"); setSigno("-")}} type="submit" value={"restas"}>Restar</button> }
-        { sumaId === 0 && <button onClick={() => {setOperacion("multiplicaciones"); setSigno("*")}} type="submit" value={"multiplicaciones"}>Multiplicar</button> }
-        { sumaId === 0 && <button onClick={() => {setOperacion("divisiones"); setSigno("/")}} type="submit" value={"divisiones"}>Dividir</button> }
+        {sumaId === 0 && <button onClick={() => { setOperacion("sumas"); setSigno("+"); }} type="submit">Sumar</button>}
+        {sumaId === 0 && <button onClick={() => { setOperacion("restas"); setSigno("-"); }} type="submit">Restar</button>}
+        {sumaId === 0 && <button onClick={() => { setOperacion("multiplicaciones"); setSigno("*"); }} type="submit">Multiplicar</button>}
+        {sumaId === 0 && <button onClick={() => { setOperacion("divisiones"); setSigno("/"); }} type="submit">Dividir</button>}
       </form>
       {sumaId !== 0 && (
         <>
-          <button onClick={() => modificarSumaApi()}>Modificar</button>
-          <button
-            onClick={() => {
-              setSumaId(0);
-              setA(0);
-              setB(0);
-            }}
-          >
-            Cancelar
-          </button>
+          <button onClick={modificarSumaApi}>Modificar</button>
+          <button onClick={() => { setSumaId(0); setA(0); setB(0); }}>Cancelar</button>
         </>
       )}
       <ul>
         {sumas.map((suma) => (
           <li key={suma.id}>
-            {`${suma.id}: ${suma.a} ${operacion === "sumas" ? "+" : operacion === "restas" ? "-" : operacion === "multiplicaciones" ? "*" : "/"} ${suma.b} = ${suma.resultado} `}
+            {`${suma.a} ${suma.signo} ${suma.b} = ${suma.resultado}`}
             <button onClick={() => modificarSuma(suma)} disabled={sumaId !== 0}>
               E
             </button>
