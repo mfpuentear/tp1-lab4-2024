@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 let lista = [];
-let tareaMaxID = [];
+let tareaMaxID = 0;
 
 export const listaRouter = Router();
 
@@ -31,14 +31,13 @@ listaRouter.delete("/:id", (req,res)=>{
     res.status(200).send({ lista })
 })
 
-listaRouter.put("/:id", (req,res)=>{
+listaRouter.patch("/:id", (req,res)=>{
     const id = parseInt(req.params.id);
-    const { tarea, completada} = req.body;
+    const { completada } = req.body;
     const data = lista.find((t)=> t.id == id)
     if (!data){
         res.status(404).send({ error: "Tarea no encontrada." })
     }
-    data.tarea = tarea;
     data.completada = completada;
     res.send({ data })
 })
