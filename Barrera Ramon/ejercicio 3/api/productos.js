@@ -3,7 +3,7 @@ import express from "express";
 const router = express.Router();
 
 let productos = [
-  { id: 0, producto: "cebolla", precio: 2000},
+  // { id: 0, producto: "cebolla", precio: 2000},
   // { id: 2, producto: 6, precio: 81, resultado: 87 },
   // { id: 5, producto: 12, precio: 55, resultado: 87 },
 ];
