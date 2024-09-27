@@ -1,6 +1,6 @@
-# Trabajo práctico N° 1 DAvid Ramirez
+# Trabajo práctico N° 1 David Ramirez
 
-## instalar dependecias por cada proyecto
+## dependecias por cada proyecto
 # api
  `npm init`
 `npm install express `
@@ -16,6 +16,8 @@ cd
 ![image](https://github.com/user-attachments/assets/a31fcc2d-264d-47be-8684-5e4272ff493e)
 
 ## Ejercicio N°2 
+![image](https://github.com/user-attachments/assets/b5c033cf-4446-43c4-aa6a-137e2f655ab2)
+
 
 
 
