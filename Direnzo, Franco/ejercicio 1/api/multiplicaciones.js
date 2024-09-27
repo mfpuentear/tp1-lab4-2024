@@ -3,9 +3,6 @@ import express from "express";
 const router = express.Router();
 
 let multis = [
-  { id: 1, a: 2, b: 5, resultado: 10 },
-  { id: 2, a: 6, b: 81, resultado: 486 },
-  { id: 5, a: 12, b: 55, resultado: 660 },
 ];
 let multisMaxId = 0;
 

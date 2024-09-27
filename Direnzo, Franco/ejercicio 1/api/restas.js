@@ -3,9 +3,6 @@ import express from "express";
 const router = express.Router();
 
 let restas = [
-  { id: 1, a: 2, b: 5, resultado: -3 },
-  { id: 2, a: 6, b: 81, resultado: -75 },
-  { id: 5, a: 12, b: 55, resultado: -43 },
 ];
 let restasMaxId = 0;
 

@@ -3,8 +3,6 @@ import express from "express";
 const router = express.Router();
 
 let divisiones = [
-  { id: 1, a: 2, b: 2, resultado: 1 },
-  { id: 2, a: 3, b: 4, resultado: 0.75 }
 ];
 let divisionesMaxId = 0;
 
