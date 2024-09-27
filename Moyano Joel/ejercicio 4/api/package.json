@@ -1,7 +1,7 @@
 {
-  "name": "api-calculadora",
+  "name": "api-alumnos",
   "version": "1.0.0",
-  "description": "Api de una calculadora",
+  "description": "Api de notas de alumnos",
   "main": "index.js",
   "type": "module",
   "scripts": {

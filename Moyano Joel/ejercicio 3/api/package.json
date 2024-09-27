@@ -1,7 +1,7 @@
 {
-  "name": "api-calculadora",
+  "name": "api-productos",
   "version": "1.0.0",
-  "description": "Api de una calculadora",
+  "description": "Api de una verduleria",
   "main": "index.js",
   "type": "module",
   "scripts": {
