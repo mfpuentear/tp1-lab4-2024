@@ -61,19 +61,24 @@ function ListaTareas() {
   return (
     <>
     <h2 style={{textAlign:"center"}}>Lista de Tareas</h2>
-    <form onSubmit={agregarTareas} style={{ display: 'flex', flexDirection: 'column', alignItems:"center", gap: "0.2rem"}}>
+    <form onSubmit={agregarTareas} style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems:"center", 
+        gap: "0.2rem"
+      }}>
       <label id="tarea">Describa su tarea...</label>
-      <textarea id="tarea" 
-      style={{
-        width: "22rem",
-        height: "4rem",
-        resize: "none", 
-        overflow: "auto", 
-        border: "1px solid black", 
-        borderRadius: "3px",
-        marginBottom:"0.4rem"}}
-        value={tarea} onChange={(e)=>setTarea(e.target.value)}></textarea>
-      <button type="submit" disabled={!tarea.trim()}>Agregar</button>
+      <textarea id="tarea" value={tarea} onChange={(e)=>setTarea(e.target.value)}
+        style={{
+          width: "22rem",
+          height: "4rem",
+          resize: "none", 
+          overflow: "auto", 
+          border: "1px solid black", 
+          borderRadius: "3px",
+          marginBottom:"0.4rem"
+          }}></textarea>
+      <button type="submit" disabled={!tarea.trim()} style={{cursor: "pointer"}}>Agregar</button>
     </form>
         <ul style={{ padding: 0, listStyle: "none" }}>
           {lista.map((t)=>(
@@ -85,7 +90,13 @@ function ListaTareas() {
               padding:"0.2rem",
               backgroundColor: t.completada == false ? "white" : "#A0FF80"
             }}>
-              <div style={{display:"flex", alignContent:"center", justifyContent:"center", gap:"0.2rem", marginBottom:"0.2rem"}}>
+              <div style={{
+                  display:"flex",
+                  alignContent:"center",
+                  justifyContent:"center",
+                  gap:"0.2rem", 
+                  marginBottom:"0.2rem"
+                }}>
                 <strong>{`Tarea Nº${t.id}`}</strong>
                 <input
                 type="checkbox"
@@ -93,7 +104,7 @@ function ListaTareas() {
                 onChange={() => completarTarea(t.id, t.completada)}
                 style={{ transform: "scale(1.5)", cursor: "pointer", marginLeft:"14.8rem"}}
               />
-                <button onClick={()=>eliminarTarea(t.id)} style={{width:"1.5rem"}}>X</button>
+                <button onClick={()=>eliminarTarea(t.id)} style={{width:"1.5rem", cursor: "pointer"}}>X</button>
               </div>
               {t.tarea}
             </li>
