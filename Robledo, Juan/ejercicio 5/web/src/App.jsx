@@ -9,9 +9,6 @@ function App() {
   const tareasCompletadas = tareas.filter((tarea) => tarea.completada);
   const tareasNoCompletadas = tareas.filter((tarea) => !tarea.completada);
 
-  console.log(tareasCompletadas);
-  console.log(tareasNoCompletadas);
-
   const URL_API = "http://localhost:3000/tareas/";
 
   const getTareas = async () => {
