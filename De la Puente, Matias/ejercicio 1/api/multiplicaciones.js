@@ -2,12 +2,9 @@ import express from "express";
 
 const router = express.Router();
 
-let sumas = [
-  // historial de operaciones
-  // { id: 1, a: 2, b: 5, resultado: 7 },
-  // { id: 2, a: 6, b: 81, resultado: 87 },
-  // { id: 5, a: 12, b: 55, resultado: 87 },
-];
+//cambio de signo (*)
+
+let sumas = [];
 let sumasMaxId = 0;
 
 // GET /sumas
@@ -30,7 +27,7 @@ router.get("/:id", (req, res) => {
 // POST /sumas
 router.post("/", (req, res) => {
   const { a, b } = req.body;
-  const suma = { id: ++sumasMaxId, a, b, resultado: a - b, fecha: new Date() };
+  const suma = { id: ++sumasMaxId, a, b, resultado: a * b, fecha: new Date() };
   sumas.push(suma);
   res.status(201).send({ suma });
 });
@@ -39,24 +36,9 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { a, b } = req.body;
-  // Con find
-  /*
-  const suma = sumas.find((suma) => suma.id === id);
-  suma.a = a;
-  suma.b = b;
-  suma.resultado = a + b;
-  suma.fecha = new Date();
-  */
-  const sumaModificada = { id, a, b, resultado: a - b, fecha: new Date() };
-  // con forEach
-  /*
-  sumas.forEach((suma, index) => {
-    if (suma.id === id) {
-      sumas[index] = sumaModificada;
-    }
-  });
-  */
-  // con map
+
+  const sumaModificada = { id, a, b, resultado: a * b, fecha: new Date() };
+
   sumas = sumas.map((suma) => (suma.id === id ? sumaModificada : suma));
   res.status(200).send({ suma: sumaModificada });
 });
