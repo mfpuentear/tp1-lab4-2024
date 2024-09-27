@@ -22,6 +22,10 @@ productosRouter.get("/:id", (req, res) => {
 productosRouter.post("/", (req, res) => {
   const { precioPorKg, cantidadKg } = req.body;
 
+  if (productos.some((producto) => producto.FrutVerd === FrutVerd)) {
+    res.status(400).send({ mensaje: "El producto ya existe." });
+    return;
+  }
   if (precioPorKg < 0 || cantidadKg < 0) {
     res.status(400).send({ mensaje: "no se puede negativos" });
     return;
@@ -43,6 +47,15 @@ productosRouter.post("/", (req, res) => {
 productosRouter.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { precioPorKg, cantidadKg } = req.body;
+
+  if (productos.some((producto) => producto.FrutVerd === FrutVerd)) {
+    res.status(400).send({ mensaje: "El producto ya existe." });
+    return;
+  }
+  if (precioPorKg < 0 || cantidadKg < 0) {
+    res.status(400).send({ mensaje: "no se puede registrar" });
+    return;
+  }
 
   const productoModificada = {
     id,
