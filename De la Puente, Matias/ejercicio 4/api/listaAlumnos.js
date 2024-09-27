@@ -21,7 +21,7 @@ listaRouter.get("/:id", (req,res)=>{
 listaRouter.post("/", (req,res)=>{
     const { alumno, n1, n2, n3} = req.body
     if(n1 < 0 || n2 < 0 || n3 < 0){
-        return res.status(400).send({ error: "Las notas deben ser igual o mayor a 0." })
+        return res.status(400).send({ error: "Las notas deben estar entre 0 y 10." })
     }
     if(lista.some((a)=>alumno == a.alumno)){
         return res.status(409).send({ error: "Alumno ya existente." })
@@ -40,8 +40,8 @@ listaRouter.delete("/:id", (req,res)=>{
 listaRouter.put("/:id", (req,res)=>{
     const id = parseInt(req.params.id);
     const { alumno, n1, n2, n3 } = req.body;
-    if (n1 < 0 || n2 < 0 || n3 < 0) {
-        return res.status(400).send({ error: "Las notas deben ser igual o mayor a 0." });
+    if (n1 < 0 || n1 > 10 || n2 < 0 || n2 > 10 || n3 < 0 || n3 > 10) {
+        return res.status(400).send({ error: "Las notas deben estar entre 0 y 10." });
     }
 
     const data = lista.find((a) => a.id == id);
