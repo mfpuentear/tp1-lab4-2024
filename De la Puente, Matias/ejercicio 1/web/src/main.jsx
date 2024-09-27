@@ -12,7 +12,7 @@ createRoot(document.getElementById("root")).render(
             alignItems: "center",
             backgroundColor: "blue",
             padding: "50px",
-            borderRadius: "50px"
+            borderRadius: "50px",
             }}>
             <div>
                 <Sumas />
