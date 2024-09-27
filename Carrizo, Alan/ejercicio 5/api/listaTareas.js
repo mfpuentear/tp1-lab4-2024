@@ -20,6 +20,9 @@ listaRouter.get("/:id", (req,res)=>{
 
 listaRouter.post("/", (req,res)=>{
     const { tarea } = req.body;
+    if(lista.some((t)=>tarea == t.tarea)){
+        return res.status(409).send({ error: "La tarea ya existe." })
+    }
     const data = { id: ++tareaMaxID, tarea: tarea, completada: false, fecha: new Date()};
     lista.push(data)
     res.status(200).send({ lista })

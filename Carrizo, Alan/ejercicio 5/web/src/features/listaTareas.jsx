@@ -25,6 +25,9 @@ function ListaTareas() {
       headers: {"content-type": "application/json"},
       body: JSON.stringify({ tarea })
     })
+    if (response.status === 409) {
+      alert("La tarea ya existe.")
+    } 
     if(response.ok){
       console.log("Tarea agregada.")
       getTareas()
@@ -61,6 +64,11 @@ function ListaTareas() {
   return (
     <>
     <h2 style={{textAlign:"center"}}>Lista de Tareas</h2>
+    <div style={{textAlign:"center", display:"flex", flexDirection:"row", margin:"0", padding:"0", gap:"1rem"}}>
+      <p>Total de tareas: <strong>{lista.length}</strong></p>
+      <p>Tareas completadas: <strong>{lista.filter((t) => t.completada).length}</strong></p>
+      <p>Tareas no completadas: <strong>{lista.length - (lista.filter((t) => t.completada).length)}</strong></p>
+    </div>
     <form onSubmit={agregarTareas} style={{ 
         display: 'flex', 
         flexDirection: 'column', 
@@ -80,7 +88,7 @@ function ListaTareas() {
           }}></textarea>
       <button type="submit" disabled={!tarea.trim()} style={{cursor: "pointer"}}>Agregar</button>
     </form>
-        <ul style={{ padding: 0, listStyle: "none" }}>
+        <ul style={{ padding: 0, listStyle: "none" , display:"flex", alignItems:"center", flexDirection:"column"}}>
           {lista.map((t)=>(
             <li key={t.id} style={{
               width: "22rem",
@@ -102,7 +110,7 @@ function ListaTareas() {
                 type="checkbox"
                 checked={t.completada}
                 onChange={() => completarTarea(t.id, t.completada)}
-                style={{ transform: "scale(1.5)", cursor: "pointer", marginLeft:"14.8rem"}}
+                style={{ transform: "scale(1.5)", cursor: "pointer", marginLeft:"14.5rem"}}
               />
                 <button onClick={()=>eliminarTarea(t.id)} style={{width:"1.5rem", cursor: "pointer"}}>X</button>
               </div>
