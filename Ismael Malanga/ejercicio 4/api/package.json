@@ -1,13 +1,13 @@
 {
-  "name": "ejercicio3",
+  "name": "ejercicio4",
   "version": "1.0.0",
-  "description": "ejercicio3",
   "main": "index.js",
   "scripts": {
     "dev": "node --watch app.js"
   },
   "author": "ismael malanga",
   "license": "ISC",
+  "description": "",
   "dependencies": {
     "express": "^4.21.0"
   }

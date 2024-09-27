@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-let productos = [{ id: 0, producto: "cebolla", precio: 2000},];
+let productos = [{ id: 0, producto: "zanahoria", precio: 2000},];
 let productosMaxId = 0;
 
 router.get("/", (req, res) => {

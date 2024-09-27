@@ -1,5 +1,5 @@
 import express from 'express'
-import productosRoute from "./productos.js"
+import alumnosRoute from "./alumnos.js"
 import cors from 'cors';
 
 const app = express();
@@ -9,10 +9,11 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/', (req, res) => {
-    res.send('Hello world!')
+    res.send("Hola mundo!")
 })
-app.use("/productos", productosRoute)
+
+app.use("/alumnos", alumnosRoute)
 
 app.listen(port, () => {
-    console.log(`La app esta escuchando el puerto ${port}`)
+    console.log(`La aplicacion esta funcionando en: ${port}`)
 })
