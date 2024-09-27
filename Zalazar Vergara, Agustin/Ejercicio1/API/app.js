@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.send("Hola")
+    res.send("Ejercicio1")
 });
 
 app.use("/sumas", sumasRoutes);
