@@ -16,8 +16,8 @@ alumnosRouter.post('/', (req, res) => {
     const nombreRepetido = alumnos.find((alumno)=>alumno.nombre == nombre)
     
     for (let nota of notas){
-        if (nota < 0){
-            return res.status(400).send('No pueden haber notas negativas')
+        if (nota < 0 || nota > 10){
+            return res.status(400).send('No pueden haber notas negativas ni mayores a 10')
         }
     }
 
@@ -35,8 +35,8 @@ alumnosRouter.put('/:id', (req, res)=>{
     const { nombre , notas } = req.body
 
     for (let nota of notas){
-        if (nota < 0){
-            return res.status(400).send('No pueden haber notas negaticas')
+        if (nota < 0 || nota > 10){
+            return res.status(400).send('No pueden haber notas negativas ni mayores a 10')
         }
     }
     

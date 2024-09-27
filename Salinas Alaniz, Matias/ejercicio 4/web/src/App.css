@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.listadoProductos{
+.listadoAlumnos{
 display: flex;
 flex-direction: column;
 width: 50%;
@@ -19,9 +19,10 @@ justify-content: flex-start;
 gap: 1rem;
 }
 
-.agregarProducto{
+.agregarAlumnos{
   display: flex;
   width: 50%;
   justify-content: center;
   align-items: center;
+  color: #000000c2;
 }

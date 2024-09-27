@@ -6,7 +6,7 @@ function App() {
 
   const [nombre, setNombre] = useState('')
   const [precio, setPrecio] = useState(0)
-  const [producotSeleccionado, setProductoSeleccionado] = useState(null)
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null)
 
   useEffect(()=>{
     const getProductos = async ()=>{
@@ -48,11 +48,11 @@ function App() {
       body: JSON.stringify({nombre, precio})
     }
 
-    const response = await fetch(`http://localhost:3000/productos/${producotSeleccionado.id}`,peticion)
+    const response = await fetch(`http://localhost:3000/productos/${productoSeleccionado.id}`,peticion)
     if (response.ok){
       const data = await response.json()
       const nuevoProducto = data.data
-      const nuevaLista = productos.map((producto)=> (producto.id == producotSeleccionado.id) ? nuevoProducto : producto)
+      const nuevaLista = productos.map((producto)=> (producto.id == productoSeleccionado.id) ? nuevoProducto : producto)
       setProductos(nuevaLista)
       setProductoSeleccionado(null)
     }
@@ -89,9 +89,9 @@ function App() {
           <label htmlFor="precio">Precio:
             <input type="text" name="precio" id="precio" value={precio} onChange={(e)=>setPrecio(e.target.value)}/>
           </label>
-          <button type="button" disabled={(producotSeleccionado != null)? true : false} onClick={()=>agregarProducto()}>Agregar</button>
-          <button type="button" disabled={(producotSeleccionado == null)? true : false} style={{opacity:(producotSeleccionado == null)? 0 : 1}} onClick={()=>editarProductoApi()}>Guardar</button>
-          <button type="button" disabled={(producotSeleccionado == null)? true : false} style={{opacity:(producotSeleccionado == null)? 0 : 1}} onClick={()=>setProductoSeleccionado(null)}>Cancelar</button>
+          <button type="button" disabled={(productoSeleccionado != null)? true : false} onClick={()=>agregarProducto()}>Agregar</button>
+          <button type="button" disabled={(productoSeleccionado == null)? true : false} style={{opacity:(productoSeleccionado == null)? 0 : 1}} onClick={()=>editarProductoApi()}>Guardar</button>
+          <button type="button" disabled={(productoSeleccionado == null)? true : false} style={{opacity:(productoSeleccionado == null)? 0 : 1}} onClick={()=>setProductoSeleccionado(null)}>Cancelar</button>
         </form>
       </div>
 
