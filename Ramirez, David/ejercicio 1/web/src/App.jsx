@@ -5,10 +5,12 @@ function App() {
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);
   const [sumaId, setSumaId] = useState(0);
+  const [operacion, setOperacion] = useState("")
+  const [signo, setSigno] = useState("")
 
-  // suma
+  // operaciones
   const getSumas = async () => {
-    const response = await fetch("http://localhost:3000/sumas");
+    const response = await fetch(`http://localhost:3000/${operacion}`);
     if (response.ok) {
       const { sumas } = await response.json();
       setSumas(sumas);
@@ -24,7 +26,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // POST localhost:3000/sumas (body: a, b)
-    const response = await fetch("http://localhost:3000/sumas", {
+    const response = await fetch(`http://localhost:3000/${operacion}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
@@ -39,26 +41,6 @@ function App() {
       setB(0);
     }
   };
-  //division
-  const handleDivision = async (e) => {
-    e.preventDefault();
-    if (b === 0) {
-      alert("No se puede dividir por cero");
-      return;
-    }
-    const response = await fetch("http://localhost:3000/divisiones", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ a, b }),
-    });
-    if (response.ok) {
-      const { division } = await response.json();
-      setSumas([...sumas, division]);
-      setA(0);
-      setB(0);
-    }
-  };
-  //fin division
 
   const modificarSuma = (suma) => {
     setSumaId(suma.id);
@@ -67,7 +49,7 @@ function App() {
   };
 
   const modificarSumaApi = async () => {
-    const response = await fetch(`http://localhost:3000/sumas/${sumaId}`, {
+    const response = await fetch(`http://localhost:3000/${operacion}/${sumaId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
@@ -87,7 +69,7 @@ function App() {
 
   const quitarSuma = async (id) => {
     if (confirm("¿Desea quitar suma?")) {
-      const response = await fetch(`http://localhost:3000/sumas/${id}`, {
+      const response = await fetch(`http://localhost:3000/${operacion}/${id}`, {
         method: "DELETE",
       });
 
@@ -123,12 +105,10 @@ function App() {
             onChange={(e) => setB(parseFloat(e.target.value))}
           />
         </div>
-        {/* {sumaId === 0 && <button type="submit">Sumar</button>}
-        {sumaId === 0 && <button type="submit">Restar</button>}
-        {sumaId === 0 && <button type="submit">Dividir</button>}
-        {sumaId === 0 && <button type="submit">Multiplicar</button>} */}
-        {sumaId === 0 && <button onClick={handleSubmit}>Sumar</button>}
-        {sumaId === 0 && <button onClick={handleDivision}>Dividir</button>}
+        { sumaId === 0 && <button onClick={() => {setOperacion("sumas"); setSigno("+")}}type="submit">Sumar</button> }
+        { sumaId === 0 && <button onClick={() => {setOperacion("restas"); setSigno("-")}} type="submit">Restar</button> }
+        { sumaId === 0 && <button onClick={() => {setOperacion("multiplicaciones"); setSigno("*")}} type="submit">Multiplicar</button> }
+        { sumaId === 0 && <button onClick={() => {setOperacion("divisiones"); setSigno("/")}} type="submit">Dividir</button> }
       </form>
       {sumaId !== 0 && (
         <>
