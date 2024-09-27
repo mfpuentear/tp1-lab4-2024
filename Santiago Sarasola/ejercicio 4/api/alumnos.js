@@ -56,7 +56,7 @@ alumnosRouter.put("/:id", (req, res) => {
         if(alumnoConMismoNombre){
             res.status(400).send({mensaje:"Ya hay un alumno existente con el mismo nombre!"});
         }else{
-            const alumnoModificado = {id: parseInt(id), nombre: nombre, nombre: nombre, nota1: nota1, nota2: nota2, nota3: nota3, fecha: new Date()};
+            const alumnoModificado = {id: parseInt(id), nombre: nombre, nota1: nota1, nota2: nota2, nota3: nota3, fecha: new Date()};
             alumnos = alumnos.map((alumno) => (alumno.id == id ?  alumnoModificado : alumno));
             res.status(201).send({alumnoModificado});
         }
