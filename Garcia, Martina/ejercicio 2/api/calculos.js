@@ -41,7 +41,7 @@ calculosRouter.put("/:id", (req, res) => {
   calculos = calculos.map((rectangulo) =>
     rectangulo.id === id ? calculoModificado : rectangulo
   )
-  res.status(200).send({ rectangulo: calculoModificado });
+  res.status(200).send({ rectangulo: calculoModificado })
 })
 
 calculosRouter.delete("/:id", (req, res) => {

@@ -96,9 +96,9 @@ function App() {
           <button onClick={() => modificarCalculoApi()}>Modificar</button>
           <button
             onClick={() => {
-              setCalculoId(0);
-              setBase(0);
-              setAltura(0);
+              setCalculoId(0)
+              setBase(0)
+              setAltura(0)
             }}
           >
             Cancelar
