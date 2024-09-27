@@ -67,7 +67,6 @@ function App() {
       <label>Tareas:</label> <br />
       <input type="text" id="a"
       value={task} 
-      checked
       onChange={(e) => setTask(e.target.value)} /> <br />
       <label htmlFor="">Completada     </label>
       <input type="checkbox" value={completada} onChange={(e) => setCompletado(e.target.checked)} /><br />

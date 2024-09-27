@@ -106,10 +106,10 @@ function App() {
             onChange={(e) => setB(parseFloat(e.target.value))}
           />
         </div>
-        { sumaId === 0 && <button onClick={() => {setOperacion("sumas"); setSigno("+")}}type="submit">Sumar</button> }
-        { sumaId === 0 && <button onClick={() => {setOperacion("restas"); setSigno("-")}} type="submit">Restar</button> }
-        { sumaId === 0 && <button onClick={() => {setOperacion("multiplicaciones"); setSigno("*")}} type="submit">Multiplicar</button> }
-        { sumaId === 0 && <button onClick={() => {setOperacion("divisiones"); setSigno("/")}} type="submit">Dividir</button> }
+        { sumaId === 0 && <button onClick={() => {setOperacion("sumas"); setSigno("+")}}type="submit" value={"sumas"}>Sumar</button> }
+        { sumaId === 0 && <button onClick={() => {setOperacion("restas"); setSigno("-")}} type="submit" value={"restas"}>Restar</button> }
+        { sumaId === 0 && <button onClick={() => {setOperacion("multiplicaciones"); setSigno("*")}} type="submit" value={"multiplicaciones"}>Multiplicar</button> }
+        { sumaId === 0 && <button onClick={() => {setOperacion("divisiones"); setSigno("/")}} type="submit" value={"divisiones"}>Dividir</button> }
       </form>
       {sumaId !== 0 && (
         <>
@@ -128,7 +128,7 @@ function App() {
       <ul>
         {sumas.map((suma) => (
           <li key={suma.id}>
-            {`${suma.id}: ${suma.a} ${signo} ${suma.b} = ${suma.resultado} `}
+            {`${suma.id}: ${suma.a} ${operacion === "sumas" ? "+" : operacion === "restas" ? "-" : operacion === "multiplicaciones" ? "*" : "/"} ${suma.b} = ${suma.resultado} `}
             <button onClick={() => modificarSuma(suma)} disabled={sumaId !== 0}>
               E
             </button>
