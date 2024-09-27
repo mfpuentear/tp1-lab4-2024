@@ -72,9 +72,7 @@ function Alumnos() {
       body: JSON.stringify({ nombre, nota1, nota2, nota3 }),
     });
     if (response.ok) {
-      console.log(response)
       const { alumno } = await response.json();
-      console.log(alumno)
 
       setAlumnos(alumnos.map((a) => (a.id == alumno.id ? alumno : a)));
     
@@ -153,6 +151,8 @@ function Alumnos() {
               setAlumnoId(0);
               setNombre("");
               setNota1(0);
+              setNota2(0);
+              setNota3(0);
             }}
           >
             Cancelar

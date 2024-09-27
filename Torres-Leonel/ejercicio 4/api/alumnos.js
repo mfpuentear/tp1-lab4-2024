@@ -59,7 +59,7 @@ router.put("/:id", (req, res) => {
   const alumnoModificado = { id, nombre, nota1, nota2, nota3, fecha: new Date()};
   
   alumnos = alumnos.map((alumno) => (alumno.id === id ? alumnoModificado : alumno));
-  res.status(200).send({ nombre: alumnoModificado });
+  res.status(200).send({ alumno: alumnoModificado });
 });
 
 router.delete("/:id", (req, res) => {
