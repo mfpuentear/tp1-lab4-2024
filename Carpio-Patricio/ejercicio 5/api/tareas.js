@@ -30,8 +30,8 @@ tareasRoute.post("/", (req, res) => {
     return res.status(400).send({ mensaje: "la tarea ya existente" });
   }
 
-  const nuevoId = tareas.length > 0 ? tareas[alumos.length - 1].id + 1 : 1;
-  const nuevotarea = { id: nuevoId, nombre };
+  const nuevoId = tareas.length > 0 ? tareas[tareas.length - 1].id + 1 : 1;
+  const nuevotarea = { id: nuevoId, nombre, completada: false };
   tareas.push(nuevotarea);
 
   return res.status(201).json({ data: nuevotarea });
@@ -48,24 +48,13 @@ tareasRoute.delete("/:id", (req, res) => {
 // actualizar un tarea existente
 tareasRoute.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { nombre } = req.body;
-  const nombrecomp = tareas.find((tare) => tare.nombre === nombre);
+  const { completada } = req.body;
+  const tarea = tareas.find((tare) => tare.id === parseInt(id));
 
-  if (nombrecomp) {
-    return res.status(400).send({
-      mensaje: "la tarea ya existe",
-    });
+  if (!tarea) {
+    return res.status(404).send({ mensaje: "tarea no encontrada" });
   }
+  tarea.completada = completada;
 
-  const tareaActualizado = {
-    id: parseInt(id),
-    nombre,
-    fecha: new Date(),
-  };
-
-  tareas = tareas.map((tare) =>
-    tare.id === tareaActualizado.id ? tareaActualizado : tare
-  );
-
-  return res.status(200).json({ data: tareaActualizado });
+  return res.status(200).json({ data: tarea });
 });
