@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import sumasRouter from "./sumas.js";
-import { divisionesRouter } from "./divisiones.js";
+import { divisionesRoute } from "./divisiones.js";
 
 const app = express();
 const port = 3000;
@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/sumas", sumasRouter);
-app.use("/divisiones", divisionesRouter);
+app.use("/divisiones", divisionesRoute);
 
 app.listen(port, () => {
   console.log(`La aplicacion esta funcionando en: ${port}`);
