@@ -7,7 +7,10 @@ function App() {
   const [b, setB] = useState("");
   const [operacionId, setOperacionId] = useState(0);
 
-  const getOperaciones = async () => {
+
+
+  useEffect(() => {
+      const getOperaciones = async () => {
       const response = await fetch(`http://localhost:3000/${tipoOperacion}`);
       if (response.ok) {
         const { data } = await response.json();
@@ -15,8 +18,6 @@ function App() {
         // console.log(data);
       }
   };
-
-  useEffect(() => {
     getOperaciones();
   }, [tipoOperacion]);
 
@@ -26,7 +27,6 @@ function App() {
       alert("Ambos campos deben tener un valor.");
       return;
     }
-    getOperaciones();
 
     const response = await fetch(`http://localhost:3000/${tipoOperacion}`, {
       method: "POST",
