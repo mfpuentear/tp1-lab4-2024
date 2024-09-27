@@ -82,8 +82,8 @@ export default function App() {
       const data = await response.json();
 
       if (data.rectangulo) {
-        setRectangulos(
-          rectangulos.map((rectangulo) =>
+        setRectangulos((prevRectangulos) =>
+          prevRectangulos.map((rectangulo) =>
             rectangulo.id === id ? data.rectangulo : rectangulo
           )
         );

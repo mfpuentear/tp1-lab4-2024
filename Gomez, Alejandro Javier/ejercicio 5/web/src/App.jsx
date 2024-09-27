@@ -91,8 +91,10 @@ export default function App() {
       const data = await response.json();
 
       if (data.tarea) {
-        setTareas(
-          tareas.map((tarea) => (tarea.id === id ? data.tarea : tarea))
+        setTareas((prevTareas) =>
+          prevTareas.map((tarea) =>
+            tarea.id === id ? data.tarea : tarea
+          )
         );
       }
 
