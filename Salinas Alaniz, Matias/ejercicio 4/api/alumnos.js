@@ -49,3 +49,9 @@ alumnosRouter.put('/:id', (req, res)=>{
         return res.status(400).send('Ya existe un alumno con ese nombre')
     }
 })
+
+alumnosRouter.delete('/:id', (req , res) =>{
+    const { id } = req.params
+    alumnos = alumnos.filter((alumno)=> alumno.id != id)
+    res.status(200).send('Alumno Borrado')
+})

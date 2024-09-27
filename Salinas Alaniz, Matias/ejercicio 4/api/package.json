@@ -4,7 +4,7 @@
   "description": "Ejercicio 4 salinas matias",
   "main": "index.js",
   "scripts": {
-    "div": "node --watch app.js"
+    "dev": "node --watch app.js"
   },
   "type": "module",
   "author": "Salinas Matias",
