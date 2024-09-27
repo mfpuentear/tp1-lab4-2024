@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [tareas, setTareas] = useState([{id:1,nombre:"Estudiar",completada:false}])
-
+  const [tareas, setTareas] = useState([])
+  
   const [nombre, setNombre] = useState('')
-  const [tareaSeleccionado, setTareaSeleccionado] = useState(null)
+
+  const [completadas, setCompletadas] = useState(0)
+  const [incompletas, setIncompletas] = useState(0)
 
   useEffect(()=>{
     const getTareas = async ()=>{
@@ -15,10 +17,15 @@ function App() {
         const tareasNuevas = data.data
         setTareas(tareasNuevas)
       }
+
     }
     getTareas()
 
   },[])
+
+  useEffect(()=>{
+    contarTareas()
+  },[tareas])
 
   const agregartarea = async () => {
     let peticion = {
@@ -66,11 +73,22 @@ function App() {
     }}
   }
 
+  const contarTareas = ()=>{
+    let cc = 0
+    let ci = 0
+    for (let tarea of tareas){
+      (tarea.completada) ? cc++ : ci++
+    }
+    setCompletadas(cc)
+    setIncompletas(ci)
+  }
 
   return (
     <div className="container">
       <div className="listadotareas">
-        {tareas.map((tarea)=>{
+        <p>Completas: {completadas}</p>
+        <p>Por completar: {incompletas}</p>
+        {tareas.map((tarea,index)=>{
           return(
             <div className="tareadiv" key={tarea.id}>
               <input type="checkbox" name="tarea" id="tarea"  checked={tarea.completada} onChange={()=>editarTareaApi(tarea)} /><p style={{textDecoration:(tarea.completada) ? 'line-through' : 'none'}}> Id: {tarea.id} Descripcion : {tarea.nombre}</p>
@@ -85,7 +103,7 @@ function App() {
             <input type="text" name="nombre" id="nombre" value={nombre} onChange={(e)=>setNombre(e.target.value)}/>
           </label>
           
-          <button type="button" disabled={(tareaSeleccionado != null)? true : false} onClick={()=>agregartarea()}>Agregar</button>
+          <button type="button"  onClick={()=>agregartarea()}>Agregar</button>
         </form>
       </div>
 
