@@ -5,9 +5,9 @@ const router = express.Router();
 let sumas = [
   { id: 1, a: 2, b: 5, resultado: 7 },
   { id: 2, a: 6, b: 81, resultado: 87 },
-  { id: 5, a: 12, b: 55, resultado: 87 },
+  { id: 3, a: 12, b: 55, resultado: 87 },
 ];
-let sumasMaxId = 0;
+let sumasMaxId = sumas.length;
 
 // GET /sumas
 router.get("/", (req, res) => {

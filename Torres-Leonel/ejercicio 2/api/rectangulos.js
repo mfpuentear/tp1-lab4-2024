@@ -7,7 +7,7 @@ let rectangulos = [
   { id: 2, altura: 20, base: 10, perimetro: 60, superficie:200 },
   { id: 3, altura: 12, base: 55, perimetro: 134,superficie: 660},
 ];
-let rectangulosMaxId = 0;
+let rectangulosMaxId = rectangulos.length;
 
 router.get("/", (req, res) => {
   res.send({ rectangulos });

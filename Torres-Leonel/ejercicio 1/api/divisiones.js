@@ -8,7 +8,7 @@ let divisiones = [
     { id: 3, a: 10, b: 2, resultado: 5 },
 
 ];
-let divisionesMaxId = 0;
+let divisionesMaxId = divisiones.length;
 
 // GET /divisiones
 router.get("/", (req, res) => {

@@ -7,7 +7,7 @@ let multiplicaciones = [
   { id: 2, a: 20, b: 10, resultado: 200 },
   { id: 3, a: 12, b: 55, resultado: 660 },
 ];
-let multiplicacionesMaxId = 0;
+let multiplicacionesMaxId = multiplicaciones.length;
 
 router.get("/", (req, res) => {
   res.send({ multiplicaciones });

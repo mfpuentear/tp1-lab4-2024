@@ -7,7 +7,7 @@ let restas = [
   { id: 2, a: 20, b: 10, resultado: 10 },
   { id: 3, a: 12, b: 55, resultado: -43 },
 ];
-let restasMaxId = 0;
+let restasMaxId = restas.length;
 
 router.get("/", (req, res) => {
   res.send({ restas });

@@ -7,7 +7,7 @@ let verduras = [
   { id: 2, nombre: "batata", precio: 10},
   { id: 3, nombre: "lechuga", precio: 55},
 ];
-let verdurasMaxId = 0;
+let verdurasMaxId = verduras.length;
 
 router.get("/", (req, res) => {
   res.send({ verduras });
