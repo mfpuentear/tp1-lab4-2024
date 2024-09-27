@@ -1,16 +1,18 @@
 # Trabajo práctico N° 1 David Ramirez
-
 ## dependecias por cada proyecto
-# api
- `npm init`
-`npm install express `
-`npm install cors `
-# react web
-`npm create vite@latest`
-`react - javascript + swc`
-cd 
-`npm install`
-`npm run dev`
+```bash
+ API
+ npm init
+ npm install express 
+ npm install cors
+
+REACT
+ npm create vite@latest
+ react - javascript + swc
+ cd 
+ npm install
+ npm run dev
+```
 
 ## Ejercicio N°1 Calculadora
 ![ej1](https://github.com/user-attachments/assets/a31fcc2d-264d-47be-8684-5e4272ff493e)
@@ -23,12 +25,13 @@ cd
 
 ## Ejercicio N°4 Alumnos
 ![ej4](https://github.com/user-attachments/assets/fb52b1ad-0275-4166-9d92-3b08824cec24)
- 
 
+## Ejercicio N°5 Tareas
+![ej5](https://github.com/user-attachments/assets/e62239ec-1d69-4efb-a109-780a19200d6f)
 
+## Author
 
-
-
+- [@Chavow5](https://www.github.com/chavow5)
 
 ## Indicaciones
 
