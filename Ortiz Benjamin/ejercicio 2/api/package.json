@@ -1,0 +1,17 @@
+{
+  "name": "api-rectangulos",
+  "version": "1.0.0",
+  "description": "Api de calculo de rectangulos",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch app.js"
+  },
+  "author": "Ortiz Benjamin",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "expressjs": "^1.0.1"
+  }
+}
