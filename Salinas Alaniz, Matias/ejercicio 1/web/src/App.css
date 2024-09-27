@@ -1,0 +1,149 @@
+@font-face { font-family: 'calculadoraFont'; 
+  src: url('/fonts/Digital7-rg1mL.ttf') format('truetype'); font-weight: normal; font-style: normal; }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+html{
+  background-color: rgba(20, 20, 20, 0.925);
+}
+.container{
+  display: flex;
+  gap: 1rem;
+  margin: 1rem;
+}
+.calculadoraDiv{
+  background-color:black;
+  height:80vh ;
+  width: 30vw;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.display{
+  font-family: 'calculadoraFont';
+  height: 12vh;
+  width: 100%;
+  background-color: #505050;
+  border: 1px solid white;
+  border-radius: 1px;
+  color: #fff;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.indicadorNum{
+  position: absolute;
+  left: 0;
+  top: 6rem;
+  padding-left: 3rem;
+  padding-top:1rem ;
+}
+.displayTexto{
+  font-size: 3rem;
+}
+
+.numeros{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100% ;
+  height: 50vh;
+  padding: 1rem;
+}
+.fila,.filaend{
+  display: flex;
+  gap: 1rem;
+  width: 33vw;
+  height: 60vh;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.num,.operador{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1C1C1C;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  color: #fff;
+  font-size: large;
+  font-weight: bold;
+}
+.operador{
+  background-color: #FF9500;
+}
+
+.historial {
+  background-color: black;
+  width: 40vw;
+  height: 80vh;
+  padding: 1rem;
+  color: #fff;
+  font-family:'calculadoraFont';
+  overflow-y: scroll;
+  transition: width 0.3s,opacity 0.4s;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar{
+  display: none;
+}
+.containerHistorial{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1px;
+}
+
+.sumas,.restas,.multiplicaciones,.divisiones{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color:#0e0d0d;
+  width: 30vw;
+  height: 30vh;
+  padding: .3rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.editable{
+  width: fit-content;
+  padding: 1px;
+  display: flex;
+  gap: .2rem;
+  
+}
+
+.editar,.eliminar{
+  background-color: inherit;
+  border: 1px solid rgba(6, 7, 0, 0.76);
+  padding: .1rem;
+  
+}
+.editar:active,.eliminar:active{
+  scale: .9;
+}
+
+.editar{
+  color: rgb(12, 240, 23);
+  box-shadow:0px 0px 2px rgb(12, 240, 23);
+
+
+}
+.eliminar{
+  box-shadow:0px 0px 4px rgb(238, 10, 10);
+  color: rgb(238, 10, 10);
+}
