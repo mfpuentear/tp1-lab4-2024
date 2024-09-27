@@ -16,5 +16,5 @@ app.get('/', (req, res)=>{
 app.use('/tareas', tareasRouter)
 
 app.listen(PORT,()=>{
-    console.log(`Escuchando en el puerto 300`)
+    console.log(`Escuchando en el puerto ${PORT}`)
 })

@@ -11,7 +11,7 @@ tareasRouter.get('/',(req, res)=>{
 })
 
 tareasRouter.post('/',(req,res)=>{
-    const id = (tareas.length< 1) ? 1 : tareas[tareas.length-1].id + 1
+    const id = (tareas.length< 1) ? 1 : parseInt(tareas[tareas.length-1].id) + 1
     const { nombre, completada} = req.body
     const repetido = tareas.find((tarea)=> tarea.nombre == nombre)
     if (!repetido){
@@ -34,7 +34,7 @@ tareasRouter.put('/:id', (req, res) =>{
         tareas = tareas.map((tarea)=>(tarea.id == id) ? tareaModificada : tarea)
         return res.status(200).send({data:tareaModificada})
     }else{
-        return res.status(400).send('Ya existe una tarea con ese nombre')
+        return res.status(400).send('Ya existe una tarea con nombre')
     }
 })
 
