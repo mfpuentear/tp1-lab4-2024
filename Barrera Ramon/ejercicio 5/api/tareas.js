@@ -3,7 +3,7 @@ import express from "express";
 const router = express.Router();
 
 let tareas = [
-  { id: 0, task: "pintar", completada: true},
+  // { id: 0, task: "pintar", completada: true},
   // { id: 2, task: 6, completada: 81, resultado: 87 },
   // { id: 5, task: 12, completada: 55, resultado: 87 },
 ];

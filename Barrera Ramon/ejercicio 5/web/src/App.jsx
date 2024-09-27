@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 function App() {
   const [task, setTask] = useState("");
   const [completada, setCompletado] = useState(false);
-  const [toalTarea, setToTalTarea] = useState(0);
   const [tarJS, setTarJS] = useState([])
 
   const getTareas = async () => {
@@ -19,7 +18,7 @@ function App() {
   // Obtenemos listado de sumas cuando se carga por primera vez el componente
   useEffect(() => {
     getTareas();
-  }, [tarJS]);
+  }, []);
   
   // useEffect(()=> {
   //   if (tarJS){
@@ -40,7 +39,26 @@ function App() {
   }
 
   }
+  const calcTarea = tarJS.reduce(
+    (acc, tarea) => {
+      acc.total += 1;
+      if (tarea.completada) acc.completadas += 1;
+      return acc;
+    },
+    { total: 0, completadas: 0 }
+  );
 
+  const eliminarTarea = async (id) => {
+    if (confirm("¿Quiere borrar la tarea?")) {
+      const response = await fetch(`http://localhost:3000/tareas/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setTarJS(tarJS.filter((tarea) => tarea.id !== id));
+      }
+    }
+  };
 
   return (
     <>
@@ -57,11 +75,13 @@ function App() {
     </form>
     <ul>
       {tarJS.map((ta) => {
-        return ( <li key={ta.id}>{ta.task} - {ta.completada ? "✅" : "❌"} </li> )
+        return ( <li key={ta.id}>{ta.task} - {ta.completada ? "✅" : "❌"} <button onClick={() => eliminarTarea(ta.id)}>Eliminar</button> </li> )
       })}
     </ul>
-    {/* {tarJS.reduce((acc, index) => acc++)
-      return ()} */}
+    <p>
+        Tareas: {calcTarea.total} - Completadas: {calcTarea.completadas} - Incompletas:{" "}
+        {calcTarea.total - calcTarea.completadas}
+      </p>
     </>
   );
 }
