@@ -49,7 +49,7 @@ function App() {
   }
 
   const modificarApi = async()=>{
-    if (!lista.find((item)=>item.nombre==nombre)){
+    if (!lista.find((item)=>item.nombre==nombre && item.id!==productoId)){
       const response = await fetch(`http://localhost:3000/productos/${productoId}`,{
         method:"PUT",
         headers:{"Content-Type":"application/json"},
@@ -72,29 +72,35 @@ function App() {
   return (
     <>
     <form onSubmit={handleSubmit}>
-      <div>
+      <div style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
         <label htmlFor="Nombre">Nombre del producto</label>
         <input type="text" onChange={(e)=>setNombre(e.target.value)} value={nombre} id='Nombre' />
-        <div>
+
         <label htmlFor="Precio">Precio del producto</label>
         <input type="number" onChange={(e)=>setPrecio(e.target.value)} value={precio} id='Precio'/>
-        </div>
+
         <button type='submit' disabled={productoId!=0 || nombre=="" || precio<=0}>Agregar</button>
       </div>
     </form>
 
     {productoId!==0 && (
       <>
-      <button onClick={()=>modificarApi()}>Modificar</button>
+      <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <button onClick={()=>modificarApi()} disabled={nombre=="" || precio<=0} >Modificar</button>
+        <button onClick={()=>setProductoId(0)}>Cancelar</button>
+      </div>
       </>
     )}
 
-    <ul>
-      {lista.map((item)=>(<li key={item.id}>{`Id: ${item.id}. Producto: ${item.nombre}. Precio: $${item.precio}`}
-        <button onClick={()=>handleQuitar(item.id)} disabled={productoId!==0}>X</button>
-        <button onClick={()=>handleEditar(item)} disabled={productoId!==0}>Editar</button>
-      </li>))}
-    </ul>
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+      <ul>
+        {lista.map((item)=>(<li key={item.id}>{`Id: ${item.id}. Producto: ${item.nombre}. Precio: $${item.precio}`}
+          <button onClick={()=>handleQuitar(item.id)} disabled={productoId!==0}>X</button>
+          <button onClick={()=>handleEditar(item)} disabled={productoId!==0}>Editar</button>
+        </li>))}
+      </ul>
+    </div>
+    
     </>
   )
 }
