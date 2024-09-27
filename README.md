@@ -13,10 +13,19 @@ cd
 `npm run dev`
 
 ## Ejercicio N°1 Calculadora
-![image](https://github.com/user-attachments/assets/a31fcc2d-264d-47be-8684-5e4272ff493e)
+![ej1](https://github.com/user-attachments/assets/a31fcc2d-264d-47be-8684-5e4272ff493e)
 
-## Ejercicio N°2 
-![image](https://github.com/user-attachments/assets/b5c033cf-4446-43c4-aa6a-137e2f655ab2)
+## Ejercicio N°2 perimetro y superficie
+![ej2](https://github.com/user-attachments/assets/b5c033cf-4446-43c4-aa6a-137e2f655ab2)
+
+## Ejercicio N°3 Prodctos
+![ej3](https://github.com/user-attachments/assets/50cb6b8e-e18d-4f92-bd7f-06b30cb0c5ef)
+
+## Ejercicio N°4 Alumnos
+![ej4](https://github.com/user-attachments/assets/fb52b1ad-0275-4166-9d92-3b08824cec24)
+ 
+
+
 
 
 
