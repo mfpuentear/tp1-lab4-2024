@@ -1,0 +1,40 @@
+h1{
+  margin-top: 1vh;
+  text-align: center;
+  color:rgb(252, 234, 71);
+}
+
+form{
+  padding-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  background-color: chocolate;
+  border-radius: 2%;
+  color:#fcea47;
+  font-size: large;
+}
+
+button{
+  margin: 2vh;
+  color:rgb(252, 234, 71);
+}
+h2{
+  text-align: center;
+  color:rgb(252, 234, 71);
+}
+ul{
+  width: 80vh;
+  background-color: bisque;
+  border-radius: 3%;
+}
+li{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: chocolate;
+  border: solid 1vh bisque;
+  border-radius: 3%;
+}
