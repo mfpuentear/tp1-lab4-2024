@@ -52,14 +52,12 @@ function App() {
     })
 
     if (res.ok) {
-      const index = tareas.findIndex((tarea) => tarea.id === editando.id)
-      const tareasActualizadas = [...tareas]
-      tareasActualizadas[index] = {
-        ...tareasActualizadas[index],
-        nombre,
-        completado,
+      const tarea = await res.json()
+      if (tarea.error) {
+        alert(tarea.error)
+        return
       }
-      setTareas(tareasActualizadas)
+      setTareas(tareas.map((t) => (t.id === editando.id ? tarea : t)))
       limpiar()
     }
   }
@@ -74,6 +72,12 @@ function App() {
       setTareas(tareasActualizadas)
       limpiar()
     }
+  }
+
+  const limpiar = () => {
+    setNombre("")
+    setCompletado(false)
+    setEditando(null)
   }
 
   return (
