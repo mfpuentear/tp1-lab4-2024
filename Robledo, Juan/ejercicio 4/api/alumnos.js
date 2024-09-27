@@ -9,7 +9,6 @@ let alumnos = [
 ];
 let alumnoIdMax = 4;
 
-//adaptar toda la aplicación para que funcione con alumnos
 // GET /alumnos
 router.get("/", (req, res) => {
   res.send({ data: alumnos });

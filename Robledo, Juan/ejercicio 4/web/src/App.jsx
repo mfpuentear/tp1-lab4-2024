@@ -29,7 +29,6 @@ function App() {
     if (response.ok) {
       const { data } = await response.json();
       setAlumnos(data);
-      console.log(data);
     }
   };
 
