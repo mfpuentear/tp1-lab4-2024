@@ -74,6 +74,7 @@ function App() {
         <div className="rectangulo" style={{width:`${ladoB}rem`,height:`${ladoA}rem`}}>
         <p className='ladoALabel'>Lado_A</p>
         <p className='ladoBLabel'>Lado_B</p>
+        <p className="queSoy">{(ladoA == ladoB) ? `Cuadrado`: `Rectangulo`}</p>
         </div>
       </div>
       <div className="listadoRectangulos">

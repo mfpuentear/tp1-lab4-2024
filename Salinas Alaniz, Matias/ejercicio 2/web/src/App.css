@@ -68,3 +68,8 @@ form{
   left: 50%;
   top: 101%;
 }
+.queSoy{
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+}
