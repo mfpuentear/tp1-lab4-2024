@@ -2,9 +2,7 @@ import express from "express";
 
 export const productosRouter = express.Router();
 
-let productos = [
-  { id: 6, FrutVerd: "banada", precioPorKg: 2100, cantidadKg: 1 },
-];
+let productos = [{ id: 6, verdura: "banada", precio: 2100, cantidad: 1 }];
 let productosMaxId = 0;
 
 productosRouter.get("/", (req, res) => {
@@ -20,23 +18,22 @@ productosRouter.get("/:id", (req, res) => {
 });
 
 productosRouter.post("/", (req, res) => {
-  const { precioPorKg, cantidadKg } = req.body;
+  const { verdura, precio, cantidad } = req.body;
 
-  if (productos.some((producto) => producto.FrutVerd === FrutVerd)) {
+  if (productos.some((producto) => producto.verdura === verdura)) {
     res.status(400).send({ mensaje: "El producto ya existe." });
-    return;
   }
-  if (precioPorKg < 0 || cantidadKg < 0) {
+  if (precio < 0 || cantidad < 0) {
     res.status(400).send({ mensaje: "no se puede negativos" });
-    return;
   }
 
+  const total = precio * cantidad;
   const producto = {
     id: ++productosMaxId,
-    FrutVerd: "banada",
-    precioPorKg: 2100,
-    cantidadKg: 1,
-    resultado: precioPorKg * cantidadKg,
+    verdura,
+    precio,
+    cantidad,
+    total,
     fecha: new Date(),
   };
   productos.push(producto);
@@ -46,23 +43,24 @@ productosRouter.post("/", (req, res) => {
 // PUT /productos/:id
 productosRouter.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const { precioPorKg, cantidadKg } = req.body;
+  const { precio, cantidad } = req.body;
 
-  if (productos.some((producto) => producto.FrutVerd === FrutVerd)) {
+  if (productos.some((producto) => producto.verdura === verdura)) {
     res.status(400).send({ mensaje: "El producto ya existe." });
     return;
   }
-  if (precioPorKg < 0 || cantidadKg < 0) {
-    res.status(400).send({ mensaje: "no se puede registrar" });
+  if (precio < 0 || cantidad < 0) {
+    res.status(400).send({ mensaje: "numeros negativos no" });
     return;
   }
+  const total = precio * cantidad;
 
   const productoModificada = {
     id,
     FrutVerd,
-    precioPorKg,
-    cantidadKg,
-    resultado: precioPorKg * cantidadKg,
+    precio,
+    cantidad,
+    total: precio * cantidad,
     fecha: new Date(),
   };
   productos = productos.map((producto) =>

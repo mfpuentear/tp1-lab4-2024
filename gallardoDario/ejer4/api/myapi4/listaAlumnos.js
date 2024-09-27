@@ -32,12 +32,10 @@ alumnosRouter.post("/", (req, res) => {
 
   if (alumnos.some((alumno) => alumno.alumnito === alumnito)) {
     res.status(400).send({ mensaje: "El alumno ya existe." });
-    return;
   }
 
   if (nota1 < 0 || nota2 < 0 || nota3 < 0) {
-    res.status(400).send({ mensaje: "no se puede registrar" });
-    return;
+    res.status(400).send({ mensaje: "notas bajas" });
   }
 
   const promedio = (nota1 + nota2 + nota3) / 3;
@@ -65,7 +63,7 @@ alumnosRouter.put("/:id", (req, res) => {
     return;
   }
   if (nota1 < 0 || nota2 < 0 || nota3 < 0) {
-    res.status(400).send({ mensaje: "no se puede registrar" });
+    res.status(400).send({ mensaje: "notas bajas" });
     return;
   }
   const promedio = (nota1 + nota2 + nota3) / 3;
