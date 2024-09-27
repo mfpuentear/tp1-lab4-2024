@@ -1,8 +1,5 @@
 import express from 'express'
-import { sumasRoute } from './sumas.js';
-import { divisionesRoute } from './diviones.js';
-import { restasRoute } from './restas.js';
-import { multiplicacionesRoute } from './multiplicaciones.js';
+import alumnosRoute from "./alumnos.js"
 import cors from 'cors';
 
 const app = express();
@@ -17,14 +14,8 @@ app.use(cors())
 app.get('/', (req, res) => {
     res.send('Hello world!')
 })
-app.use('/sumas',sumasRoute)
-
-app.use('/divisiones',divisionesRoute)
-
-app.use('/restas',restasRoute)
-
-app.use('/multiplicaciones', multiplicacionesRoute)
-
+// app.use('/sumas',sumasRoute)
+app.use("/alumnos", alumnosRoute)
 
 app.listen(port, () => {
     console.log(`La app esta esuchando el puerto ${port}`)
