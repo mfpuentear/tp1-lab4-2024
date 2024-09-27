@@ -24,7 +24,7 @@ productosRouter.get("/:id", (req,res) => {
 productosRouter.post("/", (req, res) => {
         const nombre = req.body.nombre;
         const precio = req.body.precio;
-        const productoConMismoNombre = productos.find((producto) => producto.nombre == nombre);  
+        const productoConMismoNombre = productos.find((producto) => producto.nombre.toLowerCase() == nombre.toLowerCase());  
         if(productoConMismoNombre){
             res.status(400).send({mensaje:"Ya hay un producto existente con el mismo nombre!"});
         }else{
@@ -43,7 +43,7 @@ productosRouter.put("/:id", (req, res) => {
     if(!productoExistente){
         res.status(400).send({mensaje:"Producto no encontrado!"});
     }else{
-        const productoConMismoNombre = productos.find((producto) => producto.nombre == nombre);  
+        const productoConMismoNombre = productos.find((producto) => producto.nombre.toLowerCase() == nombre.toLowerCase());  
         if(productoConMismoNombre){
             res.status(400).send({mensaje:"Ya hay un producto existente con el mismo nombre!"});
         }else{
