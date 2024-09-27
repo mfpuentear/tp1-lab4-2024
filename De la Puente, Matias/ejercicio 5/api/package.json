@@ -1,7 +1,7 @@
 {
-    "name": " TO-DOS ",
+    "name": " TODOS ",
     "version": "1.0.0",
-    "description": "lista Alumnos",
+    "description": "lista de quehaceres",
     "main": "index.js",
     "type": "module",
     "scripts": {
