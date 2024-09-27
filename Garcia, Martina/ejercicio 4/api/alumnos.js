@@ -5,7 +5,6 @@ export const alumnosRouter = express.Router()
 let listado = []
 let listadoMaxId = 0
 
-// GET request to fetch all alumnos
 alumnosRouter.get("/", (req, res) => {
     res.send({ listado })
 })
