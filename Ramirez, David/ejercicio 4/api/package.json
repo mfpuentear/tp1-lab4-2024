@@ -1,0 +1,16 @@
+{
+  "name": "ejercicio-4-ramirez",
+  "version": "1.0.0",
+  "description": "ejercicio 4",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch app.js"
+  },
+  "author": "David Ramirez",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  }
+}
