@@ -5,7 +5,6 @@ function App() {
   const [alumnos, setAlumnos] = useState([])
 
   const [nombre, setNombre] = useState('')
-  const [precio, setPrecio] = useState(0)
   const [notas, setNotas] = useState([0,0,0])
   const [alumnoSeleccionado, setAlumnoSeleccionado] = useState(null)
 
@@ -60,7 +59,7 @@ function App() {
   }
 
   const eliminarAlumno = async(alumno) =>{
-   if(confirm('Desea Eliminar El alumno')){ let peticion = {
+  if(confirm('Desea Eliminar El alumno')){ let peticion = {
       method:'DELETE',
       headers:{'Content-Type':'application/json'}
     }
