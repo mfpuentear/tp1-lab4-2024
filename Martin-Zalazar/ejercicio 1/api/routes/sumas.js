@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
     if(suma){
         return res.json({suma});
     }else{
-        return res.status(404).json({error: `No se encontro una suma con el id ${id}`}) 
+        return res.status(204).json({error: `No se encontro una suma con el id ${id}`}) 
     }
 })
 

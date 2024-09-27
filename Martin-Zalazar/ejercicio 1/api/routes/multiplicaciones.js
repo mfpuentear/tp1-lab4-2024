@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
     if(multiplicacion){
         return res.json({multiplicacion});
     }else{
-        return res.status(404).json({error: `No se encontro una multiplicacion con el id ${id}`}) 
+        return res.status(204).json({error: `No se encontro una multiplicacion con el id ${id}`}) 
     }
 })
 

@@ -17,7 +17,7 @@ router.get("/:id", (req, res) =>{
     if(alumno){
         return res.status(200).json({alumno});
     }else{
-        return res.status(404).json({error: `No se encontro un alumno con el id ${id}`});
+        return res.status(204).json({error: `No se encontro un alumno con el id ${id}`});
     }
 })
 

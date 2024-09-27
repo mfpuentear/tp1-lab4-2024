@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
     if(resta){
         return res.json({resta});
     }else{
-        return res.status(404).json({error: `No se encontro una resta con el id ${id}`}) 
+        return res.status(204).json({error: `No se encontro una resta con el id ${id}`}) 
     }
 })
 

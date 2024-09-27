@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
     if(division){
         return res.json({ division });
     }else{
-        return res.status(404).json({error: `No se encontro una division con el id ${id}`})
+        return res.status(204).json({error: `No se encontro una division con el id ${id}`})
     }
 
 });

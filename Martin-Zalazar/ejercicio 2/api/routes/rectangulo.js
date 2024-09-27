@@ -16,7 +16,7 @@ router.get("/:id", (req, res)=>{
     if(rectangulo){
         return res.json({rectangulo});
     }else{
-        return res.status(404).json({error: `No se encontro un rectangulo con el id ${id}`}) 
+        return res.status(204).json({error: `No se encontro un rectangulo con el id ${id}`}) 
     }
 })
 

@@ -17,7 +17,7 @@ router.get("/:id", (req, res) =>{
     if(tarea){
         return res.status(200).json({tarea});
     }else{
-        return res.status(400).json({error: `No se encontro la tarea con el id ${id}`});
+        return res.status(204).json({error: `No se encontro la tarea con el id ${id}`});
     }
 })
 
