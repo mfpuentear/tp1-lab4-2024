@@ -2,162 +2,96 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [tareas, setTareas] = useState([]);
-  const [tarea, setTarea] = useState("");
-  const [editandoTarea, setEditandoTarea] = useState(null); // Guardará la tarea que se está editando
+  const [nombre, setNombre] = useState("");
 
-  // Obtener las tareas del backend
+  // obtener datos
+  const getTareas = async () => {
+    const response = await fetch(`http://localhost:3005/tareas`);
+    if (response.ok) {
+      const { data } = await response.json();
+      setTareas(data);
+    }
+  };
+
   useEffect(() => {
-    const obtenerTareas = async () => {
-      try {
-        const respuesta = await fetch(`http://localhost:3005/tareas`);
-        const datos = await respuesta.json();
-        setTareas(datos); // Suponiendo que la API retorna todas las tareas
-      } catch (error) {
-        console.error("Error obteniendo tareas:", error);
-      }
-    };
-
-    obtenerTareas();
+    getTareas();
   }, []);
 
-  // Agregar una nueva tarea
-  const agregarTarea = async (e) => {
+  // nueva tarea
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!tarea.trim()) {
-      alert("Por favor, ingresa una tarea.");
-      return;
-    }
+    const response = await fetch(`http://localhost:3005/tareas`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre, completada: false }),
+    });
 
-    try {
-      const respuesta = await fetch(`http://localhost:3005/tareas`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ descripcion: tarea, completada: false }),
-      });
-
-      if (respuesta.ok) {
-        const nuevaTarea = await respuesta.json();
-        setTareas([...tareas, nuevaTarea]); // Actualizar lista de tareas
-        setTarea(""); // Limpiar campo de texto
-      }
-    } catch (error) {
-      console.error("Error agregando tarea:", error);
+    if (response.ok) {
+      const { data } = await response.json();
+      setTareas([...tareas, data]);
+      setNombre("");
     }
   };
 
-  // Marcar tarea como completada
-  const completarTarea = async (id) => {
-    try {
-      const respuesta = await fetch(
-        `http://localhost:3005/tareas/${id}/completar`,
-        {
-          method: "PUT",
-        }
-      );
+  const modificarTareaApi = async (tarea, estado) => {
+    const response = await fetch(`http://localhost:3005/tareas/${tarea.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...tarea, completada: estado }),
+    });
 
-      if (respuesta.ok) {
-        const tareaActualizada = await respuesta.json();
-        setTareas(
-          tareas.map((tarea) => (tarea.id === id ? tareaActualizada : tarea))
-        );
-      }
-    } catch (error) {
-      console.error("Error completando tarea:", error);
+    if (response.ok) {
+      const { data } = await response.json();
+      setTareas(tareas.map((t) => (t.id === data.id ? data : t)));
     }
   };
 
-  // Eliminar tarea
+  // eliminar tarea
   const eliminarTarea = async (id) => {
-    if (!window.confirm("¿Estás seguro de eliminar esta tarea?")) return;
-
-    try {
-      const respuesta = await fetch(`http://localhost:3005/tareas/${id}`, {
+    if (confirm("¿Quiere borrar la tarea?")) {
+      const response = await fetch(`http://localhost:3005/tareas/${id}`, {
         method: "DELETE",
       });
 
-      if (respuesta.ok) {
+      if (response.ok) {
         setTareas(tareas.filter((tarea) => tarea.id !== id));
       }
-    } catch (error) {
-      console.error("Error eliminando tarea:", error);
-    }
-  };
-
-  // Editar tarea
-  const editarTarea = (tarea) => {
-    setEditandoTarea(tarea);
-    setTarea(tarea.descripcion);
-  };
-
-  // Guardar cambios en la tarea editada
-  const guardarTareaEditada = async (e) => {
-    e.preventDefault();
-
-    if (!tarea.trim()) {
-      alert("Por favor, ingresa una descripción.");
-      return;
-    }
-
-    try {
-      const respuesta = await fetch(
-        `http://localhost:3005/tareas/${editandoTarea.id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ descripcion: tarea }),
-        }
-      );
-
-      if (respuesta.ok) {
-        const tareaActualizada = await respuesta.json();
-        setTareas(
-          tareas.map((t) =>
-            t.id === tareaActualizada.id ? tareaActualizada : t
-          )
-        );
-        setEditandoTarea(null);
-        setTarea(""); // Limpiar campo de texto
-      }
-    } catch (error) {
-      console.error("Error guardando tarea editada:", error);
     }
   };
 
   return (
     <div>
-      <h1>Lista de Tareas</h1>
-
-      <form onSubmit={editandoTarea ? guardarTareaEditada : agregarTarea}>
-        <input
-          type="text"
-          value={tarea}
-          onChange={(e) => setTarea(e.target.value)}
-          placeholder="Escribe una tarea"
-        />
-        <button type="submit">
-          {editandoTarea ? "Guardar Cambios" : "Agregar Tarea"}
-        </button>
-        {editandoTarea && (
-          <button
-            type="button"
-            onClick={() => {
-              setEditandoTarea(null);
-              setTarea("");
-            }}
-          >
-            Cancelar
-          </button>
-        )}
+      <h1>Tareas</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="nombre">Nombre del tarea: </label>
+          <input
+            required
+            type="text"
+            id="nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
+        </div>
+        <button type="submit">Agregar tarea</button>
       </form>
 
-      <h3>Tareas</h3>
+      <h3>Lista de tareas</h3>
       <ul>
         {tareas.map((tarea) => (
           <li key={tarea.id}>
-            {tarea.descripcion} {tarea.completada ? "(Completada)" : ""}
-            <button onClick={() => completarTarea(tarea.id)}>Completar</button>
-            <button onClick={() => editarTarea(tarea)}>Editar</button>
+            {`ID = ${tarea.id}`} <br />
+            {`Nombre = ${tarea.nombre}`} <br />
+            {`Completada = ${tarea.completada ? "Sí" : "No"}`} <br />
+            <br />
+            {tarea.completada ? (
+              <button onClick={() => modificarTareaApi(tarea, false)}>
+                ❌
+              </button>
+            ) : (
+              <button onClick={() => modificarTareaApi(tarea, true)}>✔️</button>
+            )}
             <button onClick={() => eliminarTarea(tarea.id)}>Eliminar</button>
           </li>
         ))}
