@@ -21,11 +21,15 @@ productos.post("/listaProductos", (req, res) => {
   ) {
     res.status(400).send("Verifique los datos enviados");
   } else {
-
-    const productoDuplicado = listaProductos.find((producto) => producto.nombreProducto.toLowerCase() === nombreProducto.toLowerCase());
+    const productoDuplicado = listaProductos.find(
+      (producto) =>
+        producto.nombreProducto.toLowerCase() === nombreProducto.toLowerCase()
+    );
 
     if (productoDuplicado) {
-      res.status(400).send(`El producto ${nombreProducto} ya existe en la lista`);
+      res
+        .status(400)
+        .send(`El producto ${nombreProducto} ya existe en la lista`);
     } else {
       const producto = {
         id: id++,
@@ -42,9 +46,7 @@ productos.post("/listaProductos", (req, res) => {
 
 productos.delete("/listaProductos/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  listaProductos = listaProductos.filter(
-    (item) =>  item.id !== id
-  );
+  listaProductos = listaProductos.filter((item) => item.id !== id);
   res.status(200).send({ id });
 });
 
@@ -52,20 +54,32 @@ productos.put("/listaProductos/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { nombreProducto, precio } = req.body;
 
-  const producto = listaProductos.find(
-    (item) => item.id === id
-  );
+  const producto = listaProductos.find((item) => item.id === id);
 
-  if (nombreProducto.trim().length === 0 ||
-  typeof nombreProducto != "string" ||
-  typeof precio != "number" ||
-  isNaN(precio) ||
-  precio <= 0) {
+  if (
+    nombreProducto.trim().length === 0 ||
+    typeof nombreProducto != "string" ||
+    typeof precio != "number" ||
+    isNaN(precio) ||
+    precio <= 0
+  ) {
     res.status(400).send("Datos incorrectos o no encontrados");
   } else {
-    producto.nombreProducto = nombreProducto;
-    producto.precio = precio
-    res.status(200).send({ producto });
-  }
 
+    
+    const productoDuplicado = listaProductos.find(
+      (producto) =>
+        producto.nombreProducto.toLowerCase() === nombreProducto.toLowerCase()
+    );
+
+    if (productoDuplicado) {
+      res
+        .status(400)
+        .send(`El producto que está modificando ya existe en la lista`);
+    } else {
+      producto.nombreProducto = nombreProducto;
+      producto.precio = precio;
+      res.status(200).send({ producto });
+    }
+  }
 });
