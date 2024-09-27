@@ -66,6 +66,12 @@ function App() {
     }
   }
 
+  const editarProducto = (producto) => {
+    setEditId(producto.id)
+    setNombre(producto.nombre)
+    setPrecio(producto.precio)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     editId ? modificarProducto() : agregarProducto()
@@ -74,18 +80,16 @@ function App() {
   return (
     <div>
       <h1>Lista de Productos</h1>
-
       <form onSubmit={handleSubmit}>
         <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} placeholder="Nombre del producto"/>
         <input type="number" value={precio} onChange={e => setPrecio(e.target.value)} placeholder="Precio"/>
         <button type="submit">{editId ? "Modificar Producto" : "Agregar Producto"}</button>
       </form>
-
       <ul>
         {productos.map(producto => (
           <li key={producto.id}>
             {producto.nombre} - ${producto.precio}
-            <button onClick={() => { setEditId(producto.id); setNombre(producto.nombre); setPrecio(producto.precio); }}>Editar</button>
+            <button onClick={() => editarProducto(producto)}>Editar</button>
             <button onClick={() => quitarProducto(producto.id)}>Eliminar</button>
           </li>
         ))}
