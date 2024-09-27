@@ -113,7 +113,7 @@ function App() {
       <ul>
         {areas.map((area) => (
           <li key={area.id}>
-            {`${area.id}: ${area.a} x ${area.b} = ${area.resultado} - ${area.a==area.b?'Cuadrado':'Rectángulo'}`}
+            {`${area.id}: (${area.a} x ${area.b}) A = ${area.resultado}, P=${area.peri} - ${area.a==area.b?'Cuadrado':'Rectángulo'}`}
             <button onClick={() => modificarArea(area)} disabled={areaId !== 0}>
               E
             </button>

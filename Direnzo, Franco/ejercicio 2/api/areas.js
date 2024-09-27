@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
 // POST /areas
 router.post("/", (req, res) => {
   const { a, b } = req.body;
-  const area = { id: ++areasMaxId, a, b, resultado: a * b, fecha: new Date() };
+  const area = { id: ++areasMaxId, a, b, resultado: a * b, peri:a*2+b*2, fecha: new Date() };
   areas.push(area);
   res.status(201).send({ area });
 });
@@ -30,7 +30,7 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { a, b } = req.body;
-  const areaModificada = { id, a, b, resultado: a * b, fecha: new Date() };
+  const areaModificada = { id, a, b, resultado: a * b,peri:a*2+b*2, fecha: new Date() };
   areas = areas.map((area) => (area.id === id ? areaModificada : area));
   res.status(200).send({ area: areaModificada });
 });
