@@ -16,6 +16,7 @@
 - Se considera no entregado si se realiza el pull request luego de las 12:00 hs del sábado 28/09/24.
 
 ## Ejercicio N°1 Calculadora
+![image](https://github.com/user-attachments/assets/a31fcc2d-264d-47be-8684-5e4272ff493e)
 
 ## Ejercicio N°2 
 
