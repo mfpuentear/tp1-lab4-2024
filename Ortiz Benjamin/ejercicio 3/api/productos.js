@@ -20,6 +20,14 @@ productosRouter.post("/", (req, res) => {
   if (!nombre || precio === undefined || precio <= 0) {
     res.status(400).send({ mensaje: "campos invalidos" });
   }
+
+  const productoExistente = productos.find(
+    (producto) => producto.nombre === nombre
+  );
+  if (productoExistente) {
+    return res.status(400).send({ mensaje: "El producto ya existe" });
+  }
+
   const producto = {
     id: ++productoMaxId,
     nombre: nombre,
@@ -34,6 +42,13 @@ productosRouter.put("/:id", (req, res) => {
   const { nombre, precio } = req.body;
   if (!nombre || precio === undefined || precio <= 0)
     res.status(400).send({ mensaje: "campos invalidos" });
+
+  const productoExistente = productos.find(
+    (producto) => producto.nombre === nombre
+  );
+  if (productoExistente) {
+    return res.status(400).send({ mensaje: "El producto ya existe" });
+  }
   const productoModificado = {
     id: id,
     nombre,

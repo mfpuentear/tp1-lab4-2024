@@ -10,8 +10,8 @@ function App() {
   const getOperaciones = async () => {
     const response = await fetch(`http://localhost:3000/${tipoOperaciones}`);
     if (response.ok) {
-      const { data } = await response.json();
-      setOperaciones(data);
+      const data = await response.json();
+      setOperaciones(data.operacion);
     }
   };
 

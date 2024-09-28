@@ -2,7 +2,15 @@ import express from "express";
 
 export const alumnosRouter = express.Router();
 
-let alumnos = [];
+let alumnos = [
+  {
+    id: 1,
+    nombre: "ben",
+    nota1: 1,
+    nota2: 2,
+    nota3: 3,
+  },
+];
 let alumnosMaxId = 0;
 
 alumnosRouter.get("/", (req, res) => {
@@ -20,7 +28,7 @@ alumnosRouter.get("/:id", (req, res) => {
 
 alumnosRouter.post("/", (req, res) => {
   const { id } = parseInt(req.params);
-  const { nombre, apellido, nota1, nota2, nota3 } = req.body;
+  const { nombre, nota1, nota2, nota3 } = req.body;
   const repetido = alumnos.find((alum) => alum.nombre === nombre);
 
   if (nota1 <= 0 || nota2 <= 0 || nota3 <= 0 || repetido) {
@@ -32,7 +40,6 @@ alumnosRouter.post("/", (req, res) => {
   const alumnoNuevo = {
     id: ++alumnosMaxId,
     nombre: nombre,
-    apellido: apellido,
     nota1: nota1,
     nota2: nota2,
     nota3: nota3,
@@ -43,7 +50,7 @@ alumnosRouter.post("/", (req, res) => {
 
 alumnosRouter.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const { nombre, apellido, nota1, nota2, nota3 } = req.body;
+  const { nombre, nota1, nota2, nota3 } = req.body;
   const repetido = alumnos.find((alum) => alum.nombre === nombre);
   if (nota1 <= 0 || nota2 <= 0 || nota3 <= 0 || repetido) {
     return res.status(400).send({
@@ -54,7 +61,6 @@ alumnosRouter.put("/:id", (req, res) => {
   const alumnoModificado = {
     id: id,
     nombre: nombre,
-    apellido: apellido,
     nota1: nota1,
     nota2: nota2,
     nota3: nota3,
