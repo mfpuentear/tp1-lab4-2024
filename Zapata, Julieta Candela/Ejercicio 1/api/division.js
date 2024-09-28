@@ -1,5 +1,7 @@
 import express from "express";
 
+export const divisionesRouter = express.Router();
+
 const divisiones = [];
 let divisionesMaxId = 0;
 
@@ -38,4 +40,3 @@ divisionesRouter.delete("/:id", (req, res) => {
   res.status(200).send({ id });
 });
 
-export const divisionesRouter = express.Router();

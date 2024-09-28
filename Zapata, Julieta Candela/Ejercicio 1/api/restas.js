@@ -1,5 +1,7 @@
 import express from "express";
 
+export const restasRouter = express.Router();
+
 let restas = [];
 let restasMaxId = 0;
 
@@ -21,11 +23,11 @@ restasRouter.get("/:id", (req, res) => {
 restasRouter.post("/", (req, res) => {
   const a = req.body.a;
   if (a == null) {
-    res.status(404).send({ mensaje: "falta incluir el campo a" });
+    res.status(404).send({ mensaje: "Completar el campo a" });
   }
   const b = req.body.b;
   if (b == null) {
-    res.status(404).send({ mensaje: "falta incluir el campo b" });
+    res.status(404).send({ mensaje: "Completar el campo b" });
   }
   const resta = {
     id: ++restasMaxId,
@@ -70,4 +72,3 @@ restasRouter.delete("/:id", (req, res) => {
   res.status(200).send({ id });
 });
 
-export const restasRouter = express.Router();

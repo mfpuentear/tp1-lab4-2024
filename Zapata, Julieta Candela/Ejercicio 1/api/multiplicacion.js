@@ -1,5 +1,7 @@
 import express from "express";
 
+export const multiplicacionesRouter = express.Router();
+
 let multiplicaciones = [];
 let multiplicacionesMaxId = 0;
 
@@ -23,11 +25,11 @@ multiplicacionesRouter.get("/:id", (req, res) => {
 multiplicacionesRouter.post("/", (req, res) => {
   const a = req.body.a;
   if (a == null) {
-    res.status(404).send({ mensaje: "falta incluir el campo a" });
+    res.status(404).send({ mensaje: "Completar el campo a" });
   }
   const b = req.body.b;
   if (b == null) {
-    res.status(404).send({ mensaje: "falta incluir el campo b" });
+    res.status(404).send({ mensaje: "Completar el campo b" });
   }
   const multiplicacion = {
     id: ++multiplicacionesMaxId,
@@ -80,4 +82,3 @@ multiplicacionesRouter.delete("/:id", (req, res) => {
   res.status(200).send({ id });
 });
 
-export const multiplicacionesRouter = express.Router();
