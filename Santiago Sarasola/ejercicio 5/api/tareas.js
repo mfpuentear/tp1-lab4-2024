@@ -44,7 +44,7 @@ tareasRouter.put("/:id", (req, res) => {
     if(!tareaExistente){
         res.status(400).send({mensaje:"Tarea no encontrada!"});
     }else{
-        const tareaConMismoNombre = tareas.find((tarea) => tarea.nombre.toLowerCase() == nombre.toLowerCase());  
+        const tareaConMismoNombre = tareas.find((tarea) => tarea.nombre.toLowerCase() == nombre.toLowerCase() && tarea.id != id);  
         if(tareaConMismoNombre){
             res.status(400).send({mensaje:"Ya hay una tarea existente con el mismo nombre!"});
         }else{

@@ -1,6 +1,6 @@
 {
   "name": "api-tareas",
- "version": "1.0.0",
+  "version": "1.0.0",
   "description": "API de para listado de tareas",
   "main": "index.js",
   "type": "module",
