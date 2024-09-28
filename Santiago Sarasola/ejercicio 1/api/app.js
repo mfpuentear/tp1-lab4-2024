@@ -8,11 +8,11 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
 app.use("/sumas", sumasRouter);
 app.use("/restas", restasRouter);
 app.use("/divisiones", divisionesRouter);
 app.use("/multiplicaciones", multiplicacionesRouter);
-app.use(cors());
 
 app.listen(port, () => {
     console.log(`Aplicacion funcionando en puerto: ${port}`);

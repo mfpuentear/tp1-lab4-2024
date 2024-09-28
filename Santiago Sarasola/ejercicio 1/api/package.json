@@ -1,6 +1,6 @@
 {
   "name": "api-calculadora",
- "version": "1.0.0",
+  "version": "1.0.0",
   "description": "API de una calculadora",
   "main": "index.js",
   "type": "module",

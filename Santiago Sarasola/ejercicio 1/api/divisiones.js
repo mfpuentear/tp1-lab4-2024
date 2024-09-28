@@ -34,13 +34,13 @@ divisionesRouter.post("/", (req,res) => {
     }
 
     const division = {
-        id: ++divisionesMaxId,
-        a,
-        b, 
-        resultado: a / b, 
-        fecha: new Date()};
+    id: ++divisionesMaxId,
+    a,
+    b, 
+    resultado: a / b, 
+    fecha: new Date()};
     divisiones.push(division);
-    res.status(201).send({data: division});
+    res.status(201).send({division});
 });
 
 //PUT /divisiones/:id
@@ -56,11 +56,11 @@ divisionesRouter.put('/:id', (req,res) =>{
         if(b===0){
             res.status(400).send({mensaje:'Division por 0 no valida!'});
         }else{
-            division.a = a;
-            division.b = b;
-            division.resultado = a / b;
-            division.fecha = new Date();
-            res.status(200).send({division});
+            const a = req.body.a;
+            const b = req.body.b;
+            const divisionModificada = {id : parseInt(id), a, b, resultado:a/b, fecha:new Date()};   
+            divisiones = divisiones.map((division) => (division.id == id ?  divisionModificada : division));
+            res.status(200).send({divisionModificada});
         }
     }
 });

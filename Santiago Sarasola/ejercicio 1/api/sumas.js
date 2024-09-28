@@ -36,26 +36,15 @@ sumasRouter.post("/", (req,res) => {
 //PUT /sumas/:id
 sumasRouter.put('/:id', (req,res) =>{
     const { id } = req.params;
-    // const a = req.body.a;
-    // const b = req.body.b;
-    // const sumaModificada = {id, a, b, resultado:a+b, fecha:new Date()};
-    // sumas = sumas.map((suma) => (suma.id == id ? sumaModificada : suma));
-    // if(!sumas){
-    //     res.status(400).send({mensaje:"Suma no encontrada!"});
-    // }
-    // res.status(200).send({suma: sumas});
-
     const suma = sumas.find((suma) => suma.id == parseInt(id));
     if(!suma){
         res.status(400).send({mensaje:"Suma no encontrada!"});
     }else{
         const a = req.body.a;
         const b = req.body.b;
-        suma.a = a;
-        suma.b = b;
-        suma.resultado = a + b;
-        suma.fecha = new Date();
-        res.status(200).send({suma});
+        const sumaModificada = {id : parseInt(id), a, b, resultado:a+b, fecha:new Date()};       
+        sumas = sumas.map((suma) => (suma.id == id ?  sumaModificada : suma));
+        res.status(200).send({sumaModificada});
     }
 });
 

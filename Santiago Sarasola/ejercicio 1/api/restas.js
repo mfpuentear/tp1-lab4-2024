@@ -45,11 +45,9 @@ restasRouter.put('/:id', (req,res) =>{
     }else{
         const a = req.body.a;
         const b = req.body.b;
-        resta.a = a;
-        resta.b = b;
-        resta.resultado = a - b;
-        resta.fecha = new Date();
-        res.status(200).send({resta});
+        const restaModificada = {id : parseInt(id), a, b, resultado:a-b, fecha:new Date()};       
+        restas = restas.map((resta) => (resta.id == id ?  restaModificada : resta));
+        res.status(200).send({restaModificada});
     }
 })
 

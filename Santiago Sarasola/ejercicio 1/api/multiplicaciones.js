@@ -42,11 +42,9 @@ multiplicacionesRouter.put('/:id', (req,res) =>{
     }else{
         const a = req.body.a;
         const b = req.body.b;
-        multiplicacion.a = a;
-        multiplicacion.b = b;
-        multiplicacion.resultado = a * b;
-        multiplicacion.fecha = new Date();
-        res.status(200).send({multiplicacion});
+        const multiplicacionModificada = {id : parseInt(id), a, b, resultado:a*b, fecha:new Date()};   
+        multiplicaciones = multiplicaciones.map((multiplicacion) => (multiplicacion.id == id ?  multiplicacionModificada : multiplicacion));
+        res.status(200).send({multiplicacionModificada});
     }
 });
 
