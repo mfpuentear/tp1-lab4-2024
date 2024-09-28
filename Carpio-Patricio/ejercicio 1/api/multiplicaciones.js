@@ -2,19 +2,12 @@ import express from "express";
 
 export const multiplicacionesRoute = express.Router();
 
-let multiplicaciones = [
-  { id: 1, a: 8, b: 2, resultado: 16 },
-  { id: 2, a: 18, b: 3, resultado: 54 },
-  { id: 3, a: 880, b: 8, resultado: 7040 },
-];
-let multiplicacionesMaxid = 0;
+let multiplicaciones = [];
 
-// obtener todas las multiplicaciones
 multiplicacionesRoute.get("/", (req, res) => {
   return res.json({ data: multiplicaciones });
 });
 
-// obtener una multiplicacion por id
 multiplicacionesRoute.get("/:id", (req, res) => {
   const { id } = req.params;
   const multiplicacionEncontrada = multiplicaciones.find(
@@ -28,11 +21,14 @@ multiplicacionesRoute.get("/:id", (req, res) => {
   return res.json({ data: multiplicacionEncontrada });
 });
 
-// agregar una nueva multiplicacion
 multiplicacionesRoute.post("/", (req, res) => {
   const { a, b } = req.body;
+  const nuevoId =
+    multiplicaciones.length > 0
+      ? multiplicaciones[multiplicaciones.length - 1].id + 1
+      : 1;
   const nuevamultiplicacion = {
-    id: ++multiplicacionesMaxid,
+    id: nuevoId,
     a,
     b,
     resultado: a * b,
@@ -42,7 +38,6 @@ multiplicacionesRoute.post("/", (req, res) => {
   return res.status(201).json({ data: nuevamultiplicacion });
 });
 
-//  eliminar una multiplicacion por ID
 multiplicacionesRoute.delete("/:id", (req, res) => {
   const { id } = req.params;
   multiplicaciones = multiplicaciones.filter(
@@ -52,13 +47,12 @@ multiplicacionesRoute.delete("/:id", (req, res) => {
   return res.status(202).send({ id });
 });
 
-// actualizar una multiplicacion existente
 multiplicacionesRoute.put("/:id", (req, res) => {
   const { id } = req.params;
   const { a, b } = req.body;
 
   const multiplicacionActualizada = {
-    id: id,
+    id: parseInt(id),
     a,
     b,
     resultado: a * b,

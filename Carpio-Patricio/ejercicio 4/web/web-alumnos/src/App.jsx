@@ -11,7 +11,7 @@ function App() {
 
   // Obtener alumnos
   const getAlumnos = async () => {
-    const response = await fetch(`http://localhost:3004/alumnos`);
+    const response = await fetch(`http://localhost:3003/alumnos`);
     if (response.ok) {
       const { data } = await response.json();
       setAlumnos(data);
@@ -40,7 +40,7 @@ function App() {
       return;
     }
 
-    const response = await fetch(`http://localhost:3004/alumnos`, {
+    const response = await fetch(`http://localhost:3003/alumnos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre, nota1, nota2, nota3 }),
@@ -69,7 +69,7 @@ function App() {
       return;
     }
 
-    const response = await fetch(`http://localhost:3004/alumnos/${alumnoId}`, {
+    const response = await fetch(`http://localhost:3003/alumnos/${alumnoId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre, nota1, nota2, nota3 }),
@@ -88,7 +88,7 @@ function App() {
   // Eliminar
   const quitarAlumno = async (id) => {
     if (confirm("borrar el alumno?")) {
-      const response = await fetch(`http://localhost:3004/alumnos/${id}`, {
+      const response = await fetch(`http://localhost:3003/alumnos/${id}`, {
         method: "DELETE",
       });
 

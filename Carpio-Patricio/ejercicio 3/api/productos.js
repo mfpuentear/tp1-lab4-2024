@@ -3,7 +3,6 @@ import express from "express";
 export const productosRoute = express.Router();
 
 let productos = [];
-let productosMaxid = 0;
 
 // obtener todas los productos
 productosRoute.get("/", (req, res) => {
@@ -33,12 +32,9 @@ productosRoute.post("/", (req, res) => {
         precio <= 0 ? "el precio debe ser mayor a 0" : "el producto ya existe",
     });
   }
-  /*
-  if (nombrecomp) {
-    return res.status(400).send({ mensaje: "nombre ya existente" });
-  }
-  */
-  const nuevoproducto = { id: ++productosMaxid, nombre, precio };
+  const nuevoId =
+    productos.length > 0 ? productos[productos.length - 1].id + 1 : 1;
+  const nuevoproducto = { id: nuevoId, nombre, precio };
   productos.push(nuevoproducto);
 
   return res.status(201).json({ data: nuevoproducto });
@@ -56,7 +52,9 @@ productosRoute.delete("/:id", (req, res) => {
 productosRoute.put("/:id", (req, res) => {
   const { id } = req.params;
   const { nombre, precio } = req.body;
-  const nombrecomp = productos.find((prod) => prod.nombre === nombre);
+  const nombrecomp = productos.find(
+    (prod) => prod.nombre === nombre && prod.id !== id
+  );
 
   if (precio <= 0 || nombrecomp) {
     return res.status(400).send({
@@ -66,7 +64,7 @@ productosRoute.put("/:id", (req, res) => {
   }
 
   const productoActualizado = {
-    id: id,
+    id: parseInt(id),
     nombre,
     precio,
     fecha: new Date(),

@@ -2,12 +2,7 @@ import express from "express";
 
 export const sumasRoute = express.Router();
 
-let sumas = [
-  { id: 1, a: 8, b: 2, resultado: 10 },
-  { id: 2, a: 18, b: 3, resultado: 21 },
-  { id: 3, a: 880, b: 8, resultado: 888 },
-];
-let sumasMaxid = 0;
+let sumas = [];
 
 // obtener todas las sumas
 sumasRoute.get("/", (req, res) => {
@@ -29,7 +24,8 @@ sumasRoute.get("/:id", (req, res) => {
 // agregar una nueva suma
 sumasRoute.post("/", (req, res) => {
   const { a, b } = req.body;
-  const nuevaSuma = { id: ++sumasMaxid, a, b, resultado: a + b };
+  const nuevoId = sumas.length > 0 ? sumas[sumas.length - 1].id + 1 : 1;
+  const nuevaSuma = { id: nuevoId, a, b, resultado: a + b };
 
   sumas.push(nuevaSuma);
   return res.status(201).json({ data: nuevaSuma });
@@ -49,7 +45,7 @@ sumasRoute.put("/:id", (req, res) => {
   const { a, b } = req.body;
 
   const sumaActualizada = {
-    id: id,
+    id: parseInt(id),
     a,
     b,
     resultado: a + b,

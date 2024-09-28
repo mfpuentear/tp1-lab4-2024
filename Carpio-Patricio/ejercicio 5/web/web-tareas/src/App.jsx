@@ -6,7 +6,7 @@ function App() {
 
   // obtener datos
   const getTareas = async () => {
-    const response = await fetch(`http://localhost:3005/tareas`);
+    const response = await fetch(`http://localhost:3004/tareas`);
     if (response.ok) {
       const { data } = await response.json();
       setTareas(data);
@@ -21,7 +21,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:3005/tareas`, {
+    const response = await fetch(`http://localhost:3004/tareas`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre, completada: false }),
@@ -35,7 +35,7 @@ function App() {
   };
 
   const modificarTareaApi = async (tarea, estado) => {
-    const response = await fetch(`http://localhost:3005/tareas/${tarea.id}`, {
+    const response = await fetch(`http://localhost:3004/tareas/${tarea.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...tarea, completada: estado }),
@@ -50,7 +50,7 @@ function App() {
   // eliminar tarea
   const eliminarTarea = async (id) => {
     if (confirm("¿Quiere borrar la tarea?")) {
-      const response = await fetch(`http://localhost:3005/tareas/${id}`, {
+      const response = await fetch(`http://localhost:3004/tareas/${id}`, {
         method: "DELETE",
       });
 

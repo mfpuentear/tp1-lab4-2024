@@ -2,8 +2,7 @@ import express from "express";
 
 export const rectangulosRoute = express.Router();
 
-let rectangulos = [];
-let rectangulosMaxId = 0;
+let rectangulos = [{ id: 1, a: 2, b: 2, superficie: 4, perimetro: 8 }];
 
 //mostrar
 rectangulosRoute.get("/", (req, res) => {
@@ -25,10 +24,12 @@ rectangulosRoute.get("/:id", (req, res) => {
 //agregar
 rectangulosRoute.post("/", (req, res) => {
   const { a, b } = req.body;
-  const perimetro = 2 * (a + b);
   const superficie = a * b;
+  const perimetro = 2 * superficie;
+  const nuevoId =
+    rectangulos.length > 0 ? rectangulos[rectangulos.length - 1].id + 1 : 1;
   const nuevoRectangulo = {
-    id: ++rectangulosMaxId,
+    id: nuevoId,
     a,
     b,
     perimetro,
@@ -52,15 +53,15 @@ rectangulosRoute.put("/:id", (req, res) => {
   const { id } = req.params;
   const { a, b } = req.body;
 
-  const perimetro = 2 * (a + b);
   const superficie = a * b;
+  const perimetro = 2 * superficie;
 
   const rectanguloActualizado = {
     id: parseInt(id),
     a,
     b,
-    perimetro,
     superficie,
+    perimetro,
   };
 
   rectangulos = rectangulos.map((rect) =>

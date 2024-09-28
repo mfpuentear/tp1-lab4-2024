@@ -2,12 +2,7 @@ import express from "express";
 
 export const divisionesRoute = express.Router();
 
-let divisiones = [
-  { id: 1, a: 8, b: 2, resultado: 4 },
-  { id: 2, a: 18, b: 3, resultado: 6 },
-  { id: 3, a: 880, b: 8, resultado: 110 },
-];
-let divisionesMaxid = 0;
+let divisiones = [];
 
 // obtener todas las divisiones
 divisionesRoute.get("/", (req, res) => {
@@ -33,8 +28,9 @@ divisionesRoute.post("/", (req, res) => {
   if (b === 0) {
     return res.status(400).send({ mensaje: "No se puede dividir por cero" });
   }
-
-  const nuevaDivision = { id: ++divisionesMaxid, a, b, resultado: a / b };
+  const nuevoId =
+    divisiones.length > 0 ? divisiones[divisiones.length - 1].id + 1 : 1;
+  const nuevaDivision = { id: nuevoId, a, b, resultado: a / b };
 
   divisiones.push(nuevaDivision);
   return res.status(201).json({ data: nuevaDivision });
@@ -58,7 +54,7 @@ divisionesRoute.put("/:id", (req, res) => {
   }
 
   const divisionActualizada = {
-    id: id,
+    id: parseInt(id),
     a,
     b,
     resultado: a / b,

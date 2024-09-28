@@ -2,12 +2,7 @@ import express from "express";
 
 export const restasRoute = express.Router();
 
-let restas = [
-  { id: 1, a: 8, b: 2, resultado: 6 },
-  { id: 2, a: 18, b: 3, resultado: 15 },
-  { id: 3, a: 880, b: 8, resultado: 872 },
-];
-let restasMaxid = 0;
+let restas = [];
 
 // obtener todas las restas
 restasRoute.get("/", (req, res) => {
@@ -29,7 +24,8 @@ restasRoute.get("/:id", (req, res) => {
 // agregar una nueva resta
 restasRoute.post("/", (req, res) => {
   const { a, b } = req.body;
-  const nuevaResta = { id: ++restasMaxid, a, b, resultado: a - b };
+  const nuevoId = restas.length > 0 ? restas[restas.length - 1].id + 1 : 1;
+  const nuevaResta = { nuevoId, a, b, resultado: a - b };
 
   restas.push(nuevaResta);
   return res.status(201).json({ data: nuevaResta });
@@ -49,7 +45,7 @@ restasRoute.put("/:id", (req, res) => {
   const { a, b } = req.body;
 
   const restaActualizada = {
-    id: id,
+    id: parseInt(id),
     a,
     b,
     resultado: a - b,

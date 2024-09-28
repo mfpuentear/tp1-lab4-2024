@@ -3,7 +3,7 @@ import { tareasRoute } from "./tareas.js";
 import cors from "cors";
 
 const app = express();
-const port = 3005;
+const port = 3004;
 
 //interpretar json en body
 app.use(express.json());

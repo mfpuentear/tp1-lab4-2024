@@ -4,6 +4,8 @@ function App() {
   const [rectangulos, setRectangulos] = useState([]);
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);
+  const [perimetro, setPerimetro] = useState(0);
+  const [superficie, setSuperficie] = useState(0);
   const [rectanguloId, setRectanguloId] = useState(0);
   const [mensaje, setMensaje] = useState("");
 
@@ -37,7 +39,7 @@ function App() {
     const response = await fetch(`http://localhost:3001/rectangulo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ a, b }),
+      body: JSON.stringify({ a, b, perimetro, superficie }),
     });
 
     if (response.ok) {
@@ -45,6 +47,8 @@ function App() {
       setRectangulos([...rectangulos, data]);
       setA(0);
       setB(0);
+      setPerimetro(0);
+      setSuperficie(0);
     }
   };
 
@@ -136,8 +140,8 @@ function App() {
             {`Rectangulo ${rectangulo.id}:`} <br />
             {`Lado a = ${rectangulo.a}`} <br />
             {`Lado b = ${rectangulo.b}`} <br />
-            {`Perimetro = ${2 * (rectangulo.a + rectangulo.b)}`} <br />
-            {`Superficie = ${rectangulo.a * rectangulo.b}`}
+            {`Perimetro = ${rectangulo.perimetro}`} <br />
+            {`Superficie = ${rectangulo.superficie}`}
             <br />
             <button
               onClick={() => modificarRectangulo(rectangulo)}

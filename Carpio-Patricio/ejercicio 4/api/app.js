@@ -3,7 +3,7 @@ import { alumnosRoute } from "./alumnos.js";
 import cors from "cors";
 
 const app = express();
-const port = 3004;
+const port = 3003;
 
 //interpretar json en body
 app.use(express.json());
