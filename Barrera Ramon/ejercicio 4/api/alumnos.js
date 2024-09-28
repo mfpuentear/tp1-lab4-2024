@@ -3,7 +3,7 @@ import express from "express";
 const router = express.Router();
 
 let alumnos = [
-  { id: 0, nombre: "Ramon", nota1: 6, nota2: 8, nota3: 10,},
+  // { id: 0, nombre: "Ramon", nota1: 6, nota2: 8, nota3: 10,},
   // { id: 2, nombre: 6, nota1: 81, resultado: 87 },
   // { id: 5, nombre: 12, nota1: 55, resultado: 87 },
 ];

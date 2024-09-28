@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     getAlumnos();
-  }, [nombres]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,13 +33,13 @@ function App() {
       body: JSON.stringify({ nombre, nota1, nota2, nota3  }),
     });
     if (res.ok) {
-      const { data } = await res.json();
-      set([...nombres, data])
-  }
-  setNombre("")
-  setNota1("")
-  setNota2("")
-  setNota3("")
+      const { alum } = await res.json();
+      setNombres([...nombres, alum])
+    }
+    setNombre("")
+    setNota1("")
+    setNota2("")
+    setNota3("")
     }
   };
 
@@ -56,28 +56,28 @@ function App() {
     }
   };
 
-  // const modificarAlumno = async (id) => {
-  //   const res = await fetch(`http://localhost:3000/alumnos/${id}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ nombre, nota1, nota2, nota3}),
-  //   });
+  const modificarAlumno = async (id) => {
+    const res = await fetch(`http://localhost:3000/alumnos/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre, nota1, nota2, nota3}),
+    });
 
-  //   if (res.ok) {
-  //     const { data } = await res.json();
-  //     setNombres(nombres.map((t) => (t.id === data.id ? data : t)));
-  //   }
-  // };
+    if (res.ok) {
+      const { data } = await res.json();
+      setNombres(nombres.map((t) => (t.id === data.id ? data : t)));
+    }
+  };
     
-  // const modificarAlumn = (alumno) => {
+  const modificarAlumn = (alumno) => {
 
-  //   setNombre(alumno.nombre);
-  //   setNota1(alumno.nota1);
-  //   setNota2(alumno.nota2);
-  //   setNota3(alumno.nota3);
-  //   setSumaId(alumno.id);
+    setNombre(alumno.nombre);
+    setNota1(alumno.nota1);
+    setNota2(alumno.nota2);
+    setNota3(alumno.nota3);
+    setSumaId(alumno.id);
     
-  // }
+  }
     
   return (
     <>
@@ -100,7 +100,7 @@ function App() {
         const promedio = (parseInt(ele.nota1) + parseInt(ele.nota2) + parseInt(ele.nota3)) / 3
         const condicion = promedio < 6 ? "Reprobado"  : promedio >= 8  ? "Promocionado" : "Aprobado";
         return ( <li key={ele.id}> {ele.nombre} | Notas: {ele.nota1} - {ele.nota2} - {ele.nota3} | <br />
-        Promedio: {promedio.toFixed(2)} | Condición: {condicion} <button onClick={() => eliminarAlumno(ele.id)}>Eliminar</button> <button onClick={() => modificarAlumno(ele.id)}>Editar</button> </li> )
+        Promedio: {promedio.toFixed(2)} | Condición: {condicion} <button onClick={() => eliminarAlumno(ele.id)}>Eliminar</button> <button onClick={() => modificarAlumn(ele)}>Editar</button> </li> )
       })}
     </ul>
     </>
