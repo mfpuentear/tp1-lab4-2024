@@ -27,6 +27,8 @@ productosRouter.post("/", (req, res) => {
         const productoConMismoNombre = productos.find((producto) => producto.nombre.toLowerCase() == nombre.toLowerCase());  
         if(productoConMismoNombre){
             res.status(400).send({mensaje:"Ya hay un producto existente con el mismo nombre!"});
+        }else if(precio < 0){
+            res.status(400).send({mensaje:"El precio no puede ser negativo!"});
         }else{
             const nuevoProducto = {id: ++productosMaxId, nombre: nombre, precio: precio, fecha: new Date()};
             productos.push(nuevoProducto);
@@ -43,9 +45,11 @@ productosRouter.put("/:id", (req, res) => {
     if(!productoExistente){
         res.status(400).send({mensaje:"Producto no encontrado!"});
     }else{
-        const productoConMismoNombre = productos.find((producto) => producto.nombre.toLowerCase() == nombre.toLowerCase());  
+        const productoConMismoNombre = productos.find((producto) => producto.nombre.toLowerCase() == nombre.toLowerCase() && producto.id != id);  
         if(productoConMismoNombre){
             res.status(400).send({mensaje:"Ya hay un producto existente con el mismo nombre!"});
+        }else if(precio<0){
+            res.status(400).send({mensaje:"El precio no puede ser negativo!"});
         }else{
             const productoModificado = {id: parseInt(id), nombre: nombre, precio: precio, fecha: new Date()};
             productos = productos.map((producto) => (producto.id == id ?  productoModificado : producto));
