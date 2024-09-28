@@ -52,6 +52,7 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre, a, b, c }),
     })
+
     if (response.ok) {
       const { alumno } = await response.json()
       setListado(listado.map((s) => (s.id == alumno.id ? alumno : s)))
@@ -137,11 +138,25 @@ function App() {
       <ul>
         {listado.map((alumno) => (
           <li key={alumno.id}>
-            {`${alumno.id}: Nombre: ${alumno.nombre}, Nota 1: ${alumno.a} => Nota 2: ${alumno.b}, Nota 3: ${alumno.c}, Promedio: ${alumno.promedio} ${(alumno.promedio >= 6 && alumno.promedio < 8 ? "(Aprobado)" : alumno.promedio > 8 ? "(Promocionado)" : "(Reprobado)")}`}
-            <button onClick={() => modificarAlumno(alumno)} disabled={listadoId !== 0}>
+            {`${alumno.id}: 
+            Nombre: ${alumno.nombre}, 
+            Nota 1: ${alumno.a}, 
+            Nota 2: ${alumno.b}, 
+            Nota 3: ${alumno.c}, 
+            Promedio: ${alumno.promedio} ${(alumno.promedio >= 6 && alumno.promedio < 8 
+            ? "(Aprobado)" 
+            : alumno.promedio > 8 
+            ? "(Promocionado)" 
+            : "(Reprobado)"
+            )}`}
+            <button 
+            onClick={() => modificarAlumno(alumno)} 
+            disabled={listadoId !== 0}>
               E
             </button>
-            <button onClick={() => quitarAlumno(alumno.id)} disabled={listadoId !== 0}>
+            <button 
+            onClick={() => quitarAlumno(alumno.id)} 
+            disabled={listadoId !== 0}>
               X
             </button>
           </li>

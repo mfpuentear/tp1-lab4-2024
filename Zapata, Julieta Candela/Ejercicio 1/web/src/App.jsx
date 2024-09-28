@@ -15,24 +15,19 @@ function App() {
     }
   };
 
-  // Obtenemos listado de sumas 
   useEffect(() => {
     getOperaciones();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tipoOperaciones]);
 
-  // Se agrega una nueva suma
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // POST localhost:3000/sumas
     const response = await fetch(`http://localhost:3000/${tipoOperaciones}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
     });
     if (response.ok) {
-
-      // Agregar la suma creada devuelta por la api
       const { operacion } = await response.json();
       setOperaciones([...operaciones, operacion]);
       setA(0);
@@ -56,13 +51,10 @@ function App() {
       }
     );
     if (response.ok) {
-
-      // Modificar la suma devuelta por la api
       const { operacion } = await response.json();
       setOperaciones(
         operaciones.map((op) => (op.id == operacion.id ? operacion : op))
       );
-
       setA(0);
       setB(0);
       setOperacionId(0);
@@ -79,8 +71,6 @@ function App() {
       );
 
       if (response.ok) {
-        // Pedir todas las sumas a la api
-     
         setOperaciones(operaciones.filter((op) => op.id !== id));
       }
     }
@@ -88,6 +78,8 @@ function App() {
 
   return (
     <>
+    <h2>Ejercicio 1</h2>
+    <h3>Calculadora</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="a">a</label>
@@ -120,11 +112,18 @@ function App() {
             <option value="divisiones">Division</option>
           </select>
         </div>
-        {operacionId === 0 && <button type="submit">Agregar</button>}
+        {operacionId === 0 && 
+        <button 
+        type="submit">
+          Agregar
+        </button>}
       </form>
       {operacionId !== 0 && (
         <>
-          <button onClick={() => modificarOperacionApi()}>Modificar</button>
+          <button 
+          onClick={() => modificarOperacionApi()}>
+            Modificar
+          </button>
           <button
             onClick={() => {
               setOperacionId(0);

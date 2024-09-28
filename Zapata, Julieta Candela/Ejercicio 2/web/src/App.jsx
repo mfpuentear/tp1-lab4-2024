@@ -46,6 +46,7 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ base, altura }),
     })
+
     if (response.ok) {
       const { rectangulo } = await response.json()
       setCalculos(calculos.map((s) => (s.id == rectangulo.id ? rectangulo : s)))
@@ -68,6 +69,8 @@ function App() {
 
   return (
     <>
+    <h2>Ejercicio 2</h2>
+    <h3>Calculos</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="base">Base: </label>
@@ -87,11 +90,18 @@ function App() {
             onChange={(e) => setAltura(parseFloat(e.target.value))}
           />
         </div>
-        {calculoId === 0 && <button type="submit">Calcular</button>}
+        {calculoId === 0 && 
+        <button 
+        type="submit">
+          Calcular
+        </button>}
       </form>
       {calculoId !== 0 && (
         <>
-          <button onClick={() => modificarCalculoApi()}>Modificar</button>
+          <button 
+          onClick={() => modificarCalculoApi()}>
+            Modificar
+          </button>
           <button
             onClick={() => {
               setCalculoId(0);
@@ -106,11 +116,21 @@ function App() {
       <ul>
         {calculos.map((rectangulo) => (
           <li key={rectangulo.id}>
-            {`${rectangulo.id}: Base: ${rectangulo.base}, Altura: ${rectangulo.altura} => Perímetro: ${rectangulo.perimetro}, Area: ${rectangulo.area} ${(rectangulo.base === rectangulo.altura ? "(Cuadrado)" : "(Rectángulo)")}`}
-            <button onClick={() => modificarCalculo(rectangulo)} disabled={calculoId !== 0}>
+            {`${rectangulo.id}: 
+            Base: ${rectangulo.base}, 
+            Altura: ${rectangulo.altura} => 
+            Perímetro: ${rectangulo.perimetro}, 
+            Area: ${rectangulo.area} ${(rectangulo.base === rectangulo.altura 
+            ? "(Cuadrado)" 
+            : "(Rectángulo)")}`}
+            <button 
+            onClick={() => modificarCalculo(rectangulo)} 
+            disabled={calculoId !== 0}>
               E
             </button>
-            <button onClick={() => quitarCalculo(rectangulo.id)} disabled={calculoId !== 0}>
+            <button 
+            onClick={() => quitarCalculo(rectangulo.id)} 
+            disabled={calculoId !== 0}>
               X
             </button>
           </li>

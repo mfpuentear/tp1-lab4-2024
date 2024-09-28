@@ -26,6 +26,7 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
     });
+
     if (response.ok) {
       const { producto } = await response.json();
       setProductos([...productos, producto]);
@@ -46,6 +47,7 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
     });
+
     if (response.ok) {
       const { producto } = await response.json();
       setProductos(productos.map((a) => (a.id == producto.id ? producto : a)));
@@ -70,9 +72,11 @@ function App() {
 
   return (
     <>
+    <h2>Ejercicio 3</h2>
+    <h3>Productos</h3>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="a">Nombre</label>
+          <label htmlFor="a">Nombre: </label>
           <input
             type="text"
             id="a"
@@ -81,7 +85,7 @@ function App() {
           />
         </div>
         <div>
-          <label htmlFor="b">Precio</label>
+          <label htmlFor="b">Precio: </label>
           <input
             type="number"
             id="b"
@@ -89,11 +93,18 @@ function App() {
             onChange={(e) => setB(parseFloat(e.target.value))}
           />
         </div>
-        {productoId === 0 && <button type="submit">Agregar</button>}
+        {productoId === 0 && 
+        <button 
+        type="submit">
+          Agregar
+        </button>}
       </form>
       {productoId !== 0 && (
         <>
-          <button onClick={() => modificarProductoApi()}>Modificar</button>
+          <button 
+          onClick={() => modificarProductoApi()}>
+            Modificar
+          </button>
           <button
             onClick={() => {
               setProductoId(0);
@@ -109,10 +120,14 @@ function App() {
         {productos.map((producto) => (
           <li key={producto.id}>
             {`${producto.id}: ${producto.a} - $${producto.b}`}
-            <button onClick={() => modificarProducto(producto)} disabled={productoId !== 0}>
+            <button 
+            onClick={() => modificarProducto(producto)} 
+            disabled={productoId !== 0}>
               E
             </button>
-            <button onClick={() => quitarProducto(producto.id)} disabled={productoId !== 0}>
+            <button 
+            onClick={() => quitarProducto(producto.id)} 
+            disabled={productoId !== 0}>
               X
             </button>
           </li>
