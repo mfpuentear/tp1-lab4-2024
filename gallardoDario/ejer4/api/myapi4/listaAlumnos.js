@@ -5,7 +5,7 @@ export const alumnosRouter = express.Router();
 let alumnos = [
   {
     id: 6,
-    alumnito: "Dario",
+    nombre: "Dario",
     nota1: 10,
     nota2: 3,
     nota3: 6,
@@ -28,9 +28,9 @@ alumnosRouter.get("/:id", (req, res) => {
 });
 
 alumnosRouter.post("/", (req, res) => {
-  const { alumnito, nota1, nota2, nota3 } = req.body;
+  const { nombre, nota1, nota2, nota3 } = req.body;
 
-  if (alumnos.some((alumno) => alumno.alumnito === alumnito)) {
+  if (alumnos.some((alumno) => alumno.nombre === nombre)) {
     res.status(400).send({ mensaje: "El alumno ya existe." });
   }
 
@@ -42,7 +42,7 @@ alumnosRouter.post("/", (req, res) => {
   const estado = promedio >= 6 ? "aprobado" : "reprobado";
   const alumno = {
     id: ++alumnosMaxId,
-    alumnito,
+    nombre,
     nota1,
     nota2,
     nota3,
@@ -57,8 +57,8 @@ alumnosRouter.post("/", (req, res) => {
 // PUT /alumnos/:id
 alumnosRouter.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const { alumnito, nota1, nota2, nota3 } = req.body;
-  if (alumnos.some((alumno) => alumno.alumnito === alumnito)) {
+  const { nombre, nota1, nota2, nota3 } = req.body;
+  if (alumnos.some((alumno) => alumno.nombre === nombre)) {
     res.status(400).send({ mensaje: "El alumno ya existe." });
     return;
   }
@@ -71,7 +71,7 @@ alumnosRouter.put("/:id", (req, res) => {
 
   const alumnoModificado = {
     id,
-    alumnito,
+    nombre,
     nota1,
     nota2,
     nota3,
