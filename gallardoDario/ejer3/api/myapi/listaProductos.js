@@ -2,7 +2,7 @@ import express from "express";
 
 export const productosRouter = express.Router();
 
-let productos = [{ id: 6, nombre: "banada", precio: 2100, cantidad: 1 }];
+let productos = [];
 let productosMaxId = 0;
 
 productosRouter.get("/", (req, res) => {
@@ -18,22 +18,19 @@ productosRouter.get("/:id", (req, res) => {
 });
 
 productosRouter.post("/", (req, res) => {
-  const { nombre, precio, cantidad } = req.body;
+  const { nombre, precio } = req.body;
 
   if (productos.some((producto) => producto.nombre === nombre)) {
     res.status(400).send({ mensaje: "El producto ya existe." });
   }
-  if (precio < 0 || cantidad < 0) {
+  if (precio < 0) {
     res.status(400).send({ mensaje: "no se puede negativos" });
   }
 
-  const total = precio * cantidad;
   const producto = {
     id: ++productosMaxId,
     nombre,
     precio,
-    cantidad,
-    total,
     fecha: new Date(),
   };
   productos.push(producto);
@@ -43,30 +40,30 @@ productosRouter.post("/", (req, res) => {
 // PUT /productos/:id
 productosRouter.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const { precio, cantidad } = req.body;
+  const { nombre, precio } = req.body;
 
   if (productos.some((producto) => producto.nombre === nombre)) {
     res.status(400).send({ mensaje: "El producto ya existe." });
     return;
   }
-  if (precio < 0 || cantidad < 0) {
+  if (precio < 0) {
     res.status(400).send({ mensaje: "numeros negativos no" });
     return;
   }
-  const total = precio * cantidad;
 
   const productoModificada = {
-    id,
     nombre,
     precio,
-    cantidad,
-    total,
+
     fecha: new Date(),
   };
-  productos = productos.map((producto) =>
-    producto.id === id ? productoModificada : producto
-  );
-  res.status(200).send({ producto: productoModificada });
+
+  productos[id] = productoModificada;
+
+  /*productos = productos.map((producto) =>
+    producto.id == id ? productoModificada : producto
+  );*/
+  res.status(200).send(productos);
 });
 // DELETE /productos/:id
 productosRouter.delete("/:id", (req, res) => {

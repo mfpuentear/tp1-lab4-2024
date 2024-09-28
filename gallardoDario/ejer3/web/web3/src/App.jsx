@@ -28,13 +28,19 @@ function App() {
     });
     if (response.ok) {
       const { producto } = await response.json();
-      setProductos([...productos, producto]); // Solo añadir el producto nuevo
-      resetForm(); // Resetear el formulario después de añadir
+      setProductos([...productos, producto]);
+      resetForm();
     }
   };
 
+  const modificarProducto = (producto) => {
+    setProductoId(producto.id);
+    setNombre(producto.nombre);
+    setPrecio(producto.precio);
+  };
+
   // Modificar un producto existente
-  const modificarProductoApi = async () => {
+  const modificarProductoApi = async (productoId) => {
     const response = await fetch(
       `http://localhost:3000/productos/${productoId}`,
       {
@@ -45,10 +51,11 @@ function App() {
     );
     if (response.ok) {
       const { producto } = await response.json();
-      setProductos(productos.map((p) => (p.id === producto.id ? producto : p)));
-      setNombre("");
-      setPrecio(0);
-      setProductoId(0);
+      console.log(producto);
+      setProductos(producto);
+      setNombre(producto.nombre);
+      setPrecio(producto.precio);
+      setProductoId(producto.id);
     }
   };
 
@@ -64,11 +71,11 @@ function App() {
   };
 
   // Prepara los datos de un producto para modificar
-  const modificarProducto = (producto) => {
+  /*const modificarProducto = (producto) => {
     setProductoId(producto.id);
     setNombre(producto.nombre);
     setPrecio(producto.precio);
-  };
+  };*/
 
   // Resetear formulario y estado de edición
   const resetForm = () => {
