@@ -1,0 +1,16 @@
+{
+  "name": "api-productos",
+  "version": "1.0.0",
+  "description": "Api de una verduleria",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch app.js"
+  },
+  "author": "Joel Moyano",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  }
+}
