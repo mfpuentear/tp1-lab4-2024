@@ -146,16 +146,16 @@ function App() {
         </div>
 
         <button type="button" onClick={sumar}>
-          +
+          sumar
         </button>
         <button type="button" onClick={restar}>
-          -
+          restar
         </button>
         <button type="button" onClick={multiplicar}>
-          x
+          Multiplicar
         </button>
         <button type="button" onClick={dividir}>
-          /
+          Dividir
         </button>
       </form>
 
