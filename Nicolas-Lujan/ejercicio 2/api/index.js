@@ -1,64 +1,78 @@
 const express = require('express')
 const cors = require('cors')
+
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 
-let calculos = []
 
-app.post('/ejer2', (req, res) => {
-  const { largo, ancho } = req.body
-  const perimetro = 2 * largo + 2 * ancho
-  const superficie = largo * ancho
+let listado = []
 
-  calculos = [...calculos, {
-    "largo": largo,
-    "ancho": ancho,
-    "perimetro": perimetro,
-    "superficie": superficie
-  }]
-
-
-  res.json({
-    "perimetro": perimetro,
-    "superficie": superficie
-  })
+app.get("/productos", (req, res) => {
+  res.json(listado)
 })
 
-app.get('/ejer2/calculos', (req, res) => {
-  res.json(calculos)
+app.post("/productos", (req, res) => {
+  let { prod, precio } = req.body
+
+  if (precio < 0) {
+    return res.status(400).json({
+      message: 'El precio no debe ser un numero negativo'
+    })
+  }
+
+
+  const productoExiste = listado.find(producto => producto[0] == prod)
+  if (productoExiste) {
+    return res.status(400).json({
+      message: 'Ya existe un producto con ese nombre'
+    })
+  }
+
+
+  listado.push([prod, precio])
+  res.json(listado)
 })
 
-app.put('/ejer2/calculos/:index', (req, res) => {
-  const { index } = req.params;
-  const { largo, ancho } = req.body;
+app.put("/productos/:index", (req, res) => {
+  const { index } = req.params
+  const { prod, precio } = req.body
 
-  if (!calculos[index]) {
-    return res.status(404).send('Cálculo no encontrado.');
+  if (precio < 0) {
+    return res.status(400).json({
+      message: 'El precio debe ser un numero positivo'
+    })
   }
-  calculos[index].largo = largo || calculos[index].largo;
-  calculos[index].ancho = ancho || calculos[index].ancho;
-  calculos[index].perimetro = 2 * (calculos[index].largo + calculos[index].ancho);
-  calculos[index].superficie = calculos[index].largo * calculos[index].ancho;
-  calculos[index].esCuadrado = calculos[index].largo === calculos[index].ancho;
 
-  // Enviar el cálculo actualizado como respuesta
-  res.json(calculos);
-});
-
-app.delete('/ejer2/calculos/:index', (req, res) => {
-  const { index } = req.params;
-
-  if (!calculos[index]) {
-    return res.status(404).send('Cálculo no encontrado.');
+  const productoExiste = listado.find(producto => producto[0] == prod)
+  if (productoExiste) {
+    return res.status(400).json({
+      message: 'Ya existe producto con ese nombre'
+    })
   }
-  calculos.splice(index, 1);
 
-  res.status(204).send();
-});
+  if (index < 0 || index >= listado.length) {
+    return res.status(404).json({
+      message: 'Producto no encontrado'
+    })
+  }
+
+  listado[index] = [prod, precio]
+
+  res.json(listado)
+})
+
+app.delete("/productos/:index", (req, res) => {
+  const { index } = req.params
+
+  listado.splice(index, 1)
+
+  res.json(listado)
+})
 
 
-
-const PORT = 5300
-app.listen(PORT, console.log(`Servidor escuchando en http://localhost:${PORT}`))
+const PORT = 7777
+app.listen(PORT, () => {
+  console.log(`Servidor en: http://localhost:${PORT}`)
+})
