@@ -12,12 +12,14 @@ router.post("/", (req, res) => {
   const { nombre, precio } = req.body
 
   if (productos.some((p) => p.nombre === nombre)) {
-    res.send({ error: `Ya existe un producto con el nombre ${nombre}` })
+    res
+      .status(200)
+      .json({ error: `Ya existe un producto con el nombre ${nombre}` })
     return
   }
 
   if (precio < 0) {
-    res.send({ error: `El precio no puede ser negativo` })
+    res.status(200).json({ error: `El precio no puede ser negativo` })
     return
   }
 
@@ -38,16 +40,18 @@ router.put("/:id", (req, res) => {
 
   const producto = productos.find((p) => p.id === id)
   if (!producto) {
-    res.status(404).send({ error: "Producto no encontrado" })
+    res.status(404).json({ error: "Producto no encontrado" })
   }
 
   if (productos.some((p) => p.nombre === nombre && p.id !== id)) {
-    res.send({ error: `Ya existe un producto con el nombre ${nombre}` })
+    res
+      .status(400)
+      .json({ error: `Ya existe un producto con el nombre ${nombre}` })
     return
   }
 
   if (precio < 0) {
-    res.send({ error: `El precio no puede ser negativo` })
+    res.status(400).json({ error: `El precio no puede ser negativo` })
     return
   }
 
@@ -64,11 +68,11 @@ router.delete("/:id", (req, res) => {
 
   const producto = productos.find((p) => p.id === id)
   if (!producto) {
-    res.status(404).send({ error: "Producto no encontrado" })
+    res.status(404).json({ error: "Producto no encontrado" })
   }
 
   productos = productos.filter((p) => p.id !== id)
-  res.send().status(410)
+  res.json().status(410)
 })
 
 export default router

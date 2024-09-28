@@ -38,6 +38,7 @@ function App() {
       }
       console.log(nuevoProducto)
       setProductos([...productos, nuevoProducto])
+      limpiar()
     }
   }
 
@@ -68,13 +69,18 @@ function App() {
     }
   }
 
-  const eliminarProducto = async (id) => {
-    const res = await fetch(`${URL}/${id}`, {
+  const eliminarProducto = async (producto) => {
+    const res = await fetch(`${URL}/${producto.id}`, {
       method: "DELETE",
     })
 
     if (res.ok) {
-      setProductos(productos.filter((p) => p.id !== id))
+      const producto = await res.json()
+      if (producto.error) {
+        alert(producto.error)
+        return
+      }
+      setProductos(productos.filter((p) => p.id !== producto.id))
     }
   }
 
@@ -124,7 +130,7 @@ function App() {
           <li key={p.id}>
             {p.nombre} - ${p.precio}
             <button onClick={() => editarProducto(p)}>✏️</button>
-            <button onClick={() => eliminarProducto(p.id)}>❌</button>
+            <button onClick={() => eliminarProducto(p)}>❌</button>
           </li>
         ))}
       </ul>

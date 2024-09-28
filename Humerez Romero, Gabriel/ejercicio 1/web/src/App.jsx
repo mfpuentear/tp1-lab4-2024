@@ -160,48 +160,50 @@ function App() {
       </form>
 
       <p>Resultado: {resultado}</p>
-      <div>
-        <p>Sumas</p>
-        <ul>
-          {sumas.map((s) => (
-            <li key={s.id}>
-              {s.id}) {s.n1} + {s.n2} = {s.resultado}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className="resultados">
+        <div>
+          <p>Sumas</p>
+          <ul>
+            {sumas.map((s) => (
+              <li key={s.id}>
+                {s.id}) {s.n1} + {s.n2} = {s.resultado}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div>
-        <p>Restas</p>
-        <ul>
-          {restas.map((r) => (
-            <li key={r.id}>
-              {r.id}) {r.n1} - {r.n2} = {r.resultado}
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div>
+          <p>Restas</p>
+          <ul>
+            {restas.map((r) => (
+              <li key={r.id}>
+                {r.id}) {r.n1} - {r.n2} = {r.resultado}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div>
-        <p>Multiplicaciones</p>
-        <ul>
-          {multiplicaciones.map((item, index) => (
-            <li key={index}>
-              {item.id}) {item.n1} x {item.n2} = {item.resultado}
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div>
+          <p>Multiplicaciones</p>
+          <ul>
+            {multiplicaciones.map((item, index) => (
+              <li key={index}>
+                {item.id}) {item.n1} x {item.n2} = {item.resultado}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div>
-        <p>Divisiones</p>
-        <ul>
-          {divisiones.map((d) => (
-            <li key={d.id}>
-              {d.id}) {d.n1} / {d.n2} = {d.resultado}
-            </li>
-          ))}
-        </ul>
+        <div>
+          <p>Divisiones</p>
+          <ul>
+            {divisiones.map((d) => (
+              <li key={d.id}>
+                {d.id}) {d.n1} / {d.n2} = {d.resultado}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   )

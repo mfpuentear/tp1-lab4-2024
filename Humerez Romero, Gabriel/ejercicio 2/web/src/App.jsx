@@ -45,14 +45,17 @@ function App() {
   }
 
   const guardarCalculo = async () => {
-    const res = await fetch(`http://localhost:3000/api/calculos/${editandoCalculo.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        base,
-        altura,
-      }),
-    })
+    const res = await fetch(
+      `http://localhost:3000/api/calculos/${editandoCalculo.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          base,
+          altura,
+        }),
+      }
+    )
 
     if (res.ok) {
       const calc = await res.json()
@@ -65,9 +68,12 @@ function App() {
     const res = await fetch(`http://localhost:3000/api/calculos/${id}`, {
       method: "DELETE",
     })
+
     if (res.ok) {
       setCalculos(calculos.filter((c) => c.id !== id))
     }
+
+    limpiar()
   }
 
   const limpiar = () => {
@@ -107,7 +113,9 @@ function App() {
             Guardar calculo
           </button>
         )}
-        <button type="button" onClick={limpiar}>Cancelar</button>
+        <button type="button" onClick={limpiar}>
+          Cancelar
+        </button>
       </form>
 
       <h6>Historial de calculos</h6>
