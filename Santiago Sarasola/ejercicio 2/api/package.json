@@ -1,6 +1,6 @@
 {
   "name": "api-rectangulo",
- "version": "1.0.0",
+  "version": "1.0.0",
   "description": "API de para calculo de rectangulos",
   "main": "index.js",
   "type": "module",

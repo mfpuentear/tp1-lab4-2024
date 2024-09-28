@@ -25,10 +25,9 @@ rectanguloRouter.get("/:id", (req,res) => {
 rectanguloRouter.post("/", (req, res) => {
         const largo = req.body.largo;
         const ancho = req.body.ancho;
-        const forma = req.body.forma;
         let perimetro = 2 * parseInt(largo + ancho);
         let superficie = parseInt(largo * ancho);
-        const calculo = {id: ++perimetrosYSuperficiesMaxId, perimetro: perimetro, superficie: superficie, forma: forma, fecha: new Date()};
+        const calculo = {id: ++perimetrosYSuperficiesMaxId, ancho: ancho, largo: largo, perimetro: perimetro, superficie: superficie, fecha: new Date()};
         perimetrosYSuperficies.push(calculo);
         res.status(201).send({calculo});
 });
@@ -42,10 +41,9 @@ rectanguloRouter.put("/:id", (req, res) => {
     }else{
         const largo = req.body.largo;
         const ancho = req.body.ancho;
-        const forma = req.body.forma;
         let perimetro = 2 * parseInt(largo + ancho);
         let superficie = parseInt(largo * ancho);
-        const calculoModificado = {id: parseInt(id), perimetro: perimetro, superficie: superficie, forma: forma, fecha: new Date()};
+        const calculoModificado = {id: parseInt(id), ancho: ancho, largo: largo, perimetro: perimetro, superficie: superficie, fecha: new Date()};
         perimetrosYSuperficies = perimetrosYSuperficies.map((calculo) => (calculo.id == id ?  calculoModificado : calculo));
         res.status(201).send({calculoModificado});
     }

@@ -23,12 +23,11 @@ cuadradoRouter.get("/:id", (req,res) => {
 
 //POST Calculo
 cuadradoRouter.post("/", (req, res) => {
-        // const forma = req.body.forma;
         const lado = req.body.lado;
         const forma = req.body.forma;
         let perimetro = 4 * parseInt(lado);
         let superficie = parseInt(lado * lado);
-        const calculo = {id: ++perimetrosYSuperficiesMaxId, perimetro: perimetro, superficie: superficie, forma: forma, fecha: new Date()};
+        const calculo = {id: ++perimetrosYSuperficiesMaxId, lado: lado, perimetro: perimetro, superficie: superficie, forma: forma, fecha: new Date()};
         perimetrosYSuperficies.push(calculo);
         res.status(201).send({calculo});
 });
@@ -44,7 +43,7 @@ cuadradoRouter.put("/:id", (req, res) => {
         const forma = req.body.forma;
         let perimetro = 4 * parseInt(lado);
         let superficie = parseInt(lado * lado);
-        const calculoModificado = {id: parseInt(id), perimetro: perimetro, superficie: superficie, forma: forma, fecha: new Date()};
+        const calculoModificado = {id: parseInt(id), lado: lado, perimetro: perimetro, superficie: superficie, forma: forma, fecha: new Date()};
         perimetrosYSuperficies = perimetrosYSuperficies.map((calculo) => (calculo.id == id ?  calculoModificado : calculo));
         res.status(201).send({calculoModificado});
     }
