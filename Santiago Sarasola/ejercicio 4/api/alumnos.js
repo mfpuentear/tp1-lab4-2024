@@ -33,9 +33,9 @@ alumnosRouter.post("/", (req, res) => {
             res.status(400).send({mensaje:"Todas las notas ingresadas deben ser positivas!"});
         }
         else{
-            const nuevoalumno = {id: ++alumnosMaxId, nombre: nombre, nota1: nota1, nota2: nota2, nota3: nota3, fecha: new Date()};
-            alumnos.push(nuevoalumno);
-            res.status(201).send({nuevoalumno});
+            const nuevoAlumno = {id: ++alumnosMaxId, nombre: nombre, nota1: nota1, nota2: nota2, nota3: nota3, fecha: new Date()};
+            alumnos.push(nuevoAlumno);
+            res.status(201).send({nuevoAlumno});
         }
 });
 
@@ -52,7 +52,7 @@ alumnosRouter.put("/:id", (req, res) => {
     }else if(nota1<0 || nota2<0 || nota3<0){
         res.status(400).send({mensaje:"Todas las notas ingresadas deben ser positivas!"});
     }else{
-        const alumnoConMismoNombre = alumnos.find((alumno) => alumno.nombre.toLowerCase() == nombre.toLowerCase());  
+        const alumnoConMismoNombre = alumnos.find((alumno) => alumno.nombre.toLowerCase() == nombre.toLowerCase() && alumno.id != id);  
         if(alumnoConMismoNombre){
             res.status(400).send({mensaje:"Ya hay un alumno existente con el mismo nombre!"});
         }else{

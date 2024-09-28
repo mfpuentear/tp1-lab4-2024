@@ -1,6 +1,6 @@
 {
   "name": "api-alumnos",
- "version": "1.0.0",
+  "version": "1.0.0",
   "description": "API de para listado de alumnos",
   "main": "index.js",
   "type": "module",
