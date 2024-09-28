@@ -106,12 +106,12 @@ function App() {
       <ul>
         {calculos.map((rectangulo) => (
           <li key={rectangulo.id}>
-            {`${rectangulo.id}: Base: ${rectangulo.base}, Altura: ${rectangulo.altura} => Perímetro: ${rectangulo.perimetro}, Area: ${rectangulo.area} ${(rectangulo.base === rectangulo.altura ? "(Cuadrado █ )" : "(Rectángulo ▀)")}`}
+            {`${rectangulo.id}: Base: ${rectangulo.base}, Altura: ${rectangulo.altura} => Perímetro: ${rectangulo.perimetro}, Area: ${rectangulo.area} ${(rectangulo.base === rectangulo.altura ? "(Cuadrado)" : "(Rectángulo)")}`}
             <button onClick={() => modificarCalculo(rectangulo)} disabled={calculoId !== 0}>
-              Editar
+              E
             </button>
             <button onClick={() => quitarCalculo(rectangulo.id)} disabled={calculoId !== 0}>
-              Eliminar
+              X
             </button>
           </li>
         ))}

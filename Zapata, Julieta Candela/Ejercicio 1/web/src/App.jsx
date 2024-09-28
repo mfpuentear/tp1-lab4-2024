@@ -15,7 +15,7 @@ function App() {
     }
   };
 
-  // Obtenemos listado de sumas cuando se carga por primera vez el componente
+  // Obtenemos listado de sumas 
   useEffect(() => {
     getOperaciones();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -24,15 +24,13 @@ function App() {
   // Se agrega una nueva suma
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // POST localhost:3000/sumas (body: a, b)
+    // POST localhost:3000/sumas
     const response = await fetch(`http://localhost:3000/${tipoOperaciones}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ a, b }),
     });
     if (response.ok) {
-      // Pedir todas las sumas a la api
-      // getSumas();
 
       // Agregar la suma creada devuelta por la api
       const { operacion } = await response.json();
@@ -58,8 +56,6 @@ function App() {
       }
     );
     if (response.ok) {
-      // Pedir todas las sumas a la api
-      // getSumas();
 
       // Modificar la suma devuelta por la api
       const { operacion } = await response.json();
@@ -84,9 +80,7 @@ function App() {
 
       if (response.ok) {
         // Pedir todas las sumas a la api
-        // getSumas();
-
-        // Quitamos la suma de sumas
+     
         setOperaciones(operaciones.filter((op) => op.id !== id));
       }
     }
@@ -94,7 +88,6 @@ function App() {
 
   return (
     <>
-      <h1>Operaciones</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="a">a</label>
