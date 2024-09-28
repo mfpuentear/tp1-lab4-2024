@@ -3,10 +3,7 @@ import express from "express";
 const router = express.Router();
 
 let alumnos = [
-    { id: 0, nombre: "Ramon", nota1: 6, nota2: 8, nota3: 10,},
-
-
-];
+    { id: 0, nombre: "Ramon", nota1: 6, nota2: 8, nota3: 10,},];
 let alumnosMaxId = 0;
 
 router.get("/", (req, res) => {
@@ -33,7 +30,6 @@ router.post("/", (req, res) => {
         res.status(201).send({ alum });
 });
 
-// PUT /alumnos/:id
 router.put("/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const { nombre, nota1, nota2, nota3 } = req.body;

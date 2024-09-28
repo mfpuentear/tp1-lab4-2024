@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/', (req, res) => {
-    res.send('Hello world!')
+    res.send("Hola Mundo!")
 })
 app.use("/productos", productosRoute)
 
