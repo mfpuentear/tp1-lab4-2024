@@ -2,7 +2,7 @@ import express from "express";
 
 export const productosRouter = express.Router();
 
-let productos = [{ id: 6, verdura: "banada", precio: 2100, cantidad: 1 }];
+let productos = [{ id: 6, nombre: "banada", precio: 2100, cantidad: 1 }];
 let productosMaxId = 0;
 
 productosRouter.get("/", (req, res) => {
@@ -18,9 +18,9 @@ productosRouter.get("/:id", (req, res) => {
 });
 
 productosRouter.post("/", (req, res) => {
-  const { verdura, precio, cantidad } = req.body;
+  const { nombre, precio, cantidad } = req.body;
 
-  if (productos.some((producto) => producto.verdura === verdura)) {
+  if (productos.some((producto) => producto.nombre === nombre)) {
     res.status(400).send({ mensaje: "El producto ya existe." });
   }
   if (precio < 0 || cantidad < 0) {
@@ -30,7 +30,7 @@ productosRouter.post("/", (req, res) => {
   const total = precio * cantidad;
   const producto = {
     id: ++productosMaxId,
-    verdura,
+    nombre,
     precio,
     cantidad,
     total,
@@ -45,7 +45,7 @@ productosRouter.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { precio, cantidad } = req.body;
 
-  if (productos.some((producto) => producto.verdura === verdura)) {
+  if (productos.some((producto) => producto.nombre === nombre)) {
     res.status(400).send({ mensaje: "El producto ya existe." });
     return;
   }
@@ -57,10 +57,10 @@ productosRouter.put("/:id", (req, res) => {
 
   const productoModificada = {
     id,
-    FrutVerd,
+    nombre,
     precio,
     cantidad,
-    total: precio * cantidad,
+    total,
     fecha: new Date(),
   };
   productos = productos.map((producto) =>

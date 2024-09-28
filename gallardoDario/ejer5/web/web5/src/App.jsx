@@ -82,7 +82,6 @@ function App() {
     }
   };
 
-  // Función para contar tareas completas y faltantes
   const contarTareas = () => {
     const total = tareas.length;
     const completas = tareas.filter((tarea) => tarea.est === "completo").length;

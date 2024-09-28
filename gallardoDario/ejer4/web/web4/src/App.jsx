@@ -8,7 +8,6 @@ function App() {
   const [nota3, setNota3] = useState(0);
   const [alumnoId, setAlumnoId] = useState(0);
 
-  // Obtener alumnos desde la API
   const getAlumnos = async () => {
     const response = await fetch("http://localhost:3000/alumnos/");
     if (response.ok) {
@@ -17,12 +16,10 @@ function App() {
     }
   };
 
-  // Cargar alumnos al montar el componente
   useEffect(() => {
     getAlumnos();
   }, []);
 
-  // Agregar un nuevo alumno
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:3000/alumnos/", {
@@ -37,7 +34,6 @@ function App() {
     }
   };
 
-  // Modificar los valores del formulario para un alumno existente
   const modificarAlumno = (alumno) => {
     setAlumnoId(alumno.id);
     setNombre(alumno.nombre);
@@ -46,7 +42,6 @@ function App() {
     setNota3(alumno.nota3);
   };
 
-  // Enviar datos modificados a la API
   const modificarAlumnoApi = async () => {
     const response = await fetch(`http://localhost:3000/alumnos/${alumnoId}`, {
       method: "PUT",
@@ -57,14 +52,12 @@ function App() {
     if (response.ok) {
       const { alumno } = await response.json();
 
-      // Actualizar el estado con el alumno modificado
       setAlumnos(alumnos.map((s) => (s.id === alumno.id ? alumno : s)));
 
       resetForm();
     }
   };
 
-  // Función para eliminar alumno
   const quitarAlumno = async (id) => {
     if (confirm("¿Desea quitar este alumno?")) {
       const response = await fetch(`http://localhost:3000/alumnos/${id}`, {
@@ -76,7 +69,6 @@ function App() {
     }
   };
 
-  // Función para resetear el formulario
   const resetForm = () => {
     setAlumnoId(0);
     setNombre("");
