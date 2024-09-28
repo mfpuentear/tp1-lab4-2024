@@ -5,23 +5,21 @@ export const multiplicacionesRouter = express.Router();
 let multiplicaciones = [];
 let multiplicacionesMaxId = 0;
 
-// GET /recurso
+// GET /multiplicaciones
 multiplicacionesRouter.get("/", (req, res) => {
   res.send({ multiplicaciones });
 });
 
+// GET /divisiones/:id
 multiplicacionesRouter.get("/:id", (req, res) => {
-  //obtengo id de la ruta
   const id = req.params.id;
-  // busco la multiplicacion con id
   const multiplicacion = multiplicaciones.find(
     (multiplicacion) => multiplicacion.id == id
   );
-  // devuelvo la multiplicacion encontrada
   res.send({ multiplicacion });
 });
 
-// POST
+// POST/multiplicaciones
 multiplicacionesRouter.post("/", (req, res) => {
   const a = req.body.a;
   if (a == null) {
@@ -42,18 +40,10 @@ multiplicacionesRouter.post("/", (req, res) => {
   res.status(201).send({ multiplicacion });
 });
 
-//PUT /multiplicaciones/:id
+// PUT /multiplicaciones/:id
 multiplicacionesRouter.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { a, b } = req.body;
-  // Con find
-  /*
-  const multiplicacion = multiplicaciones.find((multiplicacion) => multiplicacion.id === id);
-  multiplicacion.a = a;
-  multiplicacion.b = b;
-  multiplicacion.resultado = a + b;
-  multiplicacion.fecha = new Date();
-  */
   const multiplicacionModificada = {
     id,
     a,
@@ -61,19 +51,15 @@ multiplicacionesRouter.put("/:id", (req, res) => {
     resultado: a * b,
     fecha: new Date(),
   };
-  // con forEach
-
   multiplicaciones.forEach((multiplicacion, index) => {
     if (multiplicacion.id === id) {
       multiplicaciones[index] = multiplicacionModificada;
     }
   });
-  // con map
-  //multiplicaciones = multiplicaciones.map((multiplicacion) => (multiplicacion.id === id ? multiplicacionModificada : multiplicacion));
   res.status(200).send({ multiplicacion: multiplicacionModificada });
 });
 
-//DELETE
+// DELETE /multiplicaciones/:id
 multiplicacionesRouter.delete("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   multiplicaciones = multiplicaciones.filter(

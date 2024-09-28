@@ -1,24 +1,24 @@
 import express from "express";
 
-const router = express.Router();
+export const verduleriaRouter = express.Router()
 
 let productos = [];
 let productosMaxId = 0;
 
 // GET /productos
-router.get("/", (req, res) => {
+verduleriaRouter.get("/", (req, res) => {
   res.send({ productos });
 });
 
 // GET /productos/:id
-router.get("/:id", (req, res) => {
+verduleriaRouter.get("/:id", (req, res) => {
   const id = req.params.id;
   const producto = productos.find((producto) => producto.id == id);
   res.send({ producto });
 });
 
 // POST /productos
-router.post("/", (req, res) => {
+verduleriaRouter.post("/", (req, res) => {
   const { a, b } = req.body;
   
   if (b < 0) {
@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
 });
 
 // PUT /productos/:id
-router.put("/:id", (req, res) => {
+verduleriaRouter.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { a, b } = req.body;
   
@@ -61,10 +61,9 @@ router.put("/:id", (req, res) => {
 });
 
 // DELETE /productos/:id
-router.delete("/:id", (req, res) => {
+verduleriaRouter.delete("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   productos = productos.filter((producto) => producto.id !== id);
   res.status(200).send({ id });
 });
 
-export default router;
