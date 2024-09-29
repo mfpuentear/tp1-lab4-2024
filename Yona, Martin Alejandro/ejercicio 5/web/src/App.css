@@ -1,0 +1,9 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+.tareadiv{
+  display: flex;
+  gap: 1rem;
+}
